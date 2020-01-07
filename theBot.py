@@ -26,7 +26,6 @@ async def hello(ctx):
 @bot.command()
 async def listParameter(ctx, *, args):
     argsList = args.split(' ')
-    print(argsList)
     try:
         with open("{}.json".format(argsList[0]), "r") as f:
             temp1 = json.load(f)
