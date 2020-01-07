@@ -48,5 +48,5 @@
     "compilationTime": 20,
     "diskSpace": 1,
     "installTime": 1,
-    "hitInterval": 0
+    "hitInterval": 0.1
 }
