@@ -45,8 +45,9 @@
         "20": 92,
         "21": 100
     },
-    "compilationTime": 20,
+    "compilationTime": 30,
     "diskSpace": 1,
     "installTime": 1,
-    "hitInterval": 1
+    "hitInterval": 1,
+    "projectileTime": 1.5
 }
