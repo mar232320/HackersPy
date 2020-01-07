@@ -18,4 +18,8 @@ bot = commands.Bot(command_prefix = ".", description=desc)
 async def on_ready():
     print("Up and running")
 
+@bot.command()
+async def hello(ctx):
+    await ctx.send("Hello")
+
 bot.run(TOKEN)
