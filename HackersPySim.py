@@ -1,6 +1,6 @@
 #Import Modules
+import json
 try:
-    import json
 #Define Programs
 #Define Nodes
 #Operations Area
