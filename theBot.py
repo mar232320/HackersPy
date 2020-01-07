@@ -18,6 +18,7 @@ bot = commands.Bot(command_prefix = ".", description=desc)
 async def on_ready():
     print("Up and running")
 
+#the command below it a test command and adds no functions to the bot whatsoever
 @bot.command()
 async def hello(ctx):
     await ctx.send("Hello")
