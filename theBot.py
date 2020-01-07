@@ -24,7 +24,7 @@ async def hello(ctx):
     await ctx.send("Hello")
 
 @bot.command()
-async def listParameter(ctx programOrNode: str, parameter: str, level: str):
+async def listParameter(ctx, programOrNode: str, parameter: str, level: str):
     with open("{}.json".format(programOrNode), "r") as f:
         temp1 = json.loads(f)
         temp2 = temp1[parameter]
