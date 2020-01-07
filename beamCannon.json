@@ -47,5 +47,6 @@
     },
     "compilationTime": 20,
     "diskSpace": 1,
-    "installTime": 1
+    "installTime": 1,
+    "hitInterval": 0
 }
