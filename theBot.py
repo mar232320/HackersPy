@@ -26,8 +26,15 @@ async def hello(ctx):
 @bot.command()
 async def listParameter(ctx, programOrNode: str, parameter: str, level: str):
     with open("{}.json".format(programOrNode), "r") as f:
-        temp1 = json.loads(f)
+        temp1 = json.load(f)
         temp2 = temp1[parameter]
-        temp3 = temp2[level]
-    await ctx.send("```{}```".format(temp3))
+        try:
+            temp3 = temp2[level]
+            await ctx.send("```{}```".format(temp3))
+        except: 
+            try:
+                await ctx.send("```{}```".format(temp2))
+            except:
+                await ctx.send("Something is wrong. Probably a bug or something")
+
 bot.run(TOKEN)
