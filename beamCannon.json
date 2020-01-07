@@ -45,7 +45,9 @@
             "19": 42,
             "20": 46,
             "21": 50
-
-        }
+        },
+        "compilationTime": 20,
+        "diskSpace": 1,
+        "installTime": 1
     }
 }
