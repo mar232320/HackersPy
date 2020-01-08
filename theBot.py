@@ -37,5 +37,5 @@ async def listParameter(ctx, *, args):
                 await ctx.send("```{}```".format(temp2))
     except:
         await ctx.send("Something is wrong. Probably a bug or something, Contact CodeWritten#4044 or molchu#2575")
-l
+
 bot.run(TOKEN)
