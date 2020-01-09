@@ -48,5 +48,7 @@
     "timeToUpgrade":{
         "1": "please update this"
     },
-    "firewallRegeneration": 3
+    "firewallRegeneration": 3,
+    "programAmount": 3,
+    "connectionAmount": 3
 }
