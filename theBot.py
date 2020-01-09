@@ -7,7 +7,7 @@ import time
 import subprocess
 import os
 
-desc = ("Bot made by molchu and CodeWritten for a game called Hackers to make simple and complex calculations")
+desc = ("Bot made by molchu, CodeWritten, Amethysm for a game called Hackers to make simple and complex calculations")
 
 bot = commands.Bot(command_prefix = ".", description=desc)
 
