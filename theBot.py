@@ -39,7 +39,7 @@ async def listParameter(ctx, *, args):
         else:
             embed = discord.Embed(color=0x00ff00)
             embed.set_thumbnail(url = temp1["imageAddress"])
-            if argsList[1] == "compilationPrice" or argsList[1] == "DPS":
+            if argsList[1] == "compilationPrice" or argsList[1] == "DPS" or argsList[1] == "firewall":
                 for i in range(0,21):
                     a = []
                     b = []
@@ -53,6 +53,8 @@ async def listParameter(ctx, *, args):
                         embed.add_field(name="Level " + str(name) + ":" , value=str(value) + "B", inline=True)
                     elif argsList[1].lower() == "dps":
                         embed.add_field(name="Level " + str(name) + ":" , value=str(value) + " dmg", inline=True)
+                    elif argsList[1].lower() == "firewall":
+                        embed.add_field(name="Level " + str(name) + ":" , value=str(value) + " hp", inline=True)
                 await ctx.send(embed=embed)
             else:
                 if len(argsList) == 2:
