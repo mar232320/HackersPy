@@ -13,7 +13,7 @@ async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,
     stunnedTime = 2
     startshoot = -10000
     while True:
-        if progDamage < nodeFirewall / 100 * nodeRegeneration:   
+        if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:   
             i += 1
             time = i / 2
             if (time == startshoot + progProjectileTime):
@@ -75,7 +75,7 @@ async def calculate(ctx, *, args):
         temp2 = json.load(b)
         nodeFirewall = temp2['fireWall'][argsList[3]]
         nodeRegeneration = temp2['firewallRegeneration']
-    if progDamage < nodeFirewall / 100 * nodeRegeneration:
+    if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:
         await ctx.send("""The damage of the program is lower than the node's regeneration.
                        Assuming the node can't regenerate...""")
     takeOverTime = await timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration)
