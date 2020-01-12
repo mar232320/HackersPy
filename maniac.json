@@ -48,7 +48,7 @@
 	"compilationTime": 1800,
 	"diskSpace": 7,
 	"installTime": 0.5,
-	"hitInterval": 0,
+	"hitInterval": 0.5,
 	"projectileTime": 0.5,
 	"imageAddress": "https://vignette.wikia.nocookie.net/hackersthegame/images/f/f2/Maniac.png/revision/latest/scale-to-width-down/310?cb=20160504092024"
 }

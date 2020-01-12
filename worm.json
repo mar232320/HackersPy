@@ -49,5 +49,6 @@
     "diskSpace": 3,
     "installTime": 1,
     "hitInterval": 0.5,
-    "projectileTime": 1
+    "projectileTime": 1,
+	"imageAddress": "https://vignette.wikia.nocookie.net/hackersthegame/images/a/a6/Worms.png/revision/latest/scale-to-width-down/310?cb=20160504090743"
 }
