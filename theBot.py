@@ -154,6 +154,8 @@ async def testDpsCalculate(ctx, *, args):
             boii = x["firewall"]
             boiii = boiii + (boii[str(y)] % dpsamount)
             dpsamount = 0
-    await ctx.send("It took {} seconds to hack the base.".format(boiii))
+    embed=discord.Embed(color=0x00ff00)
+    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
+    await ctx.send(embed=embed))
 
 bot.run(TOKEN)
