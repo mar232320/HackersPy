@@ -156,6 +156,6 @@ async def testDpsCalculate(ctx, *, args):
             dpsamount = 0
     embed=discord.Embed(color=0x00ff00)
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
-    await ctx.send(embed=embed))
+    await ctx.send(embed=embed)
 
 bot.run(TOKEN)
