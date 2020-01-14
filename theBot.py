@@ -125,4 +125,35 @@ async def listParameter(ctx, *, args):
         embed.add_field(name="Oops, something went wrong!",value="Either there's something mistyped or missing, or this probably is a bug. Contact CodeWritten#4044 or molchu#2575 if you think this is a bug.", inline = False)
         await ctx.send(embed=embed)
 
+@bot.command()
+async def testDpsCalculate(ctx, *, args):
+    argsList = args.split(" ")
+    i = 0
+    argsName = []
+    argsLevel = []
+    argsAmount = []
+    while i <= argsList.len():
+        argsName.append(argsList[i])
+        i = i+3
+    i = 1
+    while i <= argsList.len():
+        argsLevel.append(argsList[i])
+        i = i+3
+    i = 2
+    while i <= argsList.len():
+        argsAmount.append(argsList[i])
+        i = i+3
+    argsTuple = zip(argsName, argsLevel, argsAmount)
+    dpsamount = 0.0
+    boiii = 0
+    for x, y, z in argsTuple:
+        if x["isAStructure"] == False:
+            boii = x["DPS"]
+            dpsamount = dpsamount + boii[str(y)]*z
+        else:
+            boii = x["firewall"]
+            boiii = boiii + (boii[str(y)] % dpsamount)
+            dpsamount = 0
+    await ctx.send("It took {} seconds to hack the base.".format(boiii))
+
 bot.run(TOKEN)
