@@ -126,34 +126,36 @@ async def listParameter(ctx, *, args):
         await ctx.send(embed=embed)
 
 @bot.command()
-async def testDpsCalculate(ctx, *, args):
+async def dpsCalculate(ctx, *, args):
     argsList = args.split(" ")
     i = 0
     argsName = []
     argsLevel = []
     argsAmount = []
-    while i <= len(argsList):
+    while i < len(argsList):
         argsName.append(argsList[i])
         i = i+3
     i = 1
-    while i <= len(argsList):
+    while i < len(argsList):
         argsLevel.append(argsList[i])
         i = i+3
     i = 2
-    while i <= len(argsList):
+    while i < len(argsList):
         argsAmount.append(argsList[i])
         i = i+3
     argsTuple = zip(argsName, argsLevel, argsAmount)
     dpsamount = 0.0
     boiii = 0.0
     for x, y, z in argsTuple:
-        if x["isAStructure"] == False:
-            boii = x["DPS"]
-            dpsamount = dpsamount + boii[str(y)]*z
-        else:
-            boii = x["firewall"]
-            boiii = boiii + (boii[str(y)] % dpsamount)
-            dpsamount = 0
+        with open("{}.json".format(x), "r") as f:
+            temp1 = json.load(f)
+            if temp1["isAStructure"] == 0:
+                boii = temp1["DPS"]
+                dpsamount = dpsamount + float(boii[str(y)])*float(z)
+            else:
+                boii = temp1["firewall"]
+                boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
+                dpsamount = 0.0
     embed=discord.Embed(color=0x00ff00)
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
     await ctx.send(embed=embed)

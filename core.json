@@ -1,5 +1,5 @@
 {
-	"fireWall": {
+	"firewall": {
 		"1": 300,	 
 		"2": 380,
 		"3": 480,	 
@@ -30,6 +30,6 @@
 		"13": 42.9
 	},
 	"firewallRegeneration": 1,
-	"isAStructure": true
+	"isAStructure": 1
 	
 }
