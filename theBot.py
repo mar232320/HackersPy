@@ -145,7 +145,7 @@ async def testDpsCalculate(ctx, *, args):
         i = i+3
     argsTuple = zip(argsName, argsLevel, argsAmount)
     dpsamount = 0.0
-    boiii = 0
+    boiii = 0.0
     for x, y, z in argsTuple:
         if x["isAStructure"] == False:
             boii = x["DPS"]
