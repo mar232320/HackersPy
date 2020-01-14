@@ -29,6 +29,7 @@
 		"12": 42.9, 
 		"13": 42.9
 	},
-	"firewallRegeneration": 1
+	"firewallRegeneration": 1,
+	"isAStructure": true
 	
 }
