@@ -132,15 +132,15 @@ async def testDpsCalculate(ctx, *, args):
     argsName = []
     argsLevel = []
     argsAmount = []
-    while i <= argsList.len():
+    while i <= len(argsList):
         argsName.append(argsList[i])
         i = i+3
     i = 1
-    while i <= argsList.len():
+    while i <= len(argsList):
         argsLevel.append(argsList[i])
         i = i+3
     i = 2
-    while i <= argsList.len():
+    while i <= len(argsList):
         argsAmount.append(argsList[i])
         i = i+3
     argsTuple = zip(argsName, argsLevel, argsAmount)
