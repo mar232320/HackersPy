@@ -160,4 +160,41 @@ async def dpsCalculate(ctx, *, args):
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
     await ctx.send(embed=embed)
 
+@bot.command()
+async def projectileCalculate(ctx, *, args):
+    argsList = args.split(" ")
+    i = 0
+    argsName = []
+    argsLevel = []
+    argsAmount = []
+    while i < len(argsList):
+        argsName.append(argsList[i])
+        i = i+3
+    i = 1
+    while i < len(argsList):
+        argsLevel.append(argsList[i])
+        i = i+3
+    i = 2
+    while i < len(argsList):
+        argsAmount.append(argsList[i])
+        i = i+3
+    argsTuple = zip(argsName, argsLevel, argsAmount)
+    dpsamount = 0.0
+    boiii = 0.0
+    for x, y, z in argsTuple:
+        with open("{}.json".format(x), "r") as f:
+            temp1 = json.load(f)
+            if temp1["isAStructure"] == 0:
+                boii = temp1["DPS"]
+                temp2 = temp1["hitInterval"]
+                boii = boii*temp2
+                boiii = boiii + temp2
+                dpsamount = dpsamount + float(boii[str(y)])*float(z)
+            else:
+                boii = temp1["firewall"]
+                boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
+                dpsamount = 0.0
+    embed=discord.Embed(color=0x00ff00)
+    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
+    await ctx.send(embed=embed)
 bot.run(TOKEN)
