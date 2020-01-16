@@ -202,7 +202,7 @@ async def projectileCalculate(ctx, *, args):
                 structureFirewall = temp2[str(y)]
                 floatedStructureFirewall = float(structureFirewall)
                 while floatedStructureFirewall > 0.0:
-                    if projamount > 0:
+                    if projamount < 0:
                         break
                     weDontHaveTime = weDontHaveTime + mysuffering
                     floatedStructureFirewall = floatedStructureFirewall - projamount
