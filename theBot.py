@@ -6,6 +6,7 @@ import asyncio
 import time
 import subprocess
 import os
+import math
 
 async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
     time = 0
@@ -152,6 +153,7 @@ async def dpsCalculate(ctx, *, args):
             if temp1["isAStructure"] == 0:
                 boii = temp1["DPS"]
                 dpsamount = dpsamount + float(boii[str(y)])*float(z)
+                boiii = boiii + temp1["installTime"]
             else:
                 boii = temp1["firewall"]
                 boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
@@ -179,22 +181,31 @@ async def projectileCalculate(ctx, *, args):
         argsAmount.append(argsList[i])
         i = i+3
     argsTuple = zip(argsName, argsLevel, argsAmount)
-    dpsamount = 0.0
-    boiii = 0.0
+    projamount = 0.0
+    pleaseend = 0.0
+    mysuffering = 0.0
+    weDontHaveTime = 0.0
     for x, y, z in argsTuple:
         with open("{}.json".format(x), "r") as f:
             temp1 = json.load(f)
             if temp1["isAStructure"] == 0:
-                boii = temp1["DPS"]
-                temp2 = temp1["hitInterval"]
-                boii = boii*temp2
-                boiii = boiii + temp2
-                dpsamount = dpsamount + float(boii[str(y)])*float(z)
+                temp2 = temp1["DPS"]
+                temp3 = temp1["installTime"]
+                temp4 = temp1["hitInterval"]
+                if mysuffering < temp4:
+                    mysuffering = temp4
+                if pleaseend < temp3:
+                    pleaseend = temp3
+                projamount = projamount + float(temp2[str(y)])*float(z)
             else:
-                boii = temp1["firewall"]
-                boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
-                dpsamount = 0.0
+                temp2 = temp1["firewall"]
+                structureFirewall = temp2[str(y)]
+                floatedStructureFirewall = float(structureFirewall)
+                while floatedStructureFirewall > 0.0:
+                    weDontHaveTime = weDontHaveTime + mysuffering
+                    floatedStructureFirewall = floatedStructureFirewall - projamount
+                weDontHaveTime = weDontHaveTime + pleaseend
     embed=discord.Embed(color=0x00ff00)
-    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
+    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
     await ctx.send(embed=embed)
 bot.run(TOKEN)
