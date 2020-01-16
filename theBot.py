@@ -51,6 +51,12 @@ with open('botToken.txt') as f:
 @bot.event
 async def on_ready():
     print("Up and running")
+    presencelist = ["_----","-_---","--_--","---_-","----_"]
+    while True:
+        for i in range(0, len(presencelist)):
+            game = discord.Game(presencelist[i])
+            await asyncio.sleep(10)
+            await bot.change_presence(status=discord.Status.online, activity = game)
 
 @bot.event
 async def on_command_error(ctx,error):
