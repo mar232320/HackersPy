@@ -11,7 +11,8 @@ import math
 async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
     time = 0
     i = 0
-    stunnedTime = 2
+#the below variable is not being used
+##    stunnedTime = 2
     startshoot = -10000
     while True:
         if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:   
@@ -65,11 +66,11 @@ async def on_command_error(ctx,error):
     await ctx.send(embed=embed)
 
 #the command below it a test command and adds no functions to the bot whatsoever
-@bot.command()
+@bot.command(description="Literally just says hello back. First command ever made. I have no idea why this is still here. Please end my suffering. Life is an abyss.")
 async def hello(ctx):
     await ctx.send("Hello")
 
-@bot.command()
+@bot.command(description="Calculates a single program type against a node with more accuracy and accounting for node firewall regeneration. Syntax is this: <programName> <level> <amount> <nodeName> <level>. rememberToWriteProgramNamesLikeThis, else it will not work")
 async def calculate(ctx, *, args):
     argsList = args.split()
     with open("{}.json".format(argsList[0])) as f:
@@ -92,7 +93,7 @@ async def calculate(ctx, *, args):
     embed.add_field(name='Calculation finished!', value= 'Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)),inline = False)
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
 async def listParameter(ctx, *, args):
     argsList = args.split(' ')
     try:
@@ -132,7 +133,7 @@ async def listParameter(ctx, *, args):
         embed.add_field(name="Oops, something went wrong!",value="Either there's something mistyped or missing, or this probably is a bug. Contact CodeWritten#4044 or molchu#2575 if you think this is a bug.", inline = False)
         await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off.")
 async def dpsCalculate(ctx, *, args):
     argsList = args.split(" ")
     i = 0
@@ -168,7 +169,7 @@ async def dpsCalculate(ctx, *, args):
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(description="This command calculates time based on projectile firing interval and install time of the program. The command assumes the projectile is instant hitting and does not take into account projectile time to reach the target. the syntax is as follows: command <programName> <level> <amountOfProgram> ... <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it.")
 async def projectileCalculate(ctx, *, args):
     argsList = args.split(" ")
     i = 0
@@ -191,6 +192,7 @@ async def projectileCalculate(ctx, *, args):
     pleaseend = 0.0
     mysuffering = 0.0
     weDontHaveTime = 0.0
+    temporaryvalue = 0
     for x, y, z in argsTuple:
         with open("{}.json".format(x), "r") as f:
             temp1 = json.load(f)
@@ -203,6 +205,7 @@ async def projectileCalculate(ctx, *, args):
                 if pleaseend < temp3:
                     pleaseend = temp3
                 projamount = projamount + float(temp2[str(y)])*float(z)
+                temporaryvalue = 0
             else:
                 temp2 = temp1["firewall"]
                 structureFirewall = temp2[str(y)]
@@ -210,8 +213,10 @@ async def projectileCalculate(ctx, *, args):
                 while floatedStructureFirewall > 0.0:
                     if projamount <= 0:
                         break
-                    weDontHaveTime = weDontHaveTime + mysuffering
-                    floatedStructureFirewall = floatedStructureFirewall - projamount
+                    if temporaryvalue == 1:
+                        weDontHaveTime = weDontHaveTime + mysuffering
+                        floatedStructureFirewall = floatedStructureFirewall - projamount
+                    temporaryvalue = 1
                 weDontHaveTime = weDontHaveTime + pleaseend
     embed=discord.Embed(color=0x00ff00)
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
