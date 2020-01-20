@@ -65,12 +65,7 @@ async def on_command_error(ctx,error):
     embed.add_field(name="Oops, an error occured!", value = error, inline = False)
     await ctx.send(embed=embed)
 
-#the command below it a test command and adds no functions to the bot whatsoever
-@bot.command(description="Literally just says hello back. First command ever made. I have no idea why this is still here. Please end my suffering. Life is an abyss.")
-async def hello(ctx):
-    await ctx.send("Hello")
-
-@bot.command(description="Calculates a single program type against a node with more accuracy and accounting for node firewall regeneration. Syntax is this: <programName> <level> <amount> <nodeName> <level>. rememberToWriteProgramNamesLikeThis, else it will not work")
+@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is OLD")
 async def calculate(ctx, *, args):
     argsList = args.split()
     with open("{}.json".format(argsList[0])) as f:
@@ -93,7 +88,7 @@ async def calculate(ctx, *, args):
     embed.add_field(name='Calculation finished!', value= 'Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)),inline = False)
     await ctx.send(embed=embed)
 
-@bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
+@bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For ePS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
 async def listParameter(ctx, *, args):
     argsList = args.split(' ')
     try:
