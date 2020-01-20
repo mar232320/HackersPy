@@ -94,7 +94,7 @@ async def calculate(ctx, *, args):
     await ctx.send(embed=embed)
 
 @bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
-async def lsParam(ctx, *, args):
+async def lsStat(ctx, *, args):
     argsList = args.split(' ')
     try:
         with open("{}.json".format(argsList[0]), "r") as f:
