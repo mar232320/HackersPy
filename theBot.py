@@ -94,7 +94,7 @@ async def calculate(ctx, *, args):
     await ctx.send(embed=embed)
 
 @bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
-async def listParameter(ctx, *, args):
+async def lsParam(ctx, *, args):
     argsList = args.split(' ')
     try:
         with open("{}.json".format(argsList[0]), "r") as f:
@@ -134,7 +134,7 @@ async def listParameter(ctx, *, args):
         await ctx.send(embed=embed)
 
 @bot.command(description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off.")
-async def dpsCalculate(ctx, *, args):
+async def dpsCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
     argsName = []
@@ -170,7 +170,7 @@ async def dpsCalculate(ctx, *, args):
     await ctx.send(embed=embed)
 
 @bot.command(description="This command calculates time based on projectile firing interval and install time of the program. The command assumes the projectile is instant hitting and does not take into account projectile time to reach the target. the syntax is as follows: command <programName> <level> <amountOfProgram> ... <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it.")
-async def projectileCalculate(ctx, *, args):
+async def projCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
     argsName = []
