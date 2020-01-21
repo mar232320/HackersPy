@@ -89,9 +89,9 @@ async def calculate(ctx, *, args):
     await ctx.send(embed=embed)
 
 @bot.command(description="We dont know what this odes, maybe its an easter egg?")
-async def suffer(ctx):
+async def suffer(ctx, str):
     embed = discord.Embed(color = 0xff0000)
-    embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", inline = False)
+    embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
     await ctx.send(embed=embed)
 
 @bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
