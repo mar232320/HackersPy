@@ -89,7 +89,7 @@ async def calculate(ctx, *, args):
     await ctx.send(embed=embed)
 
 @bot.command(description="We dont know what this odes, maybe its an easter egg?")
-async def suffer(ctx, str):
+async def suffer(ctx):
     embed = discord.Embed(color = 0xff0000)
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
     await ctx.send(embed=embed)
