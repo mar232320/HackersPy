@@ -79,7 +79,7 @@ async def help(ctx, *, args=None):
         await ctx.send(embed = embed)
 
 @bot.command(aliases=['ping'])
-async def ping(ctx):
+async def latency(ctx):
     await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms!")
     
 @bot.command(description="Use dpsCalculate or projectileCalculate, as this command is OLD")
