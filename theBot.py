@@ -42,9 +42,11 @@ async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,
                 startshoot = time
                 continue
             
-desc = ("Bot made by molchu and CodeWritten for a game called Hackers to make simple and complex calculations")
+desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
-bot = commands.Bot(command_prefix = ".", description=desc)
+bot = commands.Bot(command_prefix = ".", description=desc, help_command = None)
+bot.remove_command('help')
+
 
 with open('botToken.txt') as f:
     TOKEN = f.read()
@@ -64,7 +66,22 @@ async def on_command_error(ctx,error):
     embed = discord.Embed(color = 0xff0000)
     embed.add_field(name="Oops, an error occured!", value = error, inline = False)
     await ctx.send(embed=embed)
+    print(error)
 
+@bot.command()
+async def help(ctx, *, args=None):
+    if args == None:
+        embed = discord.Embed(description="Bot made by molchu and CodeWritten for a game called Hackers to make simple and complex calculations",color=0x00ff00)
+        embed.add_field(name = "lsStat", value = "List a program's general stats (some programs might not be available).", inline=False)
+        embed.add_field(name = "projCalc", value = "Calculate a program's projectile damage (if exists).", inline = False)
+        embed.add_field(name = "dpsCalc", value = "Calculate one or more programs vs one or more nodes.", inline = False)
+        embed.set_footer(text = "For more information on every commands, type `.help {the command's name} (work on progress)")
+        await ctx.send(embed = embed)
+
+@bot.command(aliases=['ping'])
+async def latency(ctx):
+    await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms!")
+    
 @bot.command(description="Use dpsCalculate or projectileCalculate, as this command is OLD")
 async def calculate(ctx, *, args):
     argsList = args.split()
@@ -97,42 +114,37 @@ async def suffer(ctx):
 @bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
-    try:
-        with open("{}.json".format(argsList[0]), "r") as f:
-            temp1 = json.load(f)
-            temp2 = temp1[argsList[1]]
-        if len(argsList) == 3:
-            temp3 = temp2[argsList[2]]
-            embed=discord.Embed(color=0x00ff00)
-            embed.set_thumbnail(url = temp1["imageAddress"])
-            embed.add_field(name="Level " + str(argsList[2]) + " " + argsList[0] + ":" , value=str(temp3) + "", inline=True)
+    with open("{}.json".format(argsList[0]), "r") as f:
+        temp1 = json.load(f)
+        temp2 = temp1[argsList[1]]
+    if len(argsList) == 3:
+        temp3 = temp2[argsList[2]]
+        embed=discord.Embed(color=0x00ff00)
+        embed.set_thumbnail(url = temp1["imageAddress"])
+        embed.add_field(name="Level " + str(argsList[2]) + " " + argsList[0] + ":" , value=str(temp3) + "", inline=True)
+        await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(color=0x00ff00)
+        embed.set_thumbnail(url = temp1["imageAddress"])
+        if argsList[1] == "compilationPrice" or argsList[1] == "DPS":
+            for i in range(0,21):
+                a = []
+                b = []
+                for key in temp2.keys():
+                    a.append(key)
+                for value in temp2.values():
+                    b.append(value)
+                name = a[i]
+                value = b[i]
+                if argsList[1].lower() == "compilationprice":
+                    embed.add_field(name="Level " + str(name) + ":" , value=str(value) + "B", inline=True)
+                elif argsList[1].lower() == "dps":
+                    embed.add_field(name="Level " + str(name) + ":" , value=str(value) + " dmg", inline=True)
             await ctx.send(embed=embed)
         else:
-            embed = discord.Embed(color=0x00ff00)
-            embed.set_thumbnail(url = temp1["imageAddress"])
-            if argsList[1] == "compilationPrice" or argsList[1] == "DPS":
-                for i in range(0,21):
-                    a = []
-                    b = []
-                    for key in temp2.keys():
-                        a.append(key)
-                    for value in temp2.values():
-                        b.append(value)
-                    name = a[i]
-                    value = b[i]
-                    if argsList[1].lower() == "compilationprice":
-                        embed.add_field(name="Level " + str(name) + ":" , value=str(value) + "B", inline=True)
-                    elif argsList[1].lower() == "dps":
-                        embed.add_field(name="Level " + str(name) + ":" , value=str(value) + " dmg", inline=True)
+            if len(argsList) == 2:
+                embed.add_field(name=argsList[0].capitalize() + ":", value=str(temp2), inline=True)
                 await ctx.send(embed=embed)
-            else:
-                if len(argsList) == 2:
-                    embed.add_field(name=argsList[0].capitalize() + ":", value=str(temp2), inline=True)
-                    await ctx.send(embed=embed)
-    except:
-        embed=discord.Embed(color=0xff0000)
-        embed.add_field(name="Oops, something went wrong!",value="Either there's something mistyped or missing, or this probably is a bug. Contact CodeWritten#4044 or molchu#2575 if you think this is a bug.", inline = False)
-        await ctx.send(embed=embed)
 
 @bot.command(description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off.")
 async def dpsCalc(ctx, *, args):
