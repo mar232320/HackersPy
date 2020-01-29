@@ -69,20 +69,20 @@ async def on_command_error(ctx,error):
     print(error)
 
 @bot.command()
-async def help(ctx, *, args=None):
+async def help(ctx, *, args=None, aliases=['commands']):
     if args == None:
         embed = discord.Embed(description="Bot made by molchu and CodeWritten for a game called Hackers to make simple and complex calculations",color=0x00ff00)
-        embed.add_field(name = "lsStat", value = "List a program's general stats (some programs might not be available).", inline=False)
+        embed.add_field(name = "lsStat", value = "List a program's or node's general stats (some programs or nodes might not be available).", inline=False)
         embed.add_field(name = "projCalc", value = "Calculate a program's projectile damage (if exists).", inline = False)
         embed.add_field(name = "dpsCalc", value = "Calculate one or more programs vs one or more nodes.", inline = False)
-        embed.set_footer(text = "For more information on every commands, type `.help {the command's name} (work on progress)")
+        embed.set_footer(text = "For more information on every command, type `.help {the command's name} (work in progress)")
         await ctx.send(embed = embed)
 
 @bot.command(aliases=['ping'])
 async def latency(ctx):
     await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms!")
     
-@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is OLD")
+@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated and useless")
 async def calculate(ctx, *, args):
     argsList = args.split()
     with open("{}.json".format(argsList[0])) as f:
