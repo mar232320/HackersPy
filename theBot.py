@@ -54,7 +54,7 @@ with open('botToken.txt') as f:
 @bot.event
 async def on_ready():
     print("Up and running")
-    presencelist = ["_----","-_---","--_--","---_-","----_"]
+    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
     while True:
         for i in range(0, len(presencelist)):
             game = discord.Game(presencelist[i])
