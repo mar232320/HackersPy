@@ -69,7 +69,7 @@ async def on_command_error(ctx,error):
     print(error)
 
 @bot.command()
-async def help(ctx, *, args=None, aliases=['commands']):
+async def help(aliases=['commands'], ctx, *, args=None):
     if args == None:
         embed = discord.Embed(description="Bot made by molchu and CodeWritten for a game called Hackers to make simple and complex calculations",color=0x00ff00)
         embed.add_field(name = "lsStat", value = "List a program's or node's general stats (some programs or nodes might not be available).", inline=False)
