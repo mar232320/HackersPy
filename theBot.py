@@ -58,7 +58,7 @@ async def on_ready():
     while True:
         for i in range(0, len(presencelist)):
             game = discord.Game(presencelist[i])
-            await asyncio.sleep(10)
+            await asyncio.sleep(120)
             await bot.change_presence(status=discord.Status.online, activity = game)
 
 @bot.event
