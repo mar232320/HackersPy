@@ -22,9 +22,6 @@ async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,
                 nodeFirewall -= progDamage * 3.5
             if nodeFirewall <= 0:
                 return time + progInstallTime
-##            if (time / nodeRegeneration == int(time / nodeRegeneration)):
-##                p = nodeFirewall / 100
-##                nodeFirewall += p
             if time / progHitInterval == int(time / progHitInterval):
                 startshoot = time
                 continue
@@ -80,9 +77,9 @@ async def help(ctx, *, args=None):
 
 @bot.command(aliases=['ping'])
 async def latency(ctx):
-    await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms!")
+    await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms.")
     
-@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated and useless")
+@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated and useless (useless lmao)")
 async def calculate(ctx, *, args):
     argsList = args.split()
     with open("{}.json".format(argsList[0])) as f:
@@ -114,38 +111,32 @@ async def suffer(ctx):
 @bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
+    embed=discord.Embed(color=0x00ff00)
     with open("{}.json".format(argsList[0]), "r") as f:
         temp1 = json.load(f)
-        temp2 = temp1[argsList[1]]
     if len(argsList) == 3:
-        temp3 = temp2[argsList[2]]
-        embed=discord.Embed(color=0x00ff00)
-        embed.set_thumbnail(url = temp1["imageAddress"])
-        embed.add_field(name="Level " + str(argsList[2]) + " " + argsList[0] + ":" , value=str(temp3) + "", inline=True)
+        if 'imageAddress' in temp1.keys():
+            embed.set_thumbnail(url = temp1['imageAddress'][argsList[2]])
+        embed.add_field(name= "Level " + argsList[2] + " " + argsList[0].capitalize() + "'s "  + argsList[1] + ":", value = temp1[argsList[1]][argsList[2]],inline=True)
         await ctx.send(embed=embed)
-    else:
-        embed = discord.Embed(color=0x00ff00)
-        embed.set_thumbnail(url = temp1["imageAddress"])
-        if argsList[1] == "compilationPrice" or argsList[1] == "DPS":
-            for i in range(0,21):
-                a = []
-                b = []
-                for key in temp2.keys():
-                    a.append(key)
-                for value in temp2.values():
-                    b.append(value)
-                name = a[i]
-                value = b[i]
-                if argsList[1].lower() == "compilationprice":
-                    embed.add_field(name="Level " + str(name) + ":" , value=str(value) + "B", inline=True)
-                elif argsList[1].lower() == "dps":
-                    embed.add_field(name="Level " + str(name) + ":" , value=str(value) + " dmg", inline=True)
-            await ctx.send(embed=embed)
-        else:
-            if len(argsList) == 2:
-                embed.add_field(name=argsList[0].capitalize() + ":", value=str(temp2), inline=True)
-                await ctx.send(embed=embed)
-
+    elif len(argsList) == 2 and isinstance(temp1[argsList[1]], dict):
+        if 'imageAddress' in temp1.keys() and isinstance(temp1['imageAddress'], dict) is False:
+            embed.set_thumbnail(url = temp1['imageAddress'])
+        for i in range(0,len(temp1[argsList[1]])):
+            a = []
+            b = []
+            for key in temp1[argsList[1]].keys():
+                a.append(key)
+            for value in temp1[argsList[1]].values():
+                b.append(value)
+            name = a[i]
+            value = b[i]
+            embed.add_field(name='Level ' + str(name), value = value, inline=True   )
+        await ctx.send(embed=embed)
+    elif len(argsList) == 2 and isinstance(temp1[argsList[1]],dict) is False:
+        value = temp1[argsList[1]]
+        embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
+        await ctx.send(embed=embed)
 @bot.command(description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off.")
 async def dpsCalc(ctx, *, args):
     argsList = args.split(" ")

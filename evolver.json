@@ -1,26 +1,17 @@
 {
     "firewall": {
-        "1": "all values are wrong please update them",
-        "2": 14,
-        "3": 16,
-        "4": 18,
-        "5": 20,
-        "6": 23,
-        "7": 26,
-        "8": 30,
-        "9": 34,
-        "10": 39,
-        "11": 44,
-        "12": 51,
-        "13": 58,
-        "14": 66,
-        "15": 75,
-        "16": 86,
-        "17": 98,
-        "18": 111,
-        "19": 127,
-        "20": 145,
-        "21": 165
+        "1": 100,
+        "2": 125,
+        "3": 150,
+        "4": 185,
+        "5": 230,
+        "6": 285,
+        "7": 350,
+        "8": 435,
+        "9": 535,
+        "10": 660,
+        "11": 810,
+        "12": 1000
     },
     "upgradePrice":{
         "1": "all values are wrong please update them",
@@ -45,10 +36,21 @@
         "20": 230,
         "21": 250
     },
-    "timeToUpgrade":{
-        "1": "please update this"
-    },
     "firewallRegeneration": 3,
     "programAmount": 3,
-    "connectionAmount": 3
+    "connectionAmount": 3,
+	"imageAddress": {
+		"1": "https://vignette.wikia.nocookie.net/hackersthegame/images/6/60/Evolver_01.png/revision/latest?cb=20170330205645",
+		"2": "https://vignette.wikia.nocookie.net/hackersthegame/images/c/c5/Evolver_02.png/revision/latest?cb=20170330205644",
+		"3": "https://vignette.wikia.nocookie.net/hackersthegame/images/b/b3/Evolver_03.png/revision/latest?cb=20170330205644",
+		"4": "https://vignette.wikia.nocookie.net/hackersthegame/images/4/45/Evolver_04.png/revision/latest?cb=20170330205643",
+		"5": "https://vignette.wikia.nocookie.net/hackersthegame/images/f/ff/Evolver_05.png/revision/latest?cb=20170330205643",
+		"6": "https://vignette.wikia.nocookie.net/hackersthegame/images/9/92/Evolver_06.png/revision/latest?cb=20170330205642",
+		"7": "https://vignette.wikia.nocookie.net/hackersthegame/images/b/b4/Evolver_07-08.png/revision/latest?cb=20170330205642",
+		"8": "https://vignette.wikia.nocookie.net/hackersthegame/images/b/b4/Evolver_07-08.png/revision/latest?cb=20170330205642",
+		"9": "https://vignette.wikia.nocookie.net/hackersthegame/images/d/d7/Evolver_09-10.png/revision/latest?cb=20170330205641",
+		"10": "https://vignette.wikia.nocookie.net/hackersthegame/images/d/d7/Evolver_09-10.png/revision/latest?cb=20170330205641",
+		"11": "https://vignette.wikia.nocookie.net/hackersthegame/images/0/01/Evolver_11-12.png/revision/latest?cb=20170330205640",
+		"12": "https://vignette.wikia.nocookie.net/hackersthegame/images/0/01/Evolver_11-12.png/revision/latest?cb=20170330205640"
+		}
 }

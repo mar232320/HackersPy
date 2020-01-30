@@ -23,5 +23,28 @@
         "21": 2820 
     },
     "firewallRegeneration": 1,
-    "isAStructure": 1
+    "isAStructure": 1,
+	"imageAddress": {
+		"1": "https://vignette.wikia.nocookie.net/hackersthegame/images/9/90/Black_ICE_01.png/revision/latest?cb=20171015211532",
+		"2": "https://vignette.wikia.nocookie.net/hackersthegame/images/a/a5/Black_ICE_02-03.png/revision/latest?cb=20171015211533",
+		"3": "https://vignette.wikia.nocookie.net/hackersthegame/images/a/a5/Black_ICE_02-03.png/revision/latest?cb=20171015211533",
+		"4": "https://vignette.wikia.nocookie.net/hackersthegame/images/1/10/Black_ICE_04-05.png/revision/latest?cb=20171015211534",
+		"5": "https://vignette.wikia.nocookie.net/hackersthegame/images/1/10/Black_ICE_04-05.png/revision/latest?cb=20171015211534",
+		"6": "https://vignette.wikia.nocookie.net/hackersthegame/images/5/53/Black_ICE_06-07.png/revision/latest?cb=20171015211534",
+		"7": "https://vignette.wikia.nocookie.net/hackersthegame/images/5/53/Black_ICE_06-07.png/revision/latest?cb=20171015211534",
+		"8": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/88/Black_ICE_08-09.png/revision/latest?cb=20171015211535",
+		"9": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/88/Black_ICE_08-09.png/revision/latest?cb=20171015211535",
+		"10": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/82/Black_ICE_10-12.png/revision/latest/scale-to-width-down/240?cb=20170320023644",
+		"11": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/82/Black_ICE_10-12.png/revision/latest/scale-to-width-down/240?cb=20170320023644",
+		"12": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/82/Black_ICE_10-12.png/revision/latest/scale-to-width-down/240?cb=20170320023644",
+		"13": "https://vignette.wikia.nocookie.net/hackersthegame/images/b/b0/Black_ICE_13-15.png/revision/latest/scale-to-width-down/225?cb=20170320023625",
+		"14": "https://vignette.wikia.nocookie.net/hackersthegame/images/b/b0/Black_ICE_13-15.png/revision/latest/scale-to-width-down/225?cb=20170320023625",
+		"15": "https://vignette.wikia.nocookie.net/hackersthegame/images/b/b0/Black_ICE_13-15.png/revision/latest/scale-to-width-down/225?cb=20170320023625",
+		"16": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/8b/Black_ICE_16-18.png/revision/latest/scale-to-width-down/225?cb=20170320023602",
+		"17": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/8b/Black_ICE_16-18.png/revision/latest/scale-to-width-down/225?cb=20170320023602",
+		"18": "https://vignette.wikia.nocookie.net/hackersthegame/images/8/8b/Black_ICE_16-18.png/revision/latest/scale-to-width-down/225?cb=20170320023602",
+		"19": "https://vignette.wikia.nocookie.net/hackersthegame/images/9/91/Black_ICE_19-21.png/revision/latest/scale-to-width-down/240?cb=20171015135016",
+		"20": "https://vignette.wikia.nocookie.net/hackersthegame/images/9/91/Black_ICE_19-21.png/revision/latest/scale-to-width-down/240?cb=20171015135016",
+		"21": "https://vignette.wikia.nocookie.net/hackersthegame/images/9/91/Black_ICE_19-21.png/revision/latest/scale-to-width-down/240?cb=20171015135016"
+		}
 }
