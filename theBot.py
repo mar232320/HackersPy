@@ -57,7 +57,7 @@ async def on_ready():
             game = discord.Game(presencelist[i])
             await bot.change_presence(status=discord.Status.online, activity = game)
             await asyncio.sleep(120)
-
+##
 @bot.event
 async def on_command_error(ctx,error):
     embed = discord.Embed(color = 0xff0000)
@@ -65,17 +65,27 @@ async def on_command_error(ctx,error):
     await ctx.send(embed=embed)
     print(error)
 
-@bot.command()
+@bot.command(description="Shows this help page.")
 async def help(ctx, *, args=None):
-    if args == None:
-        embed = discord.Embed(description="Bot made by molchu and CodeWritten for a game called Hackers to make simple and complex calculations",color=0x00ff00)
-        embed.add_field(name = "lsStat", value = "List a program's or node's general stats (some programs or nodes might not be available).", inline=False)
-        embed.add_field(name = "projCalc", value = "Calculate a program's projectile damage (if exists).", inline = False)
-        embed.add_field(name = "dpsCalc", value = "Calculate one or more programs vs one or more nodes.", inline = False)
-        embed.set_footer(text = "For more information on every command, type `.help {the command's name} (work in progress)")
-        await ctx.send(embed = embed)
+    try:
+        b = args.split()
+        if args is None:
+            embed = discord.Embed(color=0x00ff00, title = desc)
+            a = list(bot.commands)
+            for i in range(0,len(bot.commands)):
+                if a[i].hidden == True:
+                    pass
+                else:
+                    embed.add_field(name=a[i].name, value = str(a[i].description),inline=False)
+            embed.set_footer(text="For more information on any command type |.help <command>| (work in progress)")
+            await ctx.author.send(embed=embed)
+            await ctx.send('A message with the help page sent to your DM!')
+        elif len(b) == 1:
+            await ctx.send("Work in progress!")
+    except discord.Forbidden:
+        await ctx.send("Failed sending the message with the help page. Did you block the bot?")
 
-@bot.command(aliases=['ping'])
+@bot.command(description = "Return the latency of the bot.", aliases=['ping'])
 async def latency(ctx):
     await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms.")
     
@@ -102,7 +112,7 @@ async def calculate(ctx, *, args):
     embed.add_field(name='Calculation finished!', value= 'Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)),inline = False)
     await ctx.send(embed=embed)
 
-@bot.command(description="We dont know what this odes, maybe its an easter egg?")
+@bot.command(description="We dont know what this odes, maybe its an easter egg?", hidden = True)
 async def suffer(ctx):
     embed = discord.Embed(color = 0xff0000)
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
