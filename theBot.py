@@ -65,10 +65,15 @@ async def on_command_error(ctx,error):
     await ctx.send(embed=embed)
     print(error)
 
-@bot.command(description="Shows this help page.")
+@bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing")
+async def test(ctx):
+    await ctx.send('ok boomer')
+
+@bot.command(description="Shows this help page.", brief="`.help [command]`")
 async def help(ctx, *, args=None):
-    try:
+    if args is not None:
         b = args.split()
+    try:
         if args is None:
             embed = discord.Embed(color=0x00ff00, title = desc)
             a = list(bot.commands)
@@ -81,15 +86,24 @@ async def help(ctx, *, args=None):
             await ctx.author.send(embed=embed)
             await ctx.send('A message with the help page sent to your DM!')
         elif len(b) == 1:
-            await ctx.send("Work in progress!")
+            reqCommand = bot.get_command(b[0])
+            embed = discord.Embed(color=0x00ff00,title = "Help page for " + reqCommand.name + " command:")
+            embed.add_field(name="Usage: ", value = str(reqCommand.brief),inline=True)
+            if len(reqCommand.aliases) != 0:
+                embed.add_field(name="Aliases: ", value = str(reqCommand.aliases), inline = False)
+            else:
+                embed.add_field(name="Aliases: ", value = "No aliases", inline = False)
+            embed.add_field(name="Description on usage:", value = reqCommand.description,inline=False)
+            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar_url)
+            await ctx.send(embed=embed)
     except discord.Forbidden:
         await ctx.send("Failed sending the message with the help page. Did you block the bot?")
 
-@bot.command(description = "Return the latency of the bot.", aliases=['ping'])
+@bot.command(description = "Return the latency of the bot.", aliases=['ping'], brief = "`.ping`")
 async def latency(ctx):
     await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms.")
     
-@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated and useless (useless lmao)")
+@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated",brief='Dead command here')
 async def calculate(ctx, *, args):
     argsList = args.split()
     with open("{}.json".format(argsList[0])) as f:
@@ -118,7 +132,7 @@ async def suffer(ctx):
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
     await ctx.send(embed=embed)
 
-@bot.command(description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
+@bot.command(brief = "`lsStat {program/node} {stat} [level] `", aliases=['info'],description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer.")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
     embed=discord.Embed(color=0x00ff00)
@@ -147,7 +161,8 @@ async def lsStat(ctx, *, args):
         value = temp1[argsList[1]]
         embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
         await ctx.send(embed=embed)
-@bot.command(description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off.")
+        
+@bot.command(brief = "`.dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)`", description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off.")
 async def dpsCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
