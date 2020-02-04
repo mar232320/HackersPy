@@ -99,7 +99,7 @@ async def help(ctx, *, args=None):
     except discord.Forbidden:
         await ctx.send("Failed sending the message with the help page. Did you block the bot?")
 
-@bot.command(description = "Return the latency of the bot.", aliases=['ping'], brief = "`.ping`")
+@bot.command(description = "Return the latency of the bot. Can also be triggered with .ping", aliases=['ping'], brief = "`.ping`")
 async def latency(ctx):
     await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms.")
     
