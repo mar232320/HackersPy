@@ -8,6 +8,7 @@ import time
 import subprocess
 import os
 import math
+import sys
 
 #Bot Functionality
 async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
@@ -254,4 +255,14 @@ async def projCalc(ctx, *, args):
     embed=discord.Embed(color=0x00ff00)
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
     await ctx.send(embed=embed)
+
+@bot.command(description="Restarts The Bot's source file, use if bot freezes etc, [OWNER]")
+async def reboot(ctx):
+    if ctx.author.id == "436646726204653589" or "525334420467744768" or "218142353674731520":
+        embed = discord.Embed(color = 0xff0000)
+        embed.add_field(name="Reboot Command Sent, Bot Rebooting in 3 seconds", value = str, inline = False)
+        await ctx.send(embed=embed)
+        await asyncio.sleep(3)
+        os.execl(sys.executable, sys.executable, * sys.argv)
+
 bot.run(TOKEN)
