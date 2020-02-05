@@ -1,3 +1,4 @@
+#Module Importation
 import json
 import requests
 import discord
@@ -8,11 +9,13 @@ import subprocess
 import os
 import math
 
+#Bot Functionality
 async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
     time = 0
     i = 0
 #the below variable is not being used
 ##    stunnedTime = 2
+#Pre-Calculation Definition & Math Layout
     startshoot = -10000
     while True:
         if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:   
@@ -39,6 +42,7 @@ async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,
                 startshoot = time
                 continue
             
+#Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
 bot = commands.Bot(command_prefix = ".", description=desc, help_command = None)
@@ -126,7 +130,7 @@ async def calculate(ctx, *, args):
     embed.add_field(name='Calculation finished!', value= 'Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)),inline = False)
     await ctx.send(embed=embed)
 
-@bot.command(description="We dont know what this odes, maybe its an easter egg?", hidden = True)
+@bot.command(description="We dont know what this does, maybe its an easter egg?", hidden = True)
 async def suffer(ctx):
     embed = discord.Embed(color = 0xff0000)
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
