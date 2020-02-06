@@ -258,7 +258,7 @@ async def projCalc(ctx, *, args):
 
 @bot.command(description="Restarts The Bot's source file, use if bot freezes etc, [OWNER]")
 async def shutdown(ctx):
-     if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699):
+    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699):
         embed = discord.Embed(color = 0x00ff00)
         embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds, this was executed by", value = None, inline = False)
         await ctx.send(embed=embed)
