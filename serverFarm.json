@@ -23,6 +23,8 @@
         "21": 1200
     },
     "firewallRegeneration": 2,
-    "isAStructure": 1
-    "imageAddress":
+    "isAStructure": 1,
+    "imageAddress": { 
+        "1": "https://vignette.wikia.nocookie.net/hackersthegame/images/7/7f/Server_Farm_01.png/revision/latest?cb=20170208152329"
+        }
 }
