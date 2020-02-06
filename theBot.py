@@ -264,7 +264,7 @@ async def shutdown(ctx):
         await ctx.send(embed=embed)
         await asyncio.sleep(3)
         await bot.close()
-        os.execl(sys.executable, sys.executable, * sys.argv)
         os.system("py -3 theBot.py")
+        os.execl(sys.executable, sys.executable, * sys.argv)
 
 bot.run(TOKEN)
