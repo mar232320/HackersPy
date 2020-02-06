@@ -263,8 +263,8 @@ async def shutdown(ctx):
         embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = str, inline = False)
         await ctx.send(embed=embed)
         await asyncio.sleep(3)
-        os.execl(sys.executable, sys.executable, * sys.argv)
         await bot.close()
+        os.execl(sys.executable, sys.executable, * sys.argv)
         os.system("py -3 theBot.py")
 
 bot.run(TOKEN)
