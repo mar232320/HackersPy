@@ -188,13 +188,19 @@ async def dpsCalc(ctx, *, args):
     argsTuple = zip(argsName, argsLevel, argsAmount)
     dpsamount = 0.0
     boiii = 0.0
+    anotherTempValueYetAgain = 0.0
     for x, y, z in argsTuple:
         with open("{}.json".format(x), "r") as f:
             temp1 = json.load(f)
             if temp1["isAStructure"] == 0:
                 boii = temp1["DPS"]
                 dpsamount = dpsamount + float(boii[str(y)])*float(z)
-                if temp1["installTime"] > boiii:
+                #i have no idea how to fix install time so for now it will stay bugged to shit
+                ohGodPleaseStop = boiii-temp1["installTime"]
+                if temp1["DPS"]*ohGodPleaseStop > anotherTempValueYetAgain*ohGodPleaseStop:
+                    boiii = temp1["installTime"]
+                    anotherTempValueYetAgain = temp1["DPS"]
+                elif boiii == 0:
                     boiii = temp1["installTime"]
             else:
                 boii = temp1["firewall"]
