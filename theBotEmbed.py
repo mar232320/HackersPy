@@ -122,8 +122,8 @@ async def calculate(ctx, *, args):
         nodeFirewall = temp2['fireWall'][argsList[3]]
         nodeRegeneration = temp2['firewallRegeneration']
     if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:
-        await ctx.send("""The damage of the program is lower than the node's regeneration.
-                       Assuming the node can't regenerate...""")
+        await ctx.send(The damage of the program is lower than the node's regeneration.
+                       Assuming the node can't regenerate...)
     takeOverTime = await timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration)
     embed = discord.Embed(color=0x00ff00)
     minute = takeOverTime // 60
@@ -195,13 +195,13 @@ async def dpsCalc(ctx, *, args):
             if temp1["isAStructure"] == 0:
                 boii = temp1["DPS"]
                 dpsamount = dpsamount + float(boii[str(y)])*float(z)
-                """#i have no idea how to fix install time so for now it will stay bugged to shit
+                #i have no idea how to fix install time so for now it will stay bugged to shit
                 ohGodPleaseStop = boiii-float(temp1["installTime"])
                 if float(temp1["DPS"])*ohGodPleaseStop > anotherTempValueYetAgain*ohGodPleaseStop:
                     boiii = float(temp1["installTime"])
                     anotherTempValueYetAgain = float(temp1["DPS"])
                 elif boiii == 0:
-                    boiii = float(temp1["installTime"])"""
+                    boiii = float(temp1["installTime"])
             else:
                 boii = temp1["firewall"]
                 boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
