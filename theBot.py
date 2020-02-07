@@ -249,7 +249,7 @@ async def projCalc(ctx, *, args):
                         break
                     if temporaryvalue == 1:
                         weDontHaveTime = weDontHaveTime + mysuffering
-                        floatedStructureFirewall = floatedStructureFirewall - projamount
+                    floatedStructureFirewall = floatedStructureFirewall - projamount
                     temporaryvalue = 1
                 weDontHaveTime = weDontHaveTime + pleaseend
     embed=discord.Embed(color=0x00ff00)
