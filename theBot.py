@@ -194,7 +194,8 @@ async def dpsCalc(ctx, *, args):
             if temp1["isAStructure"] == 0:
                 boii = temp1["DPS"]
                 dpsamount = dpsamount + float(boii[str(y)])*float(z)
-                boiii = boiii + temp1["installTime"]
+                if temp1["installTime"] > boiii:
+                    boiii = temp1["installTime"]
             else:
                 boii = temp1["firewall"]
                 boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
