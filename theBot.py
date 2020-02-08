@@ -46,7 +46,7 @@ async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
-bot = commands.Bot(command_prefix = ".", description=desc, help_command = None)
+bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None)
 bot.remove_command('help')
 
 
