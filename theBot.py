@@ -235,6 +235,9 @@ async def projCalc(ctx, *, args):
     weDontHaveTime = 0.0
     temporaryvalue = 0
     for x, y, z in argsTuple:
+        if x == "beamCannon":
+            await ctx.send("beams aren't projectile so the whole command intentionally crashed")
+            break
         with open("{}.json".format(x), "r") as f:
             temp1 = json.load(f)
             if temp1["isAStructure"] == 0:
@@ -253,6 +256,7 @@ async def projCalc(ctx, *, args):
                 floatedStructureFirewall = float(structureFirewall)
                 while floatedStructureFirewall > 0.0:
                     if projamount <= 0:
+                        await ctx.send("you can't have negative programs so good job crashing the whole command")
                         break
                     if temporaryvalue == 1:
                         weDontHaveTime = weDontHaveTime + mysuffering
