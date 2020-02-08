@@ -282,5 +282,8 @@ async def shutdown(ctx):
         embed.add_field(name="Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!", value = None, inline = False)
         await ctx.send(embed=embed)
 
+@bot.command(description="What do you think it does?")
+async def playDespacito(ctx):
+    await ctx.send("DESPACITO QUIERO RESPIRAR TU <bot shutdown initiated>")
 
 bot.run(TOKEN)
