@@ -1,4 +1,4 @@
-"""#Module Importation
+#Module Importation
 import json
 import requests
 import discord
@@ -9,7 +9,6 @@ import subprocess
 import os
 import math
 import sys
-
 #Bot Functionality
 async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
     time = 0
@@ -45,14 +44,10 @@ async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,
             
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
-
 bot = commands.Bot(command_prefix = ".", description=desc, help_command = None)
 bot.remove_command('help')
-
-
 with open('botToken.txt') as f:
     TOKEN = f.read()
-
 @bot.event
 async def on_ready():
     print("Up and running")
@@ -69,11 +64,9 @@ async def on_command_error(ctx,error):
     embed.add_field(name="Oops, an error occured!", value = error, inline = False)
     await ctx.send(embed=embed)
     print(error)
-
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing")
 async def test(ctx):
     await ctx.send('ok boomer')
-
 @bot.command(description="Shows this help page.", brief="`.help [command]`")
 async def help(ctx, *, args=None):
     if args is not None:
@@ -103,7 +96,6 @@ async def help(ctx, *, args=None):
             await ctx.send(embed=embed)
     except discord.Forbidden:
         await ctx.send("Failed sending the message with the help page. Did you block the bot?")
-
 @bot.command(description = "Return the latency of the bot. Can also be triggered with .ping", aliases=['ping'], brief = "`.ping`")
 async def latency(ctx):
     await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms.")
@@ -122,8 +114,8 @@ async def calculate(ctx, *, args):
         nodeFirewall = temp2['fireWall'][argsList[3]]
         nodeRegeneration = temp2['firewallRegeneration']
     if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:
-        await ctx.send(The damage of the program is lower than the node's regeneration.
-                       Assuming the node can't regenerate...)
+        await ctx.send("""The damage of the program is lower than the node's regeneration.
+                       Assuming the node can't regenerate...""")
     takeOverTime = await timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration)
     embed = discord.Embed(color=0x00ff00)
     minute = takeOverTime // 60
@@ -166,7 +158,7 @@ async def lsStat(ctx, *, args):
         value = temp1[argsList[1]]
         embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
         await ctx.send(embed=embed)
-        
+
 @bot.command(brief = "`.dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)`", description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. typeProgramAndNodeNamesLikeThisPlease")
 async def dpsCalc(ctx, *, args):
     argsList = args.split(" ")
@@ -195,13 +187,13 @@ async def dpsCalc(ctx, *, args):
             if temp1["isAStructure"] == 0:
                 boii = temp1["DPS"]
                 dpsamount = dpsamount + float(boii[str(y)])*float(z)
-                #i have no idea how to fix install time so for now it will stay bugged to shit
+                """#i have no idea how to fix install time so for now it will stay bugged to shit
                 ohGodPleaseStop = boiii-float(temp1["installTime"])
                 if float(temp1["DPS"])*ohGodPleaseStop > anotherTempValueYetAgain*ohGodPleaseStop:
                     boiii = float(temp1["installTime"])
                     anotherTempValueYetAgain = float(temp1["DPS"])
                 elif boiii == 0:
-                    boiii = float(temp1["installTime"])
+                    boiii = float(temp1["installTime"])"""
             else:
                 boii = temp1["firewall"]
                 boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
@@ -279,4 +271,4 @@ async def shutdown(ctx):
         await ctx.send(embed=embed)
 
 
-bot.run(TOKEN)"""
+bot.run(TOKEN)

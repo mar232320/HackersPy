@@ -67,7 +67,7 @@ async def on_ready():
 async def on_command_error(ctx,error):
     embed = discord.Embed(color = 0xff0000)
     embed.add_field(name="Oops, an error occured!", value = error, inline = False)
-    await ctx.send(embed=embed)
+    await ctx.send('Oops, an error occured! {}'.format(error))
     print(error)
 
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing")
@@ -129,7 +129,7 @@ async def calculate(ctx, *, args):
     minute = takeOverTime // 60
     second = takeOverTime - minute * 60
     embed.add_field(name='Calculation finished!', value= 'Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)),inline = False)
-    await ctx.send(embed=embed)
+    await ctx.send('Calculation finished!, Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)))
 
 @bot.command(description="We dont know what this does, maybe its an easter egg?", hidden = True)
 async def suffer(ctx):
@@ -208,7 +208,7 @@ async def dpsCalc(ctx, *, args):
                 dpsamount = 0.0
     embed=discord.Embed(color=0x00ff00)
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
-    await ctx.send(embed=embed)
+    await ctx.send("It took {} seconds to hack the base.".format(boiii))
 
 @bot.command(description="This command calculates time based on projectile firing interval and install time of the program. The command assumes the projectile is instant hitting and does not take into account projectile time to reach the target. the syntax is as follows: command <programName> <level> <amountOfProgram> <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it. typeProgramAndNodeNamesLikeThisPlease")
 async def projCalc(ctx, *, args):
@@ -261,14 +261,14 @@ async def projCalc(ctx, *, args):
                 weDontHaveTime = weDontHaveTime + pleaseend
     embed=discord.Embed(color=0x00ff00)
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
-    await ctx.send(embed=embed)
+    await ctx.send("It took {} seconds to hack the base.".format(weDontHaveTime))
 
 @bot.command(description="Restarts The Bot's source file, use if bot freezes etc, [OWNER]")
 async def shutdown(ctx):
     if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
         embed = discord.Embed(color = 0x00ff00)
         embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = None, inline = False)
-        await ctx.send(embed=embed)
+        await ctx.send("Shutdown Command Sent, Bot Rebooting in 3 seconds")
         await asyncio.sleep(3)
         await bot.close()
         os.execl(sys.executable, sys.executable, * sys.argv)
