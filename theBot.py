@@ -270,13 +270,14 @@ async def projCalc(ctx, *, args):
 @bot.command(description="Restarts The Bot's source file, use if bot freezes etc, [OWNER]",aliases=['reboot'])
 async def playDespacito(ctx):
     if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-        embed = discord.Embed(color = 0x00ff00, title = 'Shutdown Command Sent, Bot Rebooting in 3 seconds')
-        await ctx.send(embed=embed)
+        embed = discord.Embed(color = 0x00ff00)
+        embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = None, inline = False)
+        await ctx.send("Shutdown Command Sent, Bot Rebooting in 3 seconds")
         await asyncio.sleep(3)
         await bot.close()
         os.execl(sys.executable, sys.executable, * sys.argv)
     else:
         embed = discord.Embed(color = 0xff0000)
         embed.add_field(name="Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!", value = None, inline = False)
-        await ctx.send(embed=embed)
+        await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
 bot.run(TOKEN)
