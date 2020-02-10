@@ -150,7 +150,7 @@ async def suffer(ctx):
 async def listitems(ctx):
     await ctx.send ("Programs: beamCannon (doesnt work with projCalc as beam is not a projectile) shuriken blaster maniac worm\n Nodes: codeGate (does not have filter emulation as of now) core serverFarm database coinMiner coinMixer scanner sentry turret blackIce guardian evolver,\n Keys: DPS (progs) firewall (Nodes)")
 
-@bot.command(hidden = true)
+@bot.command(hidden = True)
 async def killAmethysm(ctx):
     randkill = ["Gun", "Drowning", "Molchu"]
     chosenrandkill = random.choice(randkill)
