@@ -145,7 +145,7 @@ async def suffer(ctx):
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
     await ctx.send(embed=embed)
 
-@bot.command(description = "Lists nodeNames and keys aswell as programNames and keys", aliases = ['wtf'])
+@bot.command(description = "Lists nodeNames and keys aswell as programNames and keys", aliases = ['wtf', 'killAmethysm'])
 async def listitems(ctx):
     await ctx.send ("Programs: beamCannon (doesnt work with projCalc as beam is not a projectile) shuriken blaster maniac worm\n Nodes: codeGate (does not have filter emulation as of now) core serverFarm database coinMiner coinMixer scanner sentry turret blackIce guardian evolver,\n Keys: DPS (progs) firewall (Nodes)")
 
