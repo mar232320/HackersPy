@@ -63,6 +63,13 @@ async def on_ready():
             await bot.change_presence(status=discord.Status.online, activity = game)
             await asyncio.sleep(120)
 ##
+
+@bot.event
+async def on_message(message):
+    """Logs messages sent to the bot via DM."""
+    if message.guild is None:
+        print(message.author.name + message.author.discriminator + ": " + message.content)
+
 @bot.event
 async def on_command_error(ctx,error):
     embed = discord.Embed(color = 0xff0000)
@@ -104,9 +111,9 @@ async def help(ctx, *, args=None):
     except discord.Forbidden:
         await ctx.send("Failed sending the message with the help page. Did you block the bot?")
 
-@bot.command(description = "Return the latency of the bot. Can also be triggered with .ping", aliases=['ping'], brief = "`.ping`")
+@bot.command(description = "Return the latency of the bot. Can also be triggered with .ping", aliases=['ping'], brief = "`Alexa ping`")
 async def latency(ctx):
-    await ctx.send("Pong! "  + str(round(bot.latency * 100)) + "ms.")
+    await ctx.send("Pong! "  + str(round(bot.latency * 1000)) + "ms.")
     
 @bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated",brief='Dead command here')
 async def calculate(ctx, *, args):
@@ -137,7 +144,7 @@ async def suffer(ctx):
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
     await ctx.send(embed=embed)
 
-@bot.command(brief = "`lsStat {program/node} {stat} [level] `", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
+@bot.command(brief = "`Alexa lsStat {program/node} {stat} [level]` ", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
     embed=discord.Embed(color=0x00ff00)
@@ -167,7 +174,7 @@ async def lsStat(ctx, *, args):
         embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
         await ctx.send(embed=embed)
         
-@bot.command(brief = "`.dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)`", description="This command calculates the raw DPS of all programs. This does not account for projectile travel time and therefore assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. This uses the same syntax as projCalc, which you will find below. typeProgramAndNodeNamesLikeThisPlease")
+@bot.command(brief = "`Alexa dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)`", description="This command calculates the raw DPS of all programs. This does not account for projectile travel time and therefore assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. This uses the same syntax as projCalc, which you will find below. typeProgramAndNodeNamesLikeThisPlease")
 async def dpsCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
@@ -210,7 +217,7 @@ async def dpsCalc(ctx, *, args):
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
     await ctx.send("It took {} seconds to hack the base.".format(boiii))
 
-@bot.command(description="This command calculates time based on projectile firing intervals and install times of the programs. This command assumes that projectiles are instant hitting and doesn't take into account the time it takes for a projectile to reach the target. The syntax is as follows: command <programName> <level> <amountOfProgram> <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it. typeProgramAndNodeNamesLikeThisPlease")
+@bot.command(brief = '`Alexa projCalc {program} {level} {amount} {node} {level} 0 (repeat)`',description="This command calculates time based on projectile firing intervals and install times of the programs. This command assumes that projectiles are instant hitting and doesn't take into account the time it takes for a projectile to reach the target. The syntax is as follows: command <programName> <level> <amountOfProgram> <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it. typeProgramAndNodeNamesLikeThisPlease")
 async def projCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
@@ -267,7 +274,7 @@ async def projCalc(ctx, *, args):
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
     await ctx.send("It took {} seconds to hack the base.".format(weDontHaveTime))
 
-@bot.command(description="This restarts the bot, which is useful if something goes wrong or the bot freezes. Only a select few people are able to use this command.",aliases=['reboot'])
+@bot.command(brief='`Alexa playDespacito/reboot`', description="This restarts the bot, which is useful if something goes wrong or the bot freezes. Only a select few people are able to use this command.",aliases=['reboot'])
 async def playDespacito(ctx):
     if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
         embed = discord.Embed(color = 0x00ff00)
@@ -277,7 +284,7 @@ async def playDespacito(ctx):
         await bot.close()
         os.execl(sys.executable, sys.executable, * sys.argv)
     else:
-        embed = discord.Embed(color = 0xff0000)
-        embed.add_field(name="Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!", value = None, inline = False)
+##        embed = discord.Embed(color = 0xff0000)
+##        embed.add_field(name="Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!", value = None, inline = False)
         await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
 bot.run(TOKEN)
