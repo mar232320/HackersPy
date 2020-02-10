@@ -70,6 +70,7 @@ async def on_message(message):
     if message.guild is None:
         print(message.author.name + message.author.discriminator + ": " + message.content)
 
+    await bot.process_commands(message)
 @bot.event
 async def on_command_error(ctx,error):
     embed = discord.Embed(color = 0xff0000)
