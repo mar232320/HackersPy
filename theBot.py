@@ -163,6 +163,32 @@ async def killAmethysm(ctx):
     if chosenrandkill == "Molchu":
         await ctx.send("Molchu and Amethysm Dueled with swords, molchu stabs Amethysm and he dies :(")
 
+@bot.command(hidden = True)
+async def killCode(ctx):
+    randkill = ["Gun", "Drowning", "Molchu"]
+    chosenrandkill = random.choice(randkill)
+    if chosenrandkill == "Gun":
+        await ctx.send("CodeWritten was shot by a gun! Bang! he's dead!")
+
+    if chosenrandkill == "Drowning":
+        await ctx.send("Molchu threw CodeWritten off a glacier and he couldn't swim, :(")
+
+    if chosenrandkill == "Molchu":
+        await ctx.send("Molchu and CodeWritten Dueled with swords, molchu stabs CodeWritten and he dies :(")
+
+@bot.command(hidden = True)
+async def killMolchu(ctx):
+    randkill = ["Gun", "Drowning", "Molchu"]
+    chosenrandkill = random.choice(randkill)
+    if chosenrandkill == "Gun":
+        await ctx.send("Molchu was shot by a gun! Bang! he's dead!")
+
+    if chosenrandkill == "Drowning":
+        await ctx.send("CodeWritten threw Molchu off a glacier and he couldn't swim, :(")
+
+    if chosenrandkill == "Molchu":
+        await ctx.send("Molchu and CodeWritten Dueled with swords, CodeWritten stabs molchu and he dies :(")
+
 @bot.command(brief = "`Alexa lsStat {program/node} {stat} [level]` ", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
