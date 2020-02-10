@@ -145,6 +145,10 @@ async def suffer(ctx):
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
     await ctx.send(embed=embed)
 
+@bot.command(description = "Lists nodeNames and keys aswell as programNames and keys", aliases = ['wtf'])
+async def listitems(ctx):
+    await ctx.send ("Programs: beamCannon (doesnt work with projCalc as beam is not a projectile) shuriken blaster maniac worm\n Nodes: codeGate (does not have filter emulation as of now) core serverFarm database coinMiner coinMixer scanner sentry turret blackIce guardian evolver,\n Keys: DPS (progs) firewall (Nodes)")
+
 @bot.command(brief = "`Alexa lsStat {program/node} {stat} [level]` ", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
@@ -203,14 +207,13 @@ async def dpsCalc(ctx, *, args):
             if temp1["isAStructure"] == 0:
                 boii = temp1["DPS"]
                 dpsamount = dpsamount + float(boii[str(y)])*float(z)
-                """#i have no idea how to fix install time so for now it will stay bugged to shit
+                #i have no idea how to fix install time so for now it will stay bugged to shit
                 ohGodPleaseStop = boiii-float(temp1["installTime"])
                 if float(temp1["DPS"])*ohGodPleaseStop > anotherTempValueYetAgain*ohGodPleaseStop:
                     boiii = float(temp1["installTime"])
                     anotherTempValueYetAgain = float(temp1["DPS"])
                 elif boiii == 0:
-                    boiii = float(temp1["installTime"])"""
-            else:
+                    boiii = float(temp1["installTime"])
                 boii = temp1["firewall"]
                 boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
                 dpsamount = 0.0
