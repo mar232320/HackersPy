@@ -70,11 +70,11 @@ async def on_command_error(ctx,error):
     await ctx.send('Oops, an error occured! {}'.format(error))
     print(error)
 
-@bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing")
+@bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing", hidden = True)
 async def test(ctx):
     await ctx.send('ok boomer')
 
-@bot.command(description="Shows this help page.", brief="`.help [command]`")
+@bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
 async def help(ctx, *, args=None):
     if args is not None:
         b = args.split()
@@ -137,7 +137,7 @@ async def suffer(ctx):
     embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
     await ctx.send(embed=embed)
 
-@bot.command(brief = "`lsStat {program/node} {stat} [level] `", aliases=['info'],description="List the Parameter of a program or node. The syntax goes like this <programName> <category> <level (if required)>. For example: beamCannon DPS to list all dps values of beam cannon on all levels, or beamCannon DPS 21 to only list the level 21. Honestly you are better off using the wiki but this command exists so you might as well use it, if you break it then wiki is the answer. typeProgramAndNodeNamesLikeThisPlease")
+@bot.command(brief = "`lsStat {program/node} {stat} [level] `", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
     embed=discord.Embed(color=0x00ff00)
@@ -167,7 +167,7 @@ async def lsStat(ctx, *, args):
         embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
         await ctx.send(embed=embed)
         
-@bot.command(brief = "`.dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)`", description="Unlike projectileCalculate, this command calculates raw DPS of all programs. Same syntax as projectileCalculate, so do help projectileCalculate to get the syntax. This does not account projectile travel and assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. typeProgramAndNodeNamesLikeThisPlease")
+@bot.command(brief = "`.dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)`", description="This command calculates the raw DPS of all programs. This does not account for projectile travel time and therefore assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. This uses the same syntax as projCalc, which you will find below. typeProgramAndNodeNamesLikeThisPlease")
 async def dpsCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
@@ -210,7 +210,7 @@ async def dpsCalc(ctx, *, args):
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
     await ctx.send("It took {} seconds to hack the base.".format(boiii))
 
-@bot.command(description="This command calculates time based on projectile firing interval and install time of the program. The command assumes the projectile is instant hitting and does not take into account projectile time to reach the target. the syntax is as follows: command <programName> <level> <amountOfProgram> <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it. typeProgramAndNodeNamesLikeThisPlease")
+@bot.command(description="This command calculates time based on projectile firing intervals and install times of the programs. This command assumes that projectiles are instant hitting and doesn't take into account the time it takes for a projectile to reach the target. The syntax is as follows: command <programName> <level> <amountOfProgram> <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it. typeProgramAndNodeNamesLikeThisPlease")
 async def projCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
@@ -267,7 +267,7 @@ async def projCalc(ctx, *, args):
     embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
     await ctx.send("It took {} seconds to hack the base.".format(weDontHaveTime))
 
-@bot.command(description="Restarts The Bot's source file, use if bot freezes etc, [OWNER]",aliases=['reboot'])
+@bot.command(description="This restarts the bot, which is useful if something goes wrong or the bot freezes. Only a select few people are able to use this command.",aliases=['reboot'])
 async def playDespacito(ctx):
     if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
         embed = discord.Embed(color = 0x00ff00)
