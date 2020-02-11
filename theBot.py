@@ -321,9 +321,10 @@ async def projCalc(ctx, *, args):
 @bot.command(brief='`Alexa playDespacito/reboot`', description="This restarts the bot, which is useful if something goes wrong or the bot freezes. Only a select few people are able to use this command.",aliases=['reboot'])
 async def playDespacito(ctx):
     if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        authid= ctx.author
         embed = discord.Embed(color = 0x00ff00)
-        embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = None, inline = False)
-        await ctx.send("Shutdown Command Sent, Bot Rebooting in 3 seconds")
+        embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = "Sent By {}".format(authid), inline = False)
+        await ctx.send(embed=embed)
         await asyncio.sleep(3)
         await bot.close()
         os.execl(sys.executable, sys.executable, * sys.argv)
