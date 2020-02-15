@@ -1,6 +1,5 @@
 #Module Importation
 import json
-import requests
 import discord
 from discord.ext import commands
 import asyncio
@@ -72,6 +71,7 @@ async def on_message(message):
         print(message.author.name + message.author.discriminator + ": " + message.content)
 
     await bot.process_commands(message)
+
 @bot.event
 async def on_command_error(ctx,error):
     embed = discord.Embed(color = 0xff0000)
@@ -189,6 +189,33 @@ async def killMolchu(ctx):
     if chosenrandkill == "Molchu":
         await ctx.send("Molchu and CodeWritten Dueled with swords, CodeWritten stabs molchu and he dies :(")
 
+@bot.command(brief = '`Alexa kill {member}`', description="Kill someone you hate. More death messages coming soon!")
+async def kill(ctx,member:discord.Member=None):
+    if member is None:
+        await ctx.send("You decided to look around for someone to kill with your new gun, but there wasn't anyone nearby. You ended up killing yourself.")
+    else:
+        a = random.randint(1,10)
+        if a == 1:
+            await ctx.send(member.name + " was filled with " + ctx.author.name + "'s worms.")
+        elif a == 2:
+            await ctx.send(member.name + " was brutally killed after stating that beam cannon is better than shuriken.")
+        elif a == 3:
+            await ctx.send(member.name + " was dead trying to triple protector a node. They forgot they didn't have any protectors left.")
+        elif a == 4:
+            await ctx.send(member.name + " was captured by a hit of maniac in the face by " + ctx.author.name + ".")
+        elif a == 5:
+            await ctx.send(ctx.author.name + " successfully tricapped " + member.name + "'s base with only a level 1 worm.")
+        elif a == 6:
+            await ctx.send(member.name + " along with 3 other nodes were wraithed by " + ctx.author.name + ". That damn scanner didn't do it's job!")
+        elif a == 7:
+            await ctx.send(member.name + " was brutally killed in real life while doing SC Sector 13 mission.")
+        elif a == 8:
+            await ctx.send(member.name + " commited attacking " + ctx.author.name + "'s base without a protector.")
+        elif a == 9:
+            await ctx.send(member.name + "'s network cable was unplugged by their 3 years old brother while attacking " + ctx.author.name + ".")
+        elif a == 10:
+            await ctx.send(member.name + " was brutally triple-blastered by " + ctx.author.name + ".")
+
 @bot.command(brief = "`Alexa lsStat {program/node} {stat} [level]` ", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
     argsList = args.split(' ')
@@ -257,8 +284,8 @@ async def dpsCalc(ctx, *, args):
                 boii = temp1["firewall"]
                 boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
                 dpsamount = 0.0
-    embed=discord.Embed(color=0x00ff00)
-    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
+##    embed=discord.Embed(color=0x00ff00)
+##    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
     await ctx.send("It took {} seconds to hack the base.".format(boiii))
 
 @bot.command(brief = '`Alexa projCalc {program} {level} {amount} {node} {level} 0 (repeat)`',description="This command calculates time based on projectile firing intervals and install times of the programs. This command assumes that projectiles are instant hitting and doesn't take into account the time it takes for a projectile to reach the target. The syntax is as follows: command <programName> <level> <amountOfProgram> <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it. typeProgramAndNodeNamesLikeThisPlease")
