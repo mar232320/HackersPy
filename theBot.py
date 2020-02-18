@@ -10,6 +10,7 @@ import math
 import sys
 import random
 import datetime
+from discord.ext import tasks
 
 #Bot Functionality
 async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
@@ -66,16 +67,6 @@ async def on_ready():
     
     channel= bot.get_channel(679214195119620117)
     await channel.send('Bot Boottime was passed, Bot Online')
-    while True:
-        currentDate= datetime.now()
-        embed= discord.Embed(color = 0x00ff00)
-        embed.add_field (name = "STATUS CHECK" value = 'At {}'.format(currentDate) inline = False)
-        embed.add_field (name = "Status: Ping" value = '{} ms'.format(str(round(bot.latency * 1000)))
-        ctx.send(embed=Embed)
-
-
-
-
 
 @bot.event
 async def on_message(message):
@@ -96,6 +87,24 @@ async def on_command_error(ctx,error):
 async def test(ctx):
     await ctx.send('ok boomer')
 
+@bot.command(description = "Enables/Disables Status Check Loops, ADMIN ONLY")
+async def statusCheck(ctx, args):
+    if args == "True" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        statusChecks.start()
+
+    elif args == "False" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        await ctx.send ('Bot Status Updates Stopped')
+        statusChecks.stop()
+
+@tasks.loop(seconds = 1800)
+async def statusChecks():
+    channel = bot.get_channel(679214195119620117)
+    currentDate= datetime.datetime.now()
+    embed= discord.Embed(color = 0x00ff00)        
+    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    await channel.send(embed=embed)
+        
 @bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
 async def help(ctx, *, args=None):
     if args is not None:
