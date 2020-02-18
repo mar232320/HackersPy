@@ -63,6 +63,7 @@ async def on_ready():
             game = discord.Game(presencelist[i])
             await bot.change_presence(status=discord.Status.online, activity = game)
             await asyncio.sleep(120)
+    
     channel= client.get_channel(679214195119620117)
     await channel.send('Bot Boottime was passed, Bot Online')
     while True:
