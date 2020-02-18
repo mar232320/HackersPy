@@ -91,13 +91,13 @@ async def test(ctx):
 async def statusCheck(ctx, args):
     if args == "True" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
         embed = discord.Embed(color=0x00ff00)
-        embed.add_field(name = "Started Bot Status Update Task Loop", value = "Requested by {}".format())
+        embed.add_field(name = "Started Bot Status Update Task Loop", value = "Requested by {}".format(ctx.author.display_name + ctx.author.discriminator), inline = False)
         await ctx.send (embed=embed)
         statusChecks.start()
 
     elif args == "False" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
         embed = discord.Embed(color=0x00ff00)
-        embed.add_field(name = "Stopped Bot Status Update Task Loop", value = "Requested by {}".format())
+        embed.add_field(name = "Stopped Bot Status Update Task Loop", value = "Requested by {}".format(ctx.author.display_name + ctx.author.discriminator), inline = False)
         await ctx.send(embed=embed)
         statusChecks.stop()
 
