@@ -108,6 +108,9 @@ async def statusChecks():
     embed= discord.Embed(color = 0x00ff00)        
     embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
     embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+    embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
     await channel.send(embed=embed)
         
 @bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
