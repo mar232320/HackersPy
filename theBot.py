@@ -9,6 +9,7 @@ import os
 import math
 import sys
 import random
+import datetime
 
 #Bot Functionality
 async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
@@ -62,7 +63,18 @@ async def on_ready():
             game = discord.Game(presencelist[i])
             await bot.change_presence(status=discord.Status.online, activity = game)
             await asyncio.sleep(120)
-##
+    channel= client.get_channel(679214195119620117)
+    await channel.send('Bot Boottime was passed, Bot Online')
+    while True:
+        currentDate= datetime.now()
+        embed= discord.Embed(color = 0x00ff00)
+        embed.add_field (name = "STATUS CHECK" value = 'At {}'.format(currentDate) inline = False)
+        embed.add_field (name = "Status: Ping" value = '{} ms'.format(str(round(bot.latency * 1000)))
+        ctx.send(embed=Embed)
+
+
+
+
 
 @bot.event
 async def on_message(message):
