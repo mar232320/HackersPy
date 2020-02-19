@@ -113,6 +113,16 @@ async def statusCheck(ctx, args):
         embed.add_field (name = "Status: Bot", value = "Online", inline = False)
         embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
         await channel.send(embed=embed)
+        
+    elif args == sendHere:
+        currentDate= datetime.datetime.now()
+        embed= discord.Embed(color = 0x00ff00)        
+        embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+        embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+        embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+        embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+        embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
+        await channel.send(embed=embed)
 
 @tasks.loop(seconds = 1800)
 async def statusChecks():
@@ -122,9 +132,29 @@ async def statusChecks():
     embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
     embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
     embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field (name = "Status: Bot", value = "Online", inline = False)    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
     embed.add_field (name = "Status: Bot", value = "Online", inline = False)
     embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
     await channel.send(embed=embed)
+
+@tasks.loop(seconds = 1800)
+async def statusChecks():
+    channel = bot.get_channel(679214195119620117)
+    currentDate= datetime.datetime.now()
+    embed= discord.Embed(color = 0x00ff00)        
+    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field (name = "Status: Bot", value = "Online", inline = False)    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+    embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
+    await channel.send(embed=embed)
+    embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
+
         
 @bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
 async def help(ctx, *, args=None):
