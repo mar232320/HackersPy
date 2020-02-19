@@ -403,9 +403,6 @@ async def playDespacito(ctx):
 ##        embed.add_field(name="Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!", value = None, inline = False)
         await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
 
-@bot.command(hidden = True)
-async def echo(ctx, args):
-    await ctx.message.delete()
-    await ctx.send(args)
+
 
 bot.run(TOKEN)
