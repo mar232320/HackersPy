@@ -122,7 +122,7 @@ async def statusCheck(ctx, args):
         embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
         embed.add_field (name = "Status: Bot", value = "Online", inline = False)
         embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
-        await channel.send(embed=embed)
+        await ctx.send(embed=embed)
 
 @tasks.loop(seconds = 1800)
 async def statusChecks():
