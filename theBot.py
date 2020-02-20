@@ -13,44 +13,52 @@ import datetime
 from discord.ext import tasks
 
 #Bot Functionality
-async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration):
-    time = 0
+async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,progAmount,isProgMulti,nodeFirewall,nodeRegeneration,nodeAmount):
+    firewall = nodeFirewall
+    regen = nodeRegeneration
+    time = progInstallTime
     i = 0
-#the below variable is not being used
-##    stunnedTime = 2
-#Pre-Calculation Definition & Math Layout
-    startshoot = -10000
-    while True:
-        if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:   
-            i += 1
-            time = i / 2
-            if (time == startshoot + progProjectileTime):
-                nodeFirewall -= progDamage * 3.5
-            if nodeFirewall <= 0:
-                return time + progInstallTime
-            if time / progHitInterval == int(time / progHitInterval):
-                startshoot = time
-                continue
-        else:
-            i += 1
-            time= i / 2
-            if (time == startshoot + progProjectileTime):
-                nodeFirewall -= progDamage * 3.5
-            if nodeFirewall <= 0:
+    if int(progAmount) <= 0:
+        return None
+    if isProgMulti == 0:
+        for x in range(1,int(nodeAmount)+1):
+            while True:
+                if firewall <= 0:
+                    break
+                i += 0.1
+                if i == max(progHitInterval - progProjectileTime, 0.1):
+                    if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10:
+                        firewall -= progDamage * int(progAmount) / 10
+                    else:
+                        return None
+                    i = 0
+                firewall += (firewall / 100 * regen) / 10
+                time += 0.1
+                if time > 10000:
+                    return time
+            firewall = nodeFirewall
+    else:
+        while True:
+            if firewall <= 0:
+                break
+            i += 0.1
+            if i == max(progHitInterval - progProjectileTime, 0.1):
+                if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10:
+                    firewall -= progDamage * int(progAmount) / 10
+                else:
+                    return None
+                i = 0
+            firewall += (firewall / 100 * regen) / 10
+            time += 0.1
+            if time > 10000:
                 return time
-            if (time / nodeRegeneration == int(time / nodeRegeneration)):
-                p = nodeFirewall / 100
-                nodeFirewall += p
-            if time / progHitInterval == int(time / progHitInterval):
-                startshoot = time
-                continue
+    return time
             
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
-bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None)
+bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
-
 
 with open('botToken.txt') as f:
     TOKEN = f.read()
@@ -76,12 +84,12 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
-@bot.event
-async def on_command_error(ctx,error):
-    embed = discord.Embed(color = 0xff0000)
-    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
-    await ctx.send('Oops, an error occured! {}'.format(error))
-    print(error)
+##@bot.event
+##async def on_command_error(ctx,error):
+##    embed = discord.Embed(color = 0xff0000)
+##    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
+##    await ctx.send('Oops, an error occured! {}'.format(error))
+##    print(error)
 
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing", hidden = True)
 async def test(ctx):
@@ -114,7 +122,7 @@ async def statusCheck(ctx, args):
         embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
         await channel.send(embed=embed)
         
-    elif args == sendHere:
+    elif args == 'sendHere':
         currentDate= datetime.datetime.now()
         embed= discord.Embed(color = 0x00ff00)        
         embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
@@ -132,12 +140,31 @@ async def statusChecks():
     embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
     embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
     embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
-    embed.add_field (name = "Status: Bot", value = "Online", inline = False)    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
     embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
     embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
     embed.add_field (name = "Status: Bot", value = "Online", inline = False)
     embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
     await channel.send(embed=embed)
+
+@tasks.loop(seconds = 1800)
+async def statusChecks():
+    channel = bot.get_channel(679214195119620117)
+    currentDate= datetime.datetime.now()
+    embed= discord.Embed(color = 0x00ff00)        
+    embed.add_field(name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field(name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field(name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field(name = "Status: Bot", value = "Online", inline = False)
+    embed.add_field(name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field(name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field(name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field(name = "Status: Bot", value = "Online", inline = False)
+    embed.add_field(name = "Status: Heroku", value = "Online", inline = False)
+    await channel.send(embed=embed)
+    embed.add_field(name = "Status: Heroku", value = "Online", inline = False)
+
         
 @bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
 async def help(ctx, *, args=None):
@@ -176,26 +203,41 @@ async def latency(ctx):
 @bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated",brief='Dead command here')
 async def calculate(ctx, *, args):
     argsList = args.split()
-    with open("{}.json".format(argsList[0])) as f:
-        temp1 = json.load(f)
-        progDamage = temp1['DPS'][argsList[1]]
-        progInstallTime = temp1["installTime"]
-        progHitInterval = temp1["hitInterval"]
-        progProjectileTime = temp1["projectileTime"]
-    with open("{}.json".format(argsList[2])) as b:
-        temp2 = json.load(b)
-        nodeFirewall = temp2['fireWall'][argsList[3]]
-        nodeRegeneration = temp2['firewallRegeneration']
-    if progDamage * 3.5 < nodeFirewall / 100 * nodeRegeneration:
-        await ctx.send("""The damage of the program is lower than the node's regeneration.
-                       Assuming the node can't regenerate...""")
-    takeOverTime = await timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,nodeFirewall,nodeRegeneration)
-    embed = discord.Embed(color=0x00ff00)
-    minute = takeOverTime // 60
-    second = takeOverTime - minute * 60
-    embed.add_field(name='Calculation finished!', value= 'Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)),inline = False)
-    await ctx.send('Calculation finished!, Node was taken in %s seconds (or %s minute(s) %s second(s))' %(takeOverTime,round(minute),round(second)))
-
+    progsName = []
+    progsLevel = []
+    progsAmount = []
+    nodesName = []
+    nodesLevel = []
+    nodesAmount = []
+    i = 0
+    while i <= len(argsList) - 1:
+        progsName.append(argsList[i])
+        progsLevel.append(argsList[i+1])
+        progsAmount.append(argsList[i+2])
+        nodesName.append(argsList[i+3])
+        nodesLevel.append(argsList[i+4])
+        nodesAmount.append(argsList[i+5])
+        i += 6
+    i = 0 
+    while i < len(nodesAmount):
+        with open('{}.json'.format(progsName[i])) as f:
+            a = json.load(f)
+        with open('{}.json'.format(nodesName[i])) as g:
+            b = json.load(g)
+##async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,progAmount,isProgMulti,nodeFirewall,nodeRegeneration,nodeAmount)
+            takeOverTime = 0
+            time = await timeCal(a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],a['isMulti'],b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
+            if time is not None:
+                takeOverTime += time
+            elif time is None:
+                await ctx.send("The node is unable to be taken over.")
+                return 
+            if progsName[i] == 'beamCannon':
+                takeOverTime += 0.5 
+            i += 1
+    await ctx.send("""Calculation finished!
+Node was taken in {} seconds.""".format(round(takeOverTime,ndigits=4)))
+    
 @bot.command(description="We dont know what this does, maybe its an easter egg?", hidden = True)
 async def suffer(ctx):
     embed = discord.Embed(color = 0xff0000)
