@@ -53,6 +53,20 @@ async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,
             if time > 10000:
                 return time
     return time
+
+async def stealthCal(visibility, stealthProgVisibility, stealthProgInstallTime):
+    time = 0
+    i = 0
+    while True:
+        time += 20
+        time += (stealthProgInstallTime * (stealthProgVisibility / 100 * visibility))
+        i += 1
+        if i == stealthProgInstallTime:
+            break
+        if time >= 3600:
+            break
+    return round(time,0)            
+
             
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
@@ -84,12 +98,12 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
-##@bot.event
-##async def on_command_error(ctx,error):
-##    embed = discord.Embed(color = 0xff0000)
-##    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
-##    await ctx.send('Oops, an error occured! {}'.format(error))
-##    print(error)
+@bot.event
+async def on_command_error(ctx,error):
+    embed = discord.Embed(color = 0xff0000)
+    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
+    await ctx.send('Oops, an error occured! {}'.format(error))
+    print(error)
 
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing", hidden = True)
 async def test(ctx):
@@ -200,7 +214,7 @@ async def help(ctx, *, args=None):
 async def latency(ctx):
     await ctx.send("Pong! "  + str(round(bot.latency * 1000)) + "ms.")
     
-@bot.command(description="Use dpsCalculate or projectileCalculate, as this command is outdated",brief='Dead command here')
+@bot.command(description="Calculates ",brief='`Alexa calculate {program} {program level} {program amount} {node} {node level} {node amount} (repeat)`', aliases=['calc','dmgcalc'])
 async def calculate(ctx, *, args):
     argsList = args.split()
     progsName = []
@@ -230,14 +244,38 @@ async def calculate(ctx, *, args):
             if time is not None:
                 takeOverTime += time
             elif time is None:
-                await ctx.send("The node is unable to be taken over.")
+                await ctx.send("The node(s) is (are) unable to be taken over.")
                 return 
             if progsName[i] == 'beamCannon':
                 takeOverTime += 0.5 
             i += 1
-    await ctx.send("""Calculation finished!
-Node was taken in {} seconds.""".format(round(takeOverTime,ndigits=4)))
-    
+    await ctx.send("Calculation finished! Node(s) was captured in " + str(takeOverTime) + " seconds (or " + str(takeOverTime // 60) + " minute(s) " + str(takeOverTime - minute * 60) + " second(s))")
+
+@bot.command(description="Calculate the visibility of stealth program.", brief='`Alexa stealthCalc {scanner level} {stealth program} {level} {amount} {another stealth program} {level} {amount} (and so on)`')
+async def stealthCalc(ctx,*,args):
+    argsList = args.split()
+    nodeLevel = argsList[0]
+    progsName = []
+    progsLevel = []
+    progsAmount = []
+    i = 1
+    visibility = 0
+    while i < len(argsList):
+        progsName.append(argsList[i])
+        progsLevel.append(argsList[i+1])
+        progsAmount.append(argsList[i+2])
+        i += 3
+    with open('scanner.json','r') as b:
+        c = json.load(b)
+##async def stealthCal(visibility, stealthProgVisibility, stealthProgInstallTime):
+    for i in range(0,len(progsName)):
+        with open('{}.json'.format(progsName[i]),'r') as f:
+            a = json.load(f)
+            e = progsAmount[i]
+        for d in range(1,int(e)+1):
+            visibility += await stealthCal(c['visibility'][nodeLevel], a['visibility'][progsLevel[i]], a['installTime'])
+    await ctx.send("Visibility needed to use all of the programs: {} visibility.".format(visibility))
+
 @bot.command(description="We dont know what this does, maybe its an easter egg?", hidden = True)
 async def suffer(ctx):
     embed = discord.Embed(color = 0xff0000)
@@ -343,8 +381,8 @@ async def lsStat(ctx, *, args):
         value = temp1[argsList[1]]
         embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
         await ctx.send(embed=embed)
-        
-@bot.command(brief = "`Alexa dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)`", description="This command calculates the raw DPS of all programs. This does not account for projectile travel time and therefore assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. This uses the same syntax as projCalc, which you will find below. typeProgramAndNodeNamesLikeThisPlease")
+##Alexa dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)
+@bot.command(brief = "`Currently dead, use calculate instead`", description="This command calculates the raw DPS of all programs. This does not account for projectile travel time and therefore assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. This uses the same syntax as projCalc, which you will find below. typeProgramAndNodeNamesLikeThisPlease")
 async def dpsCalc(ctx, *, args):
     argsList = args.split(" ")
     i = 0
