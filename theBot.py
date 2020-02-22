@@ -158,39 +158,11 @@ async def latency(ctx):
     
 @bot.command(description="Calculates ",brief='`Alexa calculate {program} {program level} {program amount} {node} {node level} {node amount} (repeat)`', aliases=['calc','dmgcalc'])
 async def calculate(ctx, *, args):
-    argsList = args.split()
-    progsName = []
-    progsLevel = []
-    progsAmount = []
-    nodesName = []
-    nodesLevel = []
-    nodesAmount = []
-    i = 0
-    while i <= len(argsList) - 1:
-        progsName.append(argsList[i])
-        progsLevel.append(argsList[i+1])
-        progsAmount.append(argsList[i+2])
-        nodesName.append(argsList[i+3])
-        nodesLevel.append(argsList[i+4])
-        nodesAmount.append(argsList[i+5])
-        i += 6
-    i = 0 
-    while i < len(nodesAmount):
-        with open('{}.json'.format(progsName[i])) as f:
-            a = json.load(f)
-        with open('{}.json'.format(nodesName[i])) as g:
-            b = json.load(g)
-            takeOverTime = 0
-            time = await CalculateLib.TimeCalMT(a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],a['isMulti'],b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
-            if time is not None:
-                takeOverTime += time
-            elif time is None:
-                await ctx.send("The node(s) is (are) unable to be taken over.")
-                return 
-            if progsName[i] == 'beamCannon':
-                takeOverTime += 0.5 
-            i += 1
-    await ctx.send("Calculation finished! Node(s) was captured in " + str(takeOverTime) + " seconds (or " + str(takeOverTime // 60) + " minute(s) " + str(takeOverTime - minute * 60) + " second(s))")
+    result = CalculateLib.calculate(args)
+    if result == 'Fail':
+        await ctx.send('The node is unable to be taken over')
+    else:
+        await ctx.send(f'The node is taken over in {result} seconds')
 
 @bot.command(description="Calculate the visibility of stealth program.", brief='`Alexa stealthCalc {scanner level} {stealth program} {level} {amount} {another stealth program} {level} {amount} (and so on)`')
 async def stealthCalc(ctx,*,args):
@@ -409,4 +381,4 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
-bot.run()
+bot.run('NjgwNjg5NjU2OTU3ODk0NjU2.XlDjqw._WXOockGr22i7G7EeJCfRo5QgEU')
