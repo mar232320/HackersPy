@@ -161,6 +161,8 @@ async def calculate(ctx, *, args):
     result = CalculateLib.calculate(args)
     if result is None:
         await ctx.send('The node is unable to be taken over')
+    elif result > 180:
+        await ctx.send('The node is unable to be taken over')
     else:
         await ctx.send(f'The node is taken over in {result} seconds')
 
@@ -381,4 +383,4 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
-bot.run()
+bot.run('')
