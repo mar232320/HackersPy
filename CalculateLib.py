@@ -51,14 +51,10 @@ def TimeCalMT(progDamage, progInstallTime, progHitInterval, progProjectileTime, 
 def stealthCalMT(visibilityboost, stealthProgVisibility, stealthProgInstallTime):
     time = 0
     i = 0
-    while True:
+    while i < stealthProgInstallTime:
         time += 20
-        time += (stealthProgInstallTime * (stealthProgVisibility / 100 * visibilityboost))
+        time += (stealthProgVisibility / 100 * visibilityboost)
         i += 1
-        if i == stealthProgInstallTime:
-            break
-        if time >= 3600:
-            break
     return round(time,0)     
 
 
