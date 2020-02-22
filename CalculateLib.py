@@ -90,7 +90,7 @@ def calculate(args):
             #Start Calculation here
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 calculation = executor.submit(TimeCalMT, a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],a['isMulti'],b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
-                time = calculation.result()
+                time = calculation.result(timeout=180)
                 return time
             
             if time is not None:

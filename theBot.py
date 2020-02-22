@@ -159,7 +159,7 @@ async def latency(ctx):
 @bot.command(description="Calculates ",brief='`Alexa calculate {program} {program level} {program amount} {node} {node level} {node amount} (repeat)`', aliases=['calc','dmgcalc'])
 async def calculate(ctx, *, args):
     result = CalculateLib.calculate(args)
-    if result == 'Fail':
+    if result is None:
         await ctx.send('The node is unable to be taken over')
     else:
         await ctx.send(f'The node is taken over in {result} seconds')
