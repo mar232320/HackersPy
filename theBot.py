@@ -21,9 +21,6 @@ desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers 
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
 
-botToken = os.environ.get(str(BOT_TOKEN))
-
-
 @bot.event
 async def on_ready():
     print("Up and running")
@@ -370,6 +367,6 @@ async def reload_command_error(ctx, error):
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
-        
+
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
