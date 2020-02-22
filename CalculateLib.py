@@ -53,7 +53,7 @@ def stealthCalMT(visibilityboost, stealthProgVisibility, stealthProgInstallTime)
     i = 0
     while True:
         time += 20
-        time += (stealthProgInstallTime * (stealthProgVisibility * (visibilityboost / 100)))
+        time += (stealthProgInstallTime * (stealthProgVisibility / 100 * visibilityboost))
         i += 1
         if i == stealthProgInstallTime:
             break
