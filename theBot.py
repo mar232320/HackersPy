@@ -17,7 +17,12 @@ from discord.ext import tasks
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
-bot = commands.Bot(command_prefix = "Alexa ", description=desc, case_insensitive = True)
+
+bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
+bot.remove_command('help')
+
+botToken = os.environ.get(str(BOT_TOKEN))
+
 
 @bot.event
 async def on_ready():
@@ -318,6 +323,7 @@ async def playDespacito(ctx):
 ##        embed.add_field(name="Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!", value = None, inline = False)
         await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
 
+
 @bot.command()
 @commands.has_permissions(manage_guild=True)
 async def load(ctx, extension):
@@ -365,4 +371,5 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
-bot.run()
+
+bot.run(botToken)
