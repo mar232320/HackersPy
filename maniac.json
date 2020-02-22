@@ -51,5 +51,6 @@
 	"hitInterval": 0.5,
 	"projectileTime": 0.5,
 	"isAStructure": 0,
+	"isMulti": 0,
 	"imageAddress": "https://vignette.wikia.nocookie.net/hackersthegame/images/f/f2/Maniac.png/revision/latest/scale-to-width-down/310?cb=20160504092024"
 }

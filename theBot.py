@@ -10,71 +10,19 @@ import math
 import sys
 import random
 import datetime
+import CalculateLib
 from discord.ext import tasks
-
-#Bot Functionality
-async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,progAmount,isProgMulti,nodeFirewall,nodeRegeneration,nodeAmount):
-    firewall = nodeFirewall
-    regen = nodeRegeneration
-    time = progInstallTime
-    i = 0
-    if int(progAmount) <= 0:
-        return None
-    if isProgMulti == 0:
-        for x in range(1,int(nodeAmount)+1):
-            while True:
-                if firewall <= 0:
-                    break
-                i += 0.1
-                if i == max(progHitInterval - progProjectileTime, 0.1):
-                    if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10:
-                        firewall -= progDamage * int(progAmount) / 10
-                    else:
-                        return None
-                    i = 0
-                firewall += (firewall / 100 * regen) / 10
-                time += 0.1
-                if time > 10000:
-                    return time
-            firewall = nodeFirewall
-    else:
-        while True:
-            if firewall <= 0:
-                break
-            i += 0.1
-            if i == max(progHitInterval - progProjectileTime, 0.1):
-                if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10:
-                    firewall -= progDamage * int(progAmount) / 10
-                else:
-                    return None
-                i = 0
-            firewall += (firewall / 100 * regen) / 10
-            time += 0.1
-            if time > 10000:
-                return time
-    return time
-
-async def stealthCal(visibility, stealthProgVisibility, stealthProgInstallTime):
-    time = 0
-    i = 0
-    while True:
-        time += 20
-        time += (stealthProgInstallTime * (stealthProgVisibility / 100 * visibility))
-        i += 1
-        if i == stealthProgInstallTime:
-            break
-        if time >= 3600:
-            break
-    return round(time,0)            
 
             
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
+
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
 
 botToken = os.environ.get(str(BOT_TOKEN))
+
 
 @bot.event
 async def on_ready():
@@ -179,35 +127,35 @@ async def statusChecks():
     embed.add_field(name = "Status: Heroku", value = "Online", inline = False)
 
         
-@bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
-async def help(ctx, *, args=None):
-    if args is not None:
-        b = args.split()
-    try:
-        if args is None:
-            embed = discord.Embed(color=0x00ff00, title = desc)
-            a = list(bot.commands)
-            for i in range(0,len(bot.commands)):
-                if a[i].hidden == True:
-                    pass
-                else:
-                    embed.add_field(name=a[i].name, value = str(a[i].description),inline=False)
-            embed.set_footer(text="For more information on any command type |.help <command>| (work in progress)")
-            await ctx.author.send(embed=embed)
-            await ctx.send('A message with the help page sent to your DM!')
-        elif len(b) == 1:
-            reqCommand = bot.get_command(b[0])
-            embed = discord.Embed(color=0x00ff00,title = "Help page for " + reqCommand.name + " command:")
-            embed.add_field(name="Usage: ", value = str(reqCommand.brief),inline=True)
-            if len(reqCommand.aliases) != 0:
-                embed.add_field(name="Aliases: ", value = str(reqCommand.aliases), inline = False)
-            else:
-                embed.add_field(name="Aliases: ", value = "No aliases", inline = False)
-            embed.add_field(name="Description on usage:", value = reqCommand.description,inline=False)
-            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar_url)
-            await ctx.send(embed=embed)
-    except discord.Forbidden:
-        await ctx.send("Failed sending the message with the help page. Did you block the bot?")
+#@bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
+#async def help(ctx, *, args=None):
+#    if args is not None:
+#        b = args.split()
+#    try:
+#        if args is None:
+#            embed = discord.Embed(color=0x00ff00, title = desc)
+#            a = list(bot.commands)
+#            for i in range(0,len(bot.commands)):
+#                if a[i].hidden == True:
+#                    pass
+#                else:
+#                    embed.add_field(name=a[i].name, value = str(a[i].description),inline=False)
+#            embed.set_footer(text="For more information on any command type |.help <command>| (work in progress)")
+#            await ctx.author.send(embed=embed)
+#            await ctx.send('A message with the help page sent to your DM!')
+#        elif len(b) == 1:
+#            reqCommand = bot.get_command(b[0])
+#            embed = discord.Embed(color=0x00ff00,title = "Help page for " + reqCommand.name + " command:")
+#            embed.add_field(name="Usage: ", value = str(reqCommand.brief),inline=True)
+#            if len(reqCommand.aliases) != 0:
+#                embed.add_field(name="Aliases: ", value = str(reqCommand.aliases), inline = False)
+#            else:
+#                embed.add_field(name="Aliases: ", value = "No aliases", inline = False)
+#            embed.add_field(name="Description on usage:", value = reqCommand.description,inline=False)
+#            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar_url)
+#            await ctx.send(embed=embed)
+#    except discord.Forbidden:
+#        await ctx.send("Failed sending the message with the help page. Did you block the bot?")
 
 @bot.command(description = "Return the latency of the bot. Can also be triggered with .ping", aliases=['ping'], brief = "`Alexa ping`")
 async def latency(ctx):
@@ -215,141 +163,21 @@ async def latency(ctx):
     
 @bot.command(description="Calculates ",brief='`Alexa calculate {program} {program level} {program amount} {node} {node level} {node amount} (repeat)`', aliases=['calc','dmgcalc'])
 async def calculate(ctx, *, args):
-    argsList = args.split()
-    progsName = []
-    progsLevel = []
-    progsAmount = []
-    nodesName = []
-    nodesLevel = []
-    nodesAmount = []
-    i = 0
-    while i <= len(argsList) - 1:
-        progsName.append(argsList[i])
-        progsLevel.append(argsList[i+1])
-        progsAmount.append(argsList[i+2])
-        nodesName.append(argsList[i+3])
-        nodesLevel.append(argsList[i+4])
-        nodesAmount.append(argsList[i+5])
-        i += 6
-    i = 0 
-    while i < len(nodesAmount):
-        with open('{}.json'.format(progsName[i])) as f:
-            a = json.load(f)
-        with open('{}.json'.format(nodesName[i])) as g:
-            b = json.load(g)
-##async def timeCal(progDamage,progInstallTime,progHitInterval,progProjectileTime,progAmount,isProgMulti,nodeFirewall,nodeRegeneration,nodeAmount)
-            takeOverTime = 0
-            time = await timeCal(a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],a['isMulti'],b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
-            if time is not None:
-                takeOverTime += time
-            elif time is None:
-                await ctx.send("The node(s) is (are) unable to be taken over.")
-                return 
-            if progsName[i] == 'beamCannon':
-                takeOverTime += 0.5 
-            i += 1
-    await ctx.send("Calculation finished! Node(s) was captured in " + str(takeOverTime) + " seconds (or " + str(takeOverTime // 60) + " minute(s) " + str(takeOverTime - minute * 60) + " second(s))")
+    result = CalculateLib.calculate(args)
+    if result is None:
+        await ctx.send('The node is unable to be taken over')
+    elif result > 180:
+        await ctx.send('The node is unable to be taken over')
+    else:
+        await ctx.send(f'The node is taken over in {result} seconds')
 
 @bot.command(description="Calculate the visibility of stealth program.", brief='`Alexa stealthCalc {scanner level} {stealth program} {level} {amount} {another stealth program} {level} {amount} (and so on)`')
 async def stealthCalc(ctx,*,args):
-    argsList = args.split()
-    nodeLevel = argsList[0]
-    progsName = []
-    progsLevel = []
-    progsAmount = []
-    i = 1
-    visibility = 0
-    while i < len(argsList):
-        progsName.append(argsList[i])
-        progsLevel.append(argsList[i+1])
-        progsAmount.append(argsList[i+2])
-        i += 3
-    with open('scanner.json','r') as b:
-        c = json.load(b)
-##async def stealthCal(visibility, stealthProgVisibility, stealthProgInstallTime):
-    for i in range(0,len(progsName)):
-        with open('{}.json'.format(progsName[i]),'r') as f:
-            a = json.load(f)
-            e = progsAmount[i]
-        for d in range(1,int(e)+1):
-            visibility += await stealthCal(c['visibility'][nodeLevel], a['visibility'][progsLevel[i]], a['installTime'])
-    await ctx.send("Visibility needed to use all of the programs: {} visibility.".format(visibility))
-
-@bot.command(description="We dont know what this does, maybe its an easter egg?", hidden = True)
-async def suffer(ctx):
-    embed = discord.Embed(color = 0xff0000)
-    embed.add_field(name="The Bang Bang created everything. however there was never nothing, and thats why there is always nothing. nothing is everywhere, its so every you dont need a where", value = str, inline = False)
-    await ctx.send(embed=embed)
-
-@bot.command(description = "Lists nodeNames and keys aswell as programNames and keys", aliases = ['wtf'])
-async def listitems(ctx):
-    await ctx.send ("Programs: beamCannon (doesnt work with projCalc as beam is not a projectile) shuriken blaster maniac worm\n Nodes: codeGate (does not have filter emulation as of now) core serverFarm database coinMiner coinMixer scanner sentry turret blackIce guardian evolver,\n Keys: DPS (progs) firewall (Nodes)")
-
-@bot.command(hidden = True)
-async def killAmethysm(ctx):
-    randkill = ["Gun", "Drowning", "Molchu"]
-    chosenrandkill = random.choice(randkill)
-    if chosenrandkill == "Gun":
-        await ctx.send("Amethysm was shot by a gun! Bang! he's dead!")
-
-    if chosenrandkill == "Drowning":
-        await ctx.send("Molchu threw Amethysm off a glacier and he couldn't swim, :(")
-
-    if chosenrandkill == "Molchu":
-        await ctx.send("Molchu and Amethysm Dueled with swords, molchu stabs Amethysm and he dies :(")
-
-@bot.command(hidden = True)
-async def killCode(ctx):
-    randkill = ["Gun", "Drowning", "Molchu"]
-    chosenrandkill = random.choice(randkill)
-    if chosenrandkill == "Gun":
-        await ctx.send("CodeWritten was shot by a gun! Bang! he's dead!")
-
-    if chosenrandkill == "Drowning":
-        await ctx.send("Molchu threw CodeWritten off a glacier and he couldn't swim, :(")
-
-    if chosenrandkill == "Molchu":
-        await ctx.send("Molchu and CodeWritten Dueled with swords, molchu stabs CodeWritten and he dies :(")
-
-@bot.command(hidden = True)
-async def killMolchu(ctx):
-    randkill = ["Gun", "Drowning", "Molchu"]
-    chosenrandkill = random.choice(randkill)
-    if chosenrandkill == "Gun":
-        await ctx.send("Molchu was shot by a gun! Bang! he's dead!")
-
-    if chosenrandkill == "Drowning":
-        await ctx.send("CodeWritten threw Molchu off a glacier and he couldn't swim, :(")
-
-    if chosenrandkill == "Molchu":
-        await ctx.send("Molchu and CodeWritten Dueled with swords, CodeWritten stabs molchu and he dies :(")
-
-@bot.command(brief = '`Alexa kill {member}`', description="Kill someone you hate. More death messages coming soon!")
-async def kill(ctx,member:discord.Member=None):
-    if member is None:
-        await ctx.send("You decided to look around for someone to kill with your new gun, but there wasn't anyone nearby. You ended up killing yourself.")
+    result = CalculateLib.stealthCalc(args)
+    if result > 3600:
+        await ctx.send('Cannot install all the programs, alarm triggered before finishing')
     else:
-        a = random.randint(1,10)
-        if a == 1:
-            await ctx.send(member.name + " was filled with " + ctx.author.name + "'s worms.")
-        elif a == 2:
-            await ctx.send(member.name + " was brutally killed after stating that beam cannon is better than shuriken.")
-        elif a == 3:
-            await ctx.send(member.name + " was dead trying to triple protector a node. They forgot they didn't have any protectors left.")
-        elif a == 4:
-            await ctx.send(member.name + " was captured by a hit of maniac in the face by " + ctx.author.name + ".")
-        elif a == 5:
-            await ctx.send(ctx.author.name + " successfully tricapped " + member.name + "'s base with only a level 1 worm.")
-        elif a == 6:
-            await ctx.send(member.name + " along with 3 other nodes were wraithed by " + ctx.author.name + ". That damn scanner didn't do it's job!")
-        elif a == 7:
-            await ctx.send(member.name + " was brutally killed in real life while doing SC Sector 13 mission.")
-        elif a == 8:
-            await ctx.send(member.name + " commited attacking " + ctx.author.name + "'s base without a protector.")
-        elif a == 9:
-            await ctx.send(member.name + "'s network cable was unplugged by their 3 years old brother while attacking " + ctx.author.name + ".")
-        elif a == 10:
-            await ctx.send(member.name + " was brutally triple-blastered by " + ctx.author.name + ".")
+        await ctx.send(f'The total amount of visibility point needed for installing all the programs is {result}')
 
 @bot.command(brief = "`Alexa lsStat {program/node} {stat} [level]` ", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
@@ -495,6 +323,53 @@ async def playDespacito(ctx):
 ##        embed.add_field(name="Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!", value = None, inline = False)
         await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
 
+
+@bot.command()
+@commands.has_permissions(manage_guild=True)
+async def load(ctx, extension):
+    bot.load_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} has been loaded')
+    print(f'{extension} has been loaded')
+
+@bot.command()
+@commands.has_permissions(manage_guild=True)
+async def unload(ctx, extension):
+    bot.unload_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} has been unloaded')
+    print(f'{extension} has been unloaded')
+
+@bot.command()
+@commands.has_permissions(manage_guild=True)
+async def reload(ctx, extension):
+    bot.unload_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
+    print(f'{extension} has been reloaded')
+    await ctx.send(f'{extension} has been reloaded')
+
+@load.error
+async def load_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to load")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+
+@unload.error
+async def unload_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to unload")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")   
+
+@reload.error
+async def reload_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to reload")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.{filename[:-3]}')
 
 
 bot.run(botToken)

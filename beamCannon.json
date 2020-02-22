@@ -50,5 +50,6 @@
     "installTime": 1,
     "hitInterval": 0.1,
     "projectileTime": 0,
-    "isAStructure": 0
+    "isAStructure": 0,
+    "isMulti": 1
 }
