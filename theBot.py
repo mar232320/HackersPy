@@ -74,7 +74,7 @@ desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers 
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
 
-botToken = os.environ.get('BOT_TOKEN')
+botToken = os.environ.get(str(BOT_TOKEN))
 
 @bot.event
 async def on_ready():
