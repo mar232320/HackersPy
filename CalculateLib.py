@@ -48,12 +48,12 @@ def TimeCalMT(progDamage, progInstallTime, progHitInterval, progProjectileTime, 
     return time
       
      
-def stealthCal(visibility, stealthProgVisibility, stealthProgInstallTime):
+def stealthCalMT(visibilityboost, stealthProgVisibility, stealthProgInstallTime):
     time = 0
     i = 0
     while True:
         time += 20
-        time += (stealthProgInstallTime * (stealthProgVisibility / 100 * visibility))
+        time += (stealthProgInstallTime * (stealthProgVisibility * (visibilityboost / 100)))
         i += 1
         if i == stealthProgInstallTime:
             break
@@ -101,4 +101,29 @@ def calculate(args):
                 takeOverTime += 0.5 
             i += 1
     return takeOverTime
+
+def stealthCalc(args):
+    argsList = args.split()
+    nodeLevel = argsList[0]
+    progsName = []
+    progsLevel = []
+    progsAmount = []
+    i = 1
+    visibility = 0
+    while i < len(argsList):
+        progsName.append(argsList[i])
+        progsLevel.append(argsList[i+1])
+        progsAmount.append(argsList[i+2])
+        i += 3
+    with open('scanner.json','r') as b:
+        c = json.load(b)
+    for i in range(0,len(progsName)):
+        with open('{}.json'.format(progsName[i]),'r') as f:
+            a = json.load(f)
+            e = progsAmount[i]
+        for d in range(1,int(e)+1):
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                calculation = executor.submit(stealthCalMT, c['visibilityboost'][nodeLevel], a['visibility'][progsLevel[i]], a['installTime'])
+                fvisibility = calculation.result()
+                return fvisibility
 

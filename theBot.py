@@ -168,29 +168,11 @@ async def calculate(ctx, *, args):
 
 @bot.command(description="Calculate the visibility of stealth program.", brief='`Alexa stealthCalc {scanner level} {stealth program} {level} {amount} {another stealth program} {level} {amount} (and so on)`')
 async def stealthCalc(ctx,*,args):
-    argsList = args.split()
-    nodeLevel = argsList[0]
-    progsName = []
-    progsLevel = []
-    progsAmount = []
-    i = 1
-    visibility = 0
-    while i < len(argsList):
-        progsName.append(argsList[i])
-        progsLevel.append(argsList[i+1])
-        progsAmount.append(argsList[i+2])
-        i += 3
-    with open('scanner.json','r') as b:
-        c = json.load(b)
-##async def stealthCal(visibility, stealthProgVisibility, stealthProgInstallTime):
-    for i in range(0,len(progsName)):
-        with open('{}.json'.format(progsName[i]),'r') as f:
-            a = json.load(f)
-            e = progsAmount[i]
-        for d in range(1,int(e)+1):
-            visibility += CalculateLib.stealthCalMT(c['visibility'][nodeLevel], a['visibility'][progsLevel[i]], a['installTime'])
-    await ctx.send("Visibility needed to use all of the programs: {} visibility.".format(visibility))
-
+    result = CalculateLib.stealthCalc(args)
+    if result > 3600:
+        await ctx.send('Cannot install all the programs, alarm triggered before finishing')
+    else:
+        await ctx.send(f'The total amount of visibility point needed for installing all the programs is {result}')
 
 @bot.command(brief = "`Alexa lsStat {program/node} {stat} [level]` ", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
@@ -383,4 +365,4 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
-bot.run('')
+bot.run('NjgwNjg5NjU2OTU3ODk0NjU2.XlD56g.hSQWJdwu7qY1ejKZ2gA6ftozwXs')
