@@ -405,7 +405,7 @@ async def reload_command_error(ctx, error):
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
 
-for filename in os.listdir('./HackersPy/cogs'):
+for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
