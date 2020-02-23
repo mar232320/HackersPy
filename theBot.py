@@ -36,7 +36,7 @@ async def on_message(message):
     if message.guild is None:
         print(message.author.name + message.author.discriminator + ": " + message.content)
     messageLister = message.split(" ")
-    if messageLister[1] == "Alexa":
+    if messageLister[0] == "Alexa":
         await logChannel.send(message)
 	
 @bot.event
