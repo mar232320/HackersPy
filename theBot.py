@@ -13,9 +13,10 @@ from discord.ext import tasks
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
-logChannel = bot.get_channel(681216619955224583)
+
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
+logChannel = bot.get_channel(681216619955224583)
 
 @bot.event
 async def on_ready():
