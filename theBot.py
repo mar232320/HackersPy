@@ -37,11 +37,6 @@ async def on_message(message):
 	if message.guild is None:
 		print(message.author.name + message.author.discriminator + ": " + message.content)
     #log
-    messageLister = message.split(" ")
-    if messageLister[1] == "Alexa":
-        await logChannel.send(message)
-		
-	await bot.process_commands(message)
 	
 @bot.event
 async def on_command_error(ctx,error):
