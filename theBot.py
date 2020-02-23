@@ -36,7 +36,6 @@ async def on_message(message):
 	"""Logs messages sent to the bot via DM."""
 	if message.guild is None:
 		print(message.author.name + message.author.discriminator + ": " + message.content)
-    #log
 	
 @bot.event
 async def on_command_error(ctx,error):
