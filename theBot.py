@@ -42,6 +42,7 @@ async def on_message(message):
     messageLister = message.split(" ")
     if messageLister[0] == "Alexa":
         await logChannel.send(message)
+    await bot.process_commands(message)
     
 @bot.event
 async def on_command_error(ctx,error):
