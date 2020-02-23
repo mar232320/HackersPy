@@ -33,16 +33,13 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    messageLister = message.split(" ")
-    if messageLister[1] == "Alexa":
-        await logChannel.send(message)
-
-
-@bot.event
-async def on_message(message):
 	"""Logs messages sent to the bot via DM."""
 	if message.guild is None:
 		print(message.author.name + message.author.discriminator + ": " + message.content)
+    #log
+    messageLister = message.split(" ")
+    if messageLister[1] == "Alexa":
+        await logChannel.send(message)
 		
 	await bot.process_commands(message)
 	
