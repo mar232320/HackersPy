@@ -31,7 +31,7 @@ async def on_ready():
 	await channel.send('Bot Boottime was passed, Bot Online')
 
 @bot.event
-async def on_command(args):
+async def on_command(whatthefuck=str):
     myVariableNamesAreAmazing = bot.get_channel(681216619955224583)
     await myVariableNamesAreAmazing.send(args)
 
