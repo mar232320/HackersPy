@@ -44,7 +44,7 @@ async def on_message(message):
     messageLister = discordisstupid.split(" ")
     if messageLister[0] == "Alexa":
 
-        await logChannel.send(message)
+        await logChannel.send(discordisstupid)
     await bot.process_commands(message)
     
 @bot.event
