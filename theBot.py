@@ -33,7 +33,7 @@ async def on_ready():
 @bot.event
 async def on_command(whatthefuck=str):
     myVariableNamesAreAmazing = bot.get_channel(681216619955224583)
-    await myVariableNamesAreAmazing.send(args)
+    await myVariableNamesAreAmazing.send(whatthefuck)
 
 
 @bot.event
