@@ -7,7 +7,7 @@ import os
 import sys
 import datetime
 import CalculateLib
-import logger
+#import logger
 from discord.ext import tasks
 
 
