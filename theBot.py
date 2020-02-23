@@ -42,8 +42,11 @@ async def on_message(message):
     if message.guild is None:
         print(message.author.name + message.author.discriminator + ": " + message.content)
     messageLister = discordisstupid.split(" ")
+    if message.author == bot.user:
+        return
+    if message.author.bot:
+        return
     if messageLister[0] == "Alexa":
-
         await logChannel.send(discordisstupid)
     await bot.process_commands(message)
     
