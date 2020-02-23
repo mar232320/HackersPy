@@ -32,8 +32,10 @@ async def on_ready():
 	await channel.send('Bot Boottime was passed, Bot Online')
 
 @bot.event
-async def on_command(ctx, whatthefuck=str):
-    await logChannel.send(whatthefuck)
+async def on_message(message):
+    messageLister = message.split(" ")
+    if messageLister[1] == "Alexa":
+        await logChannel.send(message)
 
 
 @bot.event
