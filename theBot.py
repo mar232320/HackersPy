@@ -29,7 +29,13 @@ async def on_ready():
 			
 	channel= bot.get_channel(679214195119620117)
 	await channel.send('Bot Boottime was passed, Bot Online')
-	
+
+@bot.event
+async def on_command(args):
+    myVariableNamesAreAmazing = bot.get_channel(681216619955224583)
+    await myVariableNamesAreAmazing.send(args)
+
+
 @bot.event
 async def on_message(message):
 	"""Logs messages sent to the bot via DM."""
