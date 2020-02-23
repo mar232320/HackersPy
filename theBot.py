@@ -33,9 +33,11 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-	"""Logs messages sent to the bot via DM."""
-	if message.guild is None:
-		print(message.author.name + message.author.discriminator + ": " + message.content)
+    if message.guild is None:
+        print(message.author.name + message.author.discriminator + ": " + message.content)
+    messageLister = message.split(" ")
+    if messageLister[1] == "Alexa":
+        await logChannel.send(message)
 	
 @bot.event
 async def on_command_error(ctx,error):
