@@ -37,11 +37,12 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+	discordisstupid = message.content
     if message.guild is None:
         print(message.author.name + message.author.discriminator + ": " + message.content)
-    messageLister = message.split(" ")
+    messageLister = discordisstupid.split(" ")
     if messageLister[0] == "Alexa":
-        await logChannel.send(message)
+        await logChannel.send(discordisstupid)
 	
 @bot.event
 async def on_command_error(ctx,error):
