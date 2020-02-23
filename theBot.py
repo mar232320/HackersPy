@@ -28,7 +28,7 @@ async def on_ready():
             game = discord.Game(presencelist[i])
             await bot.change_presence(status=discord.Status.online, activity = game)
             await asyncio.sleep(120)
-			
+            
     channel= bot.get_channel(679214195119620117)
 
     await channel.send('Bot Boottime was passed, Bot Online')
@@ -42,72 +42,72 @@ async def on_message(message):
     messageLister = message.split(" ")
     if messageLister[0] == "Alexa":
         await logChannel.send(message)
-	
+    
 @bot.event
 async def on_command_error(ctx,error):
-	embed = discord.Embed(color = 0xff0000)
-	embed.add_field(name="Oops, an error occured!", value = error, inline = False)
-	await ctx.send('Oops, an error occured! {}'.format(error))
-	print(error)
-	
+    embed = discord.Embed(color = 0xff0000)
+    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
+    await ctx.send('Oops, an error occured! {}'.format(error))
+    print(error)
+    
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing", hidden = True)
 async def test(ctx):
-	await ctx.send('ok boomer')
-	
+    await ctx.send('ok boomer')
+    
 @bot.command(description = "Enables/Disables Status Check Loops, ADMIN ONLY")
 async def statusCheck(ctx, args):
-	if args == "True" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-		embed = discord.Embed(color=0x00ff00)
-		embed.add_field(name = "Started Bot Status Update Task Loop", value = "Set Successfully", inline= False)
-		embed.set_footer(text= f"Requested by {ctx.author.display_name + '#' + ctx.author.discriminator}", icon_url= ctx.author.avatar_url)
-		await ctx.send (embed=embed)
-		statusChecks.start()
-		
-	elif args == "False" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-		embed = discord.Embed(color=0x00ff00)
-		embed.add_field(name = "Stopped Bot Status Update Task Loop", value = "Set Successfully", inline= False)
-		embed.set_footer(text= f"Requested by {ctx.author.display_name + '#' + ctx.author.discriminator}", icon_url=ctx.author.avatar_url)
-		await ctx.send(embed=embed)
-		statusChecks.stop()
-		
-	elif args == "Send" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-		channel = bot.get_channel(679214195119620117)
-		currentDate= datetime.datetime.now()
-		embed= discord.Embed(color = 0x00ff00)
-		embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
-		embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
-		embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
-		embed.add_field (name = "Status: Bot", value = "Online", inline = False)
-		embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
-		await channel.send(embed=embed)
-		
-	elif args == 'sendHere':
-		currentDate= datetime.datetime.now()
-		embed= discord.Embed(color = 0x00ff00)
-		embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
-		embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
-		embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
-		embed.add_field (name = "Status: Bot", value = "Online", inline = False)
-		embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
-		await ctx.send(embed=embed)
-		
+    if args == "True" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        embed = discord.Embed(color=0x00ff00)
+        embed.add_field(name = "Started Bot Status Update Task Loop", value = "Set Successfully", inline= False)
+        embed.set_footer(text= f"Requested by {ctx.author.display_name + '#' + ctx.author.discriminator}", icon_url= ctx.author.avatar_url)
+        await ctx.send (embed=embed)
+        statusChecks.start()
+        
+    elif args == "False" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        embed = discord.Embed(color=0x00ff00)
+        embed.add_field(name = "Stopped Bot Status Update Task Loop", value = "Set Successfully", inline= False)
+        embed.set_footer(text= f"Requested by {ctx.author.display_name + '#' + ctx.author.discriminator}", icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=embed)
+        statusChecks.stop()
+        
+    elif args == "Send" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        channel = bot.get_channel(679214195119620117)
+        currentDate= datetime.datetime.now()
+        embed= discord.Embed(color = 0x00ff00)
+        embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+        embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+        embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+        embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+        embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
+        await channel.send(embed=embed)
+        
+    elif args == 'sendHere':
+        currentDate= datetime.datetime.now()
+        embed= discord.Embed(color = 0x00ff00)
+        embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+        embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+        embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+        embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+        embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
+        await ctx.send(embed=embed)
+        
 @tasks.loop(seconds = 1800)
 async def statusChecks():
-	channel = bot.get_channel(679214195119620117)
-	currentDate= datetime.datetime.now()
-	embed= discord.Embed(color = 0x00ff00)
-	embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
-	embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
-	embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
-	embed.add_field (name = "Status: Bot", value = "Online", inline = False)
-	embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
-	embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
-	embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
-	embed.add_field (name = "Status: Bot", value = "Online", inline = False)
-	embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
-	await channel.send(embed=embed)
-	
-	
+    channel = bot.get_channel(679214195119620117)
+    currentDate= datetime.datetime.now()
+    embed= discord.Embed(color = 0x00ff00)
+    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
+    embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
+    embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
+    embed.add_field (name = "Status: Bot", value = "Online", inline = False)
+    embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
+    await channel.send(embed=embed)
+    
+    
 @bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
 async def help(ctx, *, args=None):
     if args is not None:
@@ -140,222 +140,222 @@ async def help(ctx, *, args=None):
 
 @bot.command(description = "Return the latency of the bot. Can also be triggered with .ping", aliases=['ping'], brief = "`Alexa ping`")
 async def latency(ctx):
-	await ctx.send("Pong! "  + str(round(bot.latency * 1000)) + "ms.")
-	
+    await ctx.send("Pong! "  + str(round(bot.latency * 1000)) + "ms.")
+    
 @bot.command(description="Calculates ",brief='`Alexa calculate {program} {program level} {program amount} {node} {node level} {node amount} (repeat)`', aliases=['calc','dmgcalc'])
 async def calculate(ctx, *, args):
-	result = CalculateLib.calculate(args)
-	if result is None:
-		await ctx.send('The node is unable to be taken over')
-	elif result > 180:
-		await ctx.send('The node is unable to be taken over')
-	else:
-		await ctx.send(f'The node is taken over in {result} seconds')
-		
+    result = CalculateLib.calculate(args)
+    if result is None:
+        await ctx.send('The node is unable to be taken over')
+    elif result > 180:
+        await ctx.send('The node is unable to be taken over')
+    else:
+        await ctx.send(f'The node is taken over in {result} seconds')
+        
 @bot.command(description="Calculate the visibility of stealth program.", brief='`Alexa stealthCalc {scanner level} {stealth program} {level} {amount} {another stealth program} {level} {amount} (and so on)`')
 async def stealthCalc(ctx,*,args):
-	result = CalculateLib.stealthCalc(args)
-	if result > 3600:
-		await ctx.send('Cannot install all the programs, alarm triggered before finishing')
-	else:
-		await ctx.send(f'The total amount of visibility point needed for installing all the programs is {result}')
-		
+    result = CalculateLib.stealthCalc(args)
+    if result > 3600:
+        await ctx.send('Cannot install all the programs, alarm triggered before finishing')
+    else:
+        await ctx.send(f'The total amount of visibility point needed for installing all the programs is {result}')
+        
 @bot.command(brief = "`Alexa lsStat {program/node} {stat} [level]` ", aliases=['info'],description="(This lists the Paremeters of a certain program or node. For example: beamCannon DPS will list all dps values of beam cannon for all levels, or beamCannon DPS 21 to only list the level 21 value.typeProgramAndNodeNamesLikeThisPlease (They're case sensitive)")
 async def lsStat(ctx, *, args):
-	argsList = args.split(' ')
-	embed=discord.Embed(color=0x00ff00)
-	with open("{}.json".format(argsList[0]), "r") as f:
-		temp1 = json.load(f)
-	if len(argsList) == 3:
-		if 'imageAddress' in temp1.keys():
-			embed.set_thumbnail(url = temp1['imageAddress'][argsList[2]])
-		embed.add_field(name= "Level " + argsList[2] + " " + argsList[0].capitalize() + "'s "  + argsList[1] + ":", value = temp1[argsList[1]][argsList[2]],inline=True)
-		await ctx.send(embed=embed)
-	elif len(argsList) == 2 and isinstance(temp1[argsList[1]], dict):
-		if 'imageAddress' in temp1.keys() and isinstance(temp1['imageAddress'], dict) is False:
-			embed.set_thumbnail(url = temp1['imageAddress'])
-		for i in range(0,len(temp1[argsList[1]])):
-			a = []
-			b = []
-			for key in temp1[argsList[1]].keys():
-				a.append(key)
-			for value in temp1[argsList[1]].values():
-				b.append(value)
-			name = a[i]
-			value = b[i]
-			embed.add_field(name='Level ' + str(name), value = value, inline=True   )
-		await ctx.send(embed=embed)
-	elif len(argsList) == 2 and isinstance(temp1[argsList[1]],dict) is False:
-		value = temp1[argsList[1]]
-		embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
-		await ctx.send(embed=embed)
+    argsList = args.split(' ')
+    embed=discord.Embed(color=0x00ff00)
+    with open("{}.json".format(argsList[0]), "r") as f:
+        temp1 = json.load(f)
+    if len(argsList) == 3:
+        if 'imageAddress' in temp1.keys():
+            embed.set_thumbnail(url = temp1['imageAddress'][argsList[2]])
+        embed.add_field(name= "Level " + argsList[2] + " " + argsList[0].capitalize() + "'s "  + argsList[1] + ":", value = temp1[argsList[1]][argsList[2]],inline=True)
+        await ctx.send(embed=embed)
+    elif len(argsList) == 2 and isinstance(temp1[argsList[1]], dict):
+        if 'imageAddress' in temp1.keys() and isinstance(temp1['imageAddress'], dict) is False:
+            embed.set_thumbnail(url = temp1['imageAddress'])
+        for i in range(0,len(temp1[argsList[1]])):
+            a = []
+            b = []
+            for key in temp1[argsList[1]].keys():
+                a.append(key)
+            for value in temp1[argsList[1]].values():
+                b.append(value)
+            name = a[i]
+            value = b[i]
+            embed.add_field(name='Level ' + str(name), value = value, inline=True   )
+        await ctx.send(embed=embed)
+    elif len(argsList) == 2 and isinstance(temp1[argsList[1]],dict) is False:
+        value = temp1[argsList[1]]
+        embed.add_field(name = argsList[0].capitalize() + " " + argsList[0].capitalize() + "'s " + argsList[1].capitalize(), value = value, inline = False)
+        await ctx.send(embed=embed)
 ##Alexa dpsCalc {program} {level} {amount} {node} {level} 0 (repeat if needed)
 @bot.command(brief = "`Currently dead, use calculate instead`", description="This command calculates the raw DPS of all programs. This does not account for projectile travel time and therefore assumes every program has a hit interval of 1 second, and damage is also calculated for 1 second, so the number might be ever so off. This uses the same syntax as projCalc, which you will find below. typeProgramAndNodeNamesLikeThisPlease")
 async def dpsCalc(ctx, *, args):
-	argsList = args.split(" ")
-	i = 0
-	argsName = []
-	argsLevel = []
-	argsAmount = []
-	while i < len(argsList):
-		argsName.append(argsList[i])
-		i = i+3
-	i = 1
-	while i < len(argsList):
-		argsLevel.append(argsList[i])
-		i = i+3
-	i = 2
-	while i < len(argsList):
-		argsAmount.append(argsList[i])
-		i = i+3
-	argsTuple = zip(argsName, argsLevel, argsAmount)
-	dpsamount = 0.0
-	boiii = 0.0
-	anotherTempValueYetAgain = 0.0
-	for x, y, z in argsTuple:
-		with open("{}.json".format(x), "r") as f:
-			temp1 = json.load(f)
-			if temp1["isAStructure"] == 0:
-				boii = temp1["DPS"]
-				dpsamount = dpsamount + float(boii[str(y)])*float(z)
-				#i have no idea how to fix install time so for now it will stay bugged to shit
-				ohGodPleaseStop = boiii-float(temp1["installTime"])
-				if float(temp1["DPS"])*ohGodPleaseStop > anotherTempValueYetAgain*ohGodPleaseStop:
-					boiii = float(temp1["installTime"])
-					anotherTempValueYetAgain = float(temp1["DPS"])
-				elif boiii == 0:
-					boiii = float(temp1["installTime"])
-				boii = temp1["firewall"]
-				boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
-				dpsamount = 0.0
+    argsList = args.split(" ")
+    i = 0
+    argsName = []
+    argsLevel = []
+    argsAmount = []
+    while i < len(argsList):
+        argsName.append(argsList[i])
+        i = i+3
+    i = 1
+    while i < len(argsList):
+        argsLevel.append(argsList[i])
+        i = i+3
+    i = 2
+    while i < len(argsList):
+        argsAmount.append(argsList[i])
+        i = i+3
+    argsTuple = zip(argsName, argsLevel, argsAmount)
+    dpsamount = 0.0
+    boiii = 0.0
+    anotherTempValueYetAgain = 0.0
+    for x, y, z in argsTuple:
+        with open("{}.json".format(x), "r") as f:
+            temp1 = json.load(f)
+            if temp1["isAStructure"] == 0:
+                boii = temp1["DPS"]
+                dpsamount = dpsamount + float(boii[str(y)])*float(z)
+                #i have no idea how to fix install time so for now it will stay bugged to shit
+                ohGodPleaseStop = boiii-float(temp1["installTime"])
+                if float(temp1["DPS"])*ohGodPleaseStop > anotherTempValueYetAgain*ohGodPleaseStop:
+                    boiii = float(temp1["installTime"])
+                    anotherTempValueYetAgain = float(temp1["DPS"])
+                elif boiii == 0:
+                    boiii = float(temp1["installTime"])
+                boii = temp1["firewall"]
+                boiii = boiii + (float(boii[str(y)]) / float(dpsamount))
+                dpsamount = 0.0
 ##    embed=discord.Embed(color=0x00ff00)
 ##    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(boiii))
-	await ctx.send("It took {} seconds to hack the base.".format(boiii))
-	
+    await ctx.send("It took {} seconds to hack the base.".format(boiii))
+    
 @bot.command(brief = '`Alexa projCalc {program} {level} {amount} {node} {level} 0 (repeat)`',description="This command calculates time based on projectile firing intervals and install times of the programs. This command assumes that projectiles are instant hitting and doesn't take into account the time it takes for a projectile to reach the target. The syntax is as follows: command <programName> <level> <amountOfProgram> <nodeName> <level> <putARandomNumberHere>. The bot will stack all of the program damage prior to the node entering and then will calculate all of the collected dps against the node it finds, reset the dps and then start calculating again. So, you can port the whole base into text and the bot will calculate it. typeProgramAndNodeNamesLikeThisPlease")
 async def projCalc(ctx, *, args):
-	argsList = args.split(" ")
-	i = 0
-	argsName = []
-	argsLevel = []
-	argsAmount = []
-	while i < len(argsList):
-		argsName.append(argsList[i])
-		i = i+3
-	i = 1
-	while i < len(argsList):
-		argsLevel.append(argsList[i])
-		i = i+3
-	i = 2
-	while i < len(argsList):
-		argsAmount.append(argsList[i])
-		i = i+3
-	argsTuple = zip(argsName, argsLevel, argsAmount)
-	projamount = 0.0
-	pleaseend = 0.0
-	mysuffering = 0.0
-	weDontHaveTime = 0.0
-	temporaryvalue = 0
-	for x, y, z in argsTuple:
-		if x == "beamCannon":
-			await ctx.send("beams aren't projectile so the whole command intentionally crashed")
-			break
-		with open("{}.json".format(x), "r") as f:
-			temp1 = json.load(f)
-			if temp1["isAStructure"] == 0:
-				temp2 = temp1["DPS"]
-				temp3 = temp1["installTime"]
-				temp4 = temp1["hitInterval"]
-				if mysuffering < temp4:
-					mysuffering = temp4
-				if pleaseend < temp3:
-					pleaseend = temp3
-				projamount = projamount + float(temp2[str(y)])*float(z)
-				temporaryvalue = 0
-			else:
-				temp2 = temp1["firewall"]
-				structureFirewall = temp2[str(y)]
-				floatedStructureFirewall = float(structureFirewall)
-				while floatedStructureFirewall > 0.0:
-					if projamount <= 0:
-						await ctx.send("you can't have negative programs so good job crashing the whole command")
-						break
-					if temporaryvalue == 1:
-						weDontHaveTime = weDontHaveTime + mysuffering
-					floatedStructureFirewall = floatedStructureFirewall - projamount
-					temporaryvalue = 1
-				weDontHaveTime = weDontHaveTime + pleaseend
-	embed=discord.Embed(color=0x00ff00)
-	embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
-	await ctx.send("It took {} seconds to hack the base.".format(weDontHaveTime))
-	
+    argsList = args.split(" ")
+    i = 0
+    argsName = []
+    argsLevel = []
+    argsAmount = []
+    while i < len(argsList):
+        argsName.append(argsList[i])
+        i = i+3
+    i = 1
+    while i < len(argsList):
+        argsLevel.append(argsList[i])
+        i = i+3
+    i = 2
+    while i < len(argsList):
+        argsAmount.append(argsList[i])
+        i = i+3
+    argsTuple = zip(argsName, argsLevel, argsAmount)
+    projamount = 0.0
+    pleaseend = 0.0
+    mysuffering = 0.0
+    weDontHaveTime = 0.0
+    temporaryvalue = 0
+    for x, y, z in argsTuple:
+        if x == "beamCannon":
+            await ctx.send("beams aren't projectile so the whole command intentionally crashed")
+            break
+        with open("{}.json".format(x), "r") as f:
+            temp1 = json.load(f)
+            if temp1["isAStructure"] == 0:
+                temp2 = temp1["DPS"]
+                temp3 = temp1["installTime"]
+                temp4 = temp1["hitInterval"]
+                if mysuffering < temp4:
+                    mysuffering = temp4
+                if pleaseend < temp3:
+                    pleaseend = temp3
+                projamount = projamount + float(temp2[str(y)])*float(z)
+                temporaryvalue = 0
+            else:
+                temp2 = temp1["firewall"]
+                structureFirewall = temp2[str(y)]
+                floatedStructureFirewall = float(structureFirewall)
+                while floatedStructureFirewall > 0.0:
+                    if projamount <= 0:
+                        await ctx.send("you can't have negative programs so good job crashing the whole command")
+                        break
+                    if temporaryvalue == 1:
+                        weDontHaveTime = weDontHaveTime + mysuffering
+                    floatedStructureFirewall = floatedStructureFirewall - projamount
+                    temporaryvalue = 1
+                weDontHaveTime = weDontHaveTime + pleaseend
+    embed=discord.Embed(color=0x00ff00)
+    embed.add_field(name="Calculation Complete!",value="It took {} seconds to hack the base.".format(weDontHaveTime))
+    await ctx.send("It took {} seconds to hack the base.".format(weDontHaveTime))
+    
 @bot.command(brief='`Alexa playDespacito/reboot`', description="This restarts the bot, which is useful if something goes wrong or the bot freezes. Only a select few people are able to use this command.",aliases=['reboot'])
 async def playDespacito(ctx):
-	if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-		authid= ctx.author
-		embed = discord.Embed(color = 0x00ff00)
-		embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = "Sent By {}".format(authid), inline = False)
-		await ctx.send(embed=embed)
-		await asyncio.sleep(3)
-		await bot.close()
-		os.execl(sys.executable, sys.executable, * sys.argv)
-	else:
-		await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
-		
-		
+    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        authid= ctx.author
+        embed = discord.Embed(color = 0x00ff00)
+        embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = "Sent By {}".format(authid), inline = False)
+        await ctx.send(embed=embed)
+        await asyncio.sleep(3)
+        await bot.close()
+        os.execl(sys.executable, sys.executable, * sys.argv)
+    else:
+        await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
+        
+        
 @bot.command()
 @commands.has_permissions(manage_guild=True)
 async def load(ctx, extension):
-	bot.load_extension(f'cogs.{extension}')
-	await ctx.send(f'{extension} has been loaded')
-	print(f'{extension} has been loaded')
-	
+    bot.load_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} has been loaded')
+    print(f'{extension} has been loaded')
+    
 @bot.command()
 @commands.has_permissions(manage_guild=True)
 async def unload(ctx, extension):
-	bot.unload_extension(f'cogs.{extension}')
-	await ctx.send(f'{extension} has been unloaded')
-	print(f'{extension} has been unloaded')
-	
+    bot.unload_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} has been unloaded')
+    print(f'{extension} has been unloaded')
+    
 @bot.command()
 @commands.has_permissions(manage_guild=True)
 async def reload(ctx, extension):
-	bot.unload_extension(f'cogs.{extension}')
-	bot.load_extension(f'cogs.{extension}')
-	print(f'{extension} has been reloaded')
-	await ctx.send(f'{extension} has been reloaded')
-	
+    bot.unload_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
+    print(f'{extension} has been reloaded')
+    await ctx.send(f'{extension} has been reloaded')
+    
 @load.error
 async def load_command_error(ctx, error):
-	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send(">>> Error! Missing required argument! Please specify the module to load")
-	elif isinstance(error, commands.MissingPermissions):
-		await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
-		
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to load")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+        
 @unload.error
 async def unload_command_error(ctx, error):
-	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send(">>> Error! Missing required argument! Please specify the module to unload")
-	elif isinstance(error, commands.MissingPermissions):
-		await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
-		
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to unload")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+        
 @reload.error
 async def reload_command_error(ctx, error):
-	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send(">>> Error! Missing required argument! Please specify the module to reload")
-	elif isinstance(error, commands.MissingPermissions):
-		await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
-		
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to reload")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+        
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
-	
+    
         logger = logging.getLogger('discord')
         logger.setLevel(logging.DEBUG)
         handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-        logger.addHandler(handler)		
-				
+        logger.addHandler(handler)        
+                
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
