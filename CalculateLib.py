@@ -1,9 +1,5 @@
-import time
 import json
-import os
-import math
 import concurrent.futures
-import json
 
 
 def TimeCalMT(progDamage, progInstallTime, progHitInterval, progProjectileTime, progAmount, isProgMulti, nodeFirewall, nodeRegeneration, nodeAmount):
@@ -105,7 +101,6 @@ def stealthCalc(args):
     progsLevel = []
     progsAmount = []
     i = 1
-    visibility = 0
     while i < len(argsList):
         progsName.append(argsList[i])
         progsLevel.append(argsList[i+1])
