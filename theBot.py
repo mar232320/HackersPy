@@ -38,6 +38,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     discordisstupid = message.content
+    logChannel = bot.get_channel(681216619955224583)
     if message.guild is None:
         print(message.author.name + message.author.discriminator + ": " + message.content)
     messageLister = discordisstupid.split(" ")
