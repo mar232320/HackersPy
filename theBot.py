@@ -39,7 +39,6 @@ async def on_ready():
 async def on_message(message):
     messagecontent = message.content
     currentchannel = bot.get_channel(message.channel.id)
-    logChannel = bot.get_channel(681216619955224583)
     if message.guild is None:
         print(message.author.name + '#' + message.author.discriminator + ": " + message.content)
     messageLister = messagecontent.split(" ")
@@ -49,7 +48,9 @@ async def on_message(message):
         return
     if messageLister[0] == "Alexa":
         await logChannel.send('Content of message: ' + messagecontent)
-        await logChannel.send('Origin: Server ' + currentchannel.guild.name + ', channel: ' + currentchannel.name + '.')
+        await logChannel.send('Server Origin: ' + currentchannel.guild.name + ', channel: ' + currentchannel.name + '.')
+        await logChannel.send('Message sender\'s name: ' + '```' + message.author.name + message.author.discriminator + '```')
+        await logChannel.send(messagecontent)
     await bot.process_commands(message)
     
 @bot.event
