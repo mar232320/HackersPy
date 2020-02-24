@@ -49,8 +49,8 @@ async def on_message(message):
     if message.author.bot:
         return
     if messageLister[0] == "Alexa":
-        await logChannel.send(f'Content of message:{messagecontent}')
-        await logChannel.send(f'Origin: Server:{currentserver}, channel {currentchannel}')
+        await logChannel.send(f'Content of message: {messagecontent}')
+        await logChannel.send('Origin: Server ' + currentserver.name + ', channel: ' + currentchannel.name + '.')
     await bot.process_commands(message)
     
 @bot.event
