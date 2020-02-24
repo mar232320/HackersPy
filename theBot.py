@@ -355,12 +355,12 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
     
-@bot.command(hidden = true)
+@bot.command(hidden = True)
 async def send(ctx, args1, *args):
     channel = args1
     if ctx.guild.id == 590373116878782475:
         await ctx.send (f"Message sent,\nchannel: {args1}\nmessage: ```{args}```")
-        await ctx.send (args)
+        await channel.send (args)
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
