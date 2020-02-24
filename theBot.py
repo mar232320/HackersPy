@@ -356,8 +356,8 @@ for filename in os.listdir('./cogs'):
         bot.load_extension(f'cogs.{filename[:-3]}')
     
 @bot.command(hidden = True)
-async def send(ctx, args1, *args):
-    channel = args1
+async def send(ctx, args1, *, args):
+    channel = bot.get_channel(int(args1)) 
     if ctx.guild.id == 590373116878782475:
         await ctx.send (f"Message sent,\nchannel: {args1}\nmessage: ```{args}```")
         await channel.send (args)
@@ -369,5 +369,5 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)        
                 
 token = token = os.environ.get('BOT_TOKEN')
-bot.run(token)
+bot.run("NjY0ODkyODY0NzM1NjA4ODMy.XlQ_mQ.oxIZMNkuRfDIm2vpgPCzOvW42-Y")
 
