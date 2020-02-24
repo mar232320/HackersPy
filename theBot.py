@@ -316,21 +316,21 @@ async def playDespacito(ctx):
         await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
         
         
-@bot.command()
+@bot.command(description="Honestly I have no idea what this does, ask THK what in the world is this")
 @commands.has_permissions(manage_guild=True)
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} has been loaded')
     print(f'{extension} has been loaded')
     
-@bot.command()
+@bot.command(description="Honestly I have no idea what this does, ask THK what in the world is this")
 @commands.has_permissions(manage_guild=True)
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} has been unloaded')
     print(f'{extension} has been unloaded')
     
-@bot.command()
+@bot.command(description="Honestly I have no idea what this does, ask THK what in the world is this")
 @commands.has_permissions(manage_guild=True)
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
