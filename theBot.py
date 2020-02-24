@@ -309,37 +309,48 @@ async def playDespacito(ctx):
         
         
 @bot.command(description="Load a module on to the bot, so we (dev team) don't have to restart the bot each time we change a single line of code in the module")
+@commands.has_permissions(manage_guild=True)
 async def load(ctx, extension):
-    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-        bot.load_extension(f'cogs.{extension}')
-        await ctx.send(f'{extension} has been loaded')
-        print(f'{extension} has been loaded')
+    bot.load_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} has been loaded')
+    print(f'{extension} has been loaded')
     
-    else:
-        await ctx.send (f" You don't have access to this command {ctx.author.display_name}")
-
 @bot.command(description="Unload a module in the bot, in the case of abusing a command in that module")
+@commands.has_permissions(manage_guild=True)
 async def unload(ctx, extension):
-    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-        bot.unload_extension(f'cogs.{extension}')
-        await ctx.send(f'{extension} has been unloaded')
-        print(f'{extension} has been unloaded')
+    bot.unload_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} has been unloaded')
+    print(f'{extension} has been unloaded')
     
-    else:
-        await ctx.send (f" You don't have access to this command {ctx.author.display_name}")
-
 @bot.command(description="Reload a module in the bot")
+@commands.has_permissions(manage_guild=True)
 async def reload(ctx, extension):
-    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-        bot.unload_extension(f'cogs.{extension}')
-        bot.load_extension(f'cogs.{extension}')
-        print(f'{extension} has been reloaded')
-        await ctx.send(f'{extension} has been reloaded')
-            
-    else:
-        await ctx.send (f" You don't have access to this command {ctx.author.display_name}")
-
-
+    bot.unload_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
+    print(f'{extension} has been reloaded')
+    await ctx.send(f'{extension} has been reloaded')
+    
+@load.error
+async def load_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to load")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+        
+@unload.error
+async def unload_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to unload")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+        
+@reload.error
+async def reload_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(">>> Error! Missing required argument! Please specify the module to reload")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+        
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
