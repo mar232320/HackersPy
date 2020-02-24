@@ -39,8 +39,7 @@ async def on_ready():
 async def on_message(message):
     messagecontent = message.content
     currentchannel = bot.get_channel(message.channel.id)
-##    logChannel = bot.get_channel(681216619955224583)
-    logChannel = bot.get_channel(608939815186071552)
+    logChannel = bot.get_channel(681216619955224583)
     if message.guild is None:
         print(message.author.name + '#' + message.author.discriminator + ": " + message.content)
     messageLister = messagecontent.split(" ")
@@ -366,7 +365,6 @@ for filename in os.listdir('./cogs'):
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         logger.addHandler(handler)        
                 
-##token = os.environ.get('BOT_TOKEN')
-token = 'NjYzMzc3MTQxNDEyNjU5MjAw.XiB_Ow.oTGJ1iQ6pwY7oY0l1xFrlSP9nGs'
+token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
