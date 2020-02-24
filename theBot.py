@@ -48,10 +48,7 @@ async def on_message(message):
     if message.author.bot:
         return
     if messageLister[0] == "Alexa":
-        await logChannel.send('=========== NEW LOG ===========')
-        await logChannel.send('Content of message: ' + messagecontent)
-        await logChannel.send('Date and Time \"in UTC\": ' + str(message.created_at))
-        await logChannel.send('Server Origin: ' + currentchannel.guild.name + ', channel: ' + currentchannel.name + '.')
+        await logChannel.send(f'=========== NEW LOG =========== \n Content of message: {messagecontent} \n Date and Time in UTC: {str(message.created_at)} \n Server Orgin: {currentchannel.guild.name}, channel {currentchannel.channel.name}')
         await logChannel.send('Message sender\'s name: ' + '```' + message.author.name + '#' + message.author.discriminator + '```')
         await logChannel.send('=========== END LOG ===========')
     await bot.process_commands(message)
@@ -316,21 +313,21 @@ async def playDespacito(ctx):
         await ctx.send("Sorry, you aren't allowed to use this command. Are you the admin of the server you are executing this in? DM CodeWritten#4044 to be added to the exceptions list!")
         
         
-@bot.command(description="Honestly I have no idea what this does, ask THK what in the world is this")
+@bot.command(description="Load a module on to the bot, so we (dev team) don't have to restart the bot each time we change a single line of code in the module")
 @commands.has_permissions(manage_guild=True)
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} has been loaded')
     print(f'{extension} has been loaded')
     
-@bot.command(description="Honestly I have no idea what this does, ask THK what in the world is this")
+@bot.command(description="Unload a module in the bot, in the case of abusing a command in that module")
 @commands.has_permissions(manage_guild=True)
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} has been unloaded')
     print(f'{extension} has been unloaded')
     
-@bot.command(description="Honestly I have no idea what this does, ask THK what in the world is this")
+@bot.command(description="Reload a module in the bot")
 @commands.has_permissions(manage_guild=True)
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
