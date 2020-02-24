@@ -103,7 +103,7 @@ async def statusCheck(ctx, args):
         
 @tasks.loop(seconds = 1800)
 async def statusChecks():
-    channel = bot.get_channel(679214195119620117)
+    channel = bot.get_channel(664250913376043049)
     currentDate= datetime.datetime.now()
     embed= discord.Embed(color = 0x00ff00)
     embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
