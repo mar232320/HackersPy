@@ -369,6 +369,6 @@ for filename in os.listdir('./cogs'):
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         logger.addHandler(handler)        
                 
-token = 
+token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
