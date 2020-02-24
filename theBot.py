@@ -38,19 +38,19 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     messagecontent = message.content
-    currentchannel = bot.get_channel
-    currentserver = bot.get_guild
-    logChannel = bot.get_channel(681216619955224583)
+    currentchannel = bot.get_channel(message.channel.id)
+##    logChannel = bot.get_channel(681216619955224583)
+    logChannel = bot.get_channel(608939815186071552)
     if message.guild is None:
-        print(message.author.name + message.author.discriminator + ": " + message.content)
+        print(message.author.name + '#' + message.author.discriminator + ": " + message.content)
     messageLister = messagecontent.split(" ")
     if message.author == bot.user:
         return
     if message.author.bot:
         return
     if messageLister[0] == "Alexa":
-        await logChannel.send(f'Content of message: {messagecontent}')
-        await logChannel.send('Origin: Server ' + currentserver.name + ', channel: ' + currentchannel.name + '.')
+        await logChannel.send('Content of message: ' + messagecontent)
+        await logChannel.send('Origin: Server ' + currentchannel.guild.name + ', channel: ' + currentchannel.name + '.')
     await bot.process_commands(message)
     
 @bot.event
@@ -366,6 +366,7 @@ for filename in os.listdir('./cogs'):
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         logger.addHandler(handler)        
                 
-token = os.environ.get('BOT_TOKEN')
+##token = os.environ.get('BOT_TOKEN')
+token = 'NjYzMzc3MTQxNDEyNjU5MjAw.XiB_Ow.oTGJ1iQ6pwY7oY0l1xFrlSP9nGs'
 bot.run(token)
 
