@@ -48,7 +48,7 @@ async def on_message(message):
     if message.author.bot:
         return
     if messageLister[0] == "Alexa":
-        await logChannel.send(f'=========== NEW LOG =========== \n Content of message: {messagecontent} \n Date and Time in UTC: {str(message.created_at)} \n Server Orgin: {currentchannel.guild.name}, channel {currentchannel.channel.name}')
+        await logChannel.send(f'=========== NEW LOG =========== \n Content of message: {messagecontent} \n Date and Time in UTC: {str(message.created_at)} \n Server Orgin: {currentchannel.guild.name}, channel {currentchannel.name}')
         await logChannel.send('Message sender\'s name: ' + '```' + message.author.name + '#' + message.author.discriminator + '```')
         await logChannel.send('=========== END LOG ===========')
     await bot.process_commands(message)
