@@ -51,7 +51,7 @@ async def on_message(message):
         await logChannel.send('=========== NEW LOG ===========')
         await logChannel.send('Content of message: ' + messagecontent)
         await logChannel.send('Server Origin: ' + currentchannel.guild.name + ', channel: ' + currentchannel.name + '.')
-        await logChannel.send('Message senders name: ' + '```' + message.author.name + message.author.discriminator + '```')
+        await logChannel.send('Message sender\'s name: ' + '```' + message.author.name + message.author.discriminator + '```')
         await logChannel.send(messagecontent)
         await logChannel.send('=========== END LOG ===========')
     await bot.process_commands(message)
