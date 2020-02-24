@@ -37,6 +37,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    logChannel = bot.get_channel(681216619955224583)
     messagecontent = message.content
     currentchannel = bot.get_channel(message.channel.id)
     if message.guild is None:
@@ -368,6 +369,6 @@ for filename in os.listdir('./cogs'):
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         logger.addHandler(handler)        
                 
-token = os.environ.get('BOT_TOKEN')
+token = 'NTkwNjE0ODQyMzQ0MjEwNDMy.XQlJMA.m2Za8n3DeQljOB1-NgES1o14raY'
 bot.run(token)
 
