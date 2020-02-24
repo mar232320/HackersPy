@@ -103,3 +103,30 @@
 2020-02-24 13:40:14,952:DEBUG:discord.client: Dispatching event socket_raw_receive
 2020-02-24 13:40:14,954:DEBUG:discord.gateway: For Shard ID None: WebSocket Event: {'t': None, 's': None, 'op': 11, 'd': None}
 2020-02-24 13:40:14,956:DEBUG:discord.client: Dispatching event socket_response
+2020-02-24 13:40:22,860:INFO:discord.gateway: Websocket closed with 4003 (Not authenticated.), attempting a reconnect.
+2020-02-24 13:40:22,861:INFO:discord.client: Got a request to RESUME the websocket.
+2020-02-24 13:40:22,863:DEBUG:discord.client: Dispatching event disconnect
+2020-02-24 13:40:22,923:DEBUG:discord.http: GET https://discordapp.com/api/v7/gateway with None has returned 200
+2020-02-24 13:40:22,924:DEBUG:discord.http: GET https://discordapp.com/api/v7/gateway has received {'url': 'wss://gateway.discord.gg'}
+2020-02-24 13:40:23,171:INFO:discord.gateway: Created websocket connected to wss://gateway.discord.gg?encoding=json&v=6&compress=zlib-stream
+2020-02-24 13:40:23,172:DEBUG:discord.client: Dispatching event socket_raw_receive
+2020-02-24 13:40:23,174:DEBUG:discord.gateway: For Shard ID None: WebSocket Event: {'t': None, 's': None, 'op': 10, 'd': {'heartbeat_interval': 41250, '_trace': ['["gateway-prd-main-7px3",{"micros":0.0}]']}}
+2020-02-24 13:40:23,175:DEBUG:discord.client: Dispatching event socket_response
+2020-02-24 13:40:23,177:DEBUG:discord.client: Dispatching event socket_raw_send
+2020-02-24 13:40:23,179:DEBUG:discord.client: Dispatching event socket_raw_send
+2020-02-24 13:40:23,181:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2020-02-24 13:40:23,276:DEBUG:discord.client: Dispatching event socket_raw_receive
+2020-02-24 13:40:23,278:DEBUG:discord.gateway: For Shard ID None: WebSocket Event: {'t': None, 's': None, 'op': 11, 'd': None}
+2020-02-24 13:40:23,279:DEBUG:discord.client: Dispatching event socket_response
+2020-02-24 13:40:23,280:DEBUG:discord.client: Dispatching event socket_raw_receive
+2020-02-24 13:40:23,282:DEBUG:discord.gateway: For Shard ID None: WebSocket Event: {'t': None, 's': None, 'op': 9, 'd': False}
+2020-02-24 13:40:23,283:DEBUG:discord.client: Dispatching event socket_response
+2020-02-24 13:40:23,284:INFO:discord.gateway: Shard ID None session has been invalidated.
+2020-02-24 13:40:23,285:DEBUG:discord.client: Dispatching event socket_raw_send
+2020-02-24 13:40:23,286:INFO:discord.gateway: Shard ID None has sent the IDENTIFY payload.
+2020-02-24 13:40:23,394:INFO:discord.gateway: Websocket closed with 4004 (Authentication failed.), cannot reconnect.
+2020-02-24 13:40:23,396:DEBUG:discord.client: Dispatching event disconnect
+2020-02-24 13:40:23,400:INFO:discord.client: Cleaning up tasks.
+2020-02-24 13:40:23,402:INFO:discord.client: Cleaning up after 2 tasks.
+2020-02-24 13:40:23,405:INFO:discord.client: All tasks finished cancelling.
+2020-02-24 13:40:23,407:INFO:discord.client: Closing the event loop.

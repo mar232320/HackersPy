@@ -368,6 +368,6 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)        
                 
-token = token = os.environ.get('BOT_TOKEN')
-bot.run("NjY0ODkyODY0NzM1NjA4ODMy.XlQ_mQ.oxIZMNkuRfDIm2vpgPCzOvW42-Y")
+token = os.environ.get('BOT_TOKEN')
+bot.run(token)
 
