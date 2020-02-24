@@ -81,7 +81,7 @@ async def statusCheck(ctx, args):
         statusChecks.stop()
         
     elif args == "Send" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-        channel = bot.get_channel(679214195119620117)
+        channel = bot.get_channel(664250913376043049)
         currentDate= datetime.datetime.now()
         embed= discord.Embed(color = 0x00ff00)
         embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
@@ -103,18 +103,13 @@ async def statusCheck(ctx, args):
         
 @tasks.loop(seconds = 1800)
 async def statusChecks():
-    channel = bot.get_channel(679214195119620117)
+    channel = bot.get_channel(664250913376043049)
     currentDate= datetime.datetime.now()
     embed= discord.Embed(color = 0x00ff00)
     embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
     embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
     embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
     embed.add_field (name = "Status: Bot", value = "Online", inline = False)
-    embed.add_field (name = "STATUS CHECK", value = 'At {}'.format(currentDate), inline = False)
-    embed.add_field (name = "Status: Ping", value = '{} ms'.format(str(round(bot.latency * 1000))), inline = False)
-    embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
-    embed.add_field (name = "Status: Bot", value = "Online", inline = False)
-    embed.add_field (name = "Status: Heroku", value = "Online", inline = False)
     await channel.send(embed=embed)
     
     
