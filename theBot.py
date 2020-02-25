@@ -64,21 +64,21 @@ async def test(ctx):
     
 @bot.command(description = "Enables/Disables Status Check Loops, ADMIN ONLY")
 async def statusCheck(ctx, args):
-    if args == "True" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+    if args == "True" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
         embed = discord.Embed(color=0x00ff00)
         embed.add_field(name = "Started Bot Status Update Task Loop", value = "Set Successfully", inline= False)
         embed.set_footer(text= f"Requested by {ctx.author.display_name + '#' + ctx.author.discriminator}", icon_url= ctx.author.avatar_url)
         await ctx.send (embed=embed)
         statusChecks.start()
         
-    elif args == "False" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+    elif args == "False" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
         embed = discord.Embed(color=0x00ff00)
         embed.add_field(name = "Stopped Bot Status Update Task Loop", value = "Set Successfully", inline= False)
         embed.set_footer(text= f"Requested by {ctx.author.display_name + '#' + ctx.author.discriminator}", icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
         statusChecks.stop()
         
-    elif args == "Send" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+    elif args == "Send" and ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
         channel = bot.get_channel(664250913376043049)
         currentDate= datetime.datetime.now()
         embed= discord.Embed(color = 0x00ff00)
@@ -294,7 +294,7 @@ async def projCalc(ctx, *, args):
     
 @bot.command(brief='`Alexa playDespacito/reboot`', description="This restarts the bot, which is useful if something goes wrong or the bot freezes. Only a select few people are able to use this command.",aliases=['reboot'])
 async def playDespacito(ctx):
-    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
         authid= ctx.author
         embed = discord.Embed(color = 0x00ff00)
         embed.add_field(name="Shutdown Command Sent, Bot Rebooting in 3 seconds", value = "Sent By {}".format(authid), inline = False)
@@ -368,9 +368,9 @@ logger.addHandler(handler)
                 
 @bot.command(hidden = True)
 async def runAtCmd(ctx, *, args):
-    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
-        eval(args)
-        await ctx.send(args)
+    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
+        response = eval(args)
+        await ctx.send(response)
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
