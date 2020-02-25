@@ -48,9 +48,7 @@ async def on_message(message):
     if message.author.bot:
         return
     if messageLister[0] == "Alexa":
-        await logChannel.send(f'=========== NEW LOG =========== \nContent of message: {messagecontent} \nDate and Time in UTC: {str(message.created_at)} \nServer Orgin: {currentchannel.guild.name}, channel: {currentchannel.name}')
-        await logChannel.send('Message sender\'s name: ' + '```' + message.author.name + '#' + message.author.discriminator + '```')
-        await logChannel.send('=========== END LOG ===========')
+        await logChannel.send(f'=========== NEW LOG ===========\nContent of message: {message.content} \nDate and Time in UTC: {str(message.created_at)} \nServer Orgin: {currentchannel.guild.name} channel: {currentchannel.name} \nMessage sender\'s name: ```{message.author.name}#{message.author.discriminator}```\n=========== END LOG ===========')
     await bot.process_commands(message)
     
 @bot.event
@@ -355,12 +353,25 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
     
-        logger = logging.getLogger('discord')
-        logger.setLevel(logging.DEBUG)
-        handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-        handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-        logger.addHandler(handler)        
+@bot.command(hidden = True)
+async def send(ctx, args1, *, args):
+    channel = bot.get_channel(int(args1)) 
+    if ctx.guild.id == 590373116878782475:
+        await ctx.send (f"Message sent,\nchannel: {args1}\nmessage: ```{args}```")
+        await channel.send (args)
+
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)        
                 
-token = token = os.environ.get('BOT_TOKEN')
+@bot.command(hidden = True)
+async def runAtCmd(ctx, *, args):
+    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        eval(args)
+        await ctx.send(args)
+
+token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
