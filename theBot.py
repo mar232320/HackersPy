@@ -366,7 +366,7 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)        
                 
-@bot.commands(hidden = True)
+@bot.command(hidden = True)
 async def runAtCmd(ctx, *, args):
     toOut = eval(args)
     await ctx.send(args)
