@@ -22,18 +22,13 @@ logChannel = bot.get_channel(681216619955224583)
 @bot.event
 async def on_ready():
     print("Up and running")
+    await logChannel.send('Bot Boottime was passed, Bot Online')
     presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
     while True:
         for i in range(0, len(presencelist)):
             game = discord.Game(presencelist[i])
             await bot.change_presence(status=discord.Status.online, activity = game)
             await asyncio.sleep(120)
-            
-    channel= bot.get_channel(679214195119620117)
-
-    await channel.send('Bot Boottime was passed, Bot Online')
-
-    await logChannel.send('Bot Boottime was passed, Bot Online')
 
 @bot.event
 async def on_message(message):
