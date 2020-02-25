@@ -368,9 +368,9 @@ logger.addHandler(handler)
                 
 @bot.command(hidden = True)
 async def runAtCmd(ctx, *, args):
-    toOut = eval(args)
-    await ctx.send(args)
-    await ctx.send(toOut)
+    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208):
+        eval(args)
+        await ctx.send(args)
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
