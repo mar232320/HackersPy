@@ -23,12 +23,7 @@ logChannel = bot.get_channel(681216619955224583)
 async def on_ready():
     print("Up and running")
     await logChannel.send('Bot Boottime was passed, Bot Online')
-    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
-    while True:
-        for i in range(0, len(presencelist)):
-            game = discord.Game(presencelist[i])
-            await bot.change_presence(status=discord.Status.online, activity = game)
-            await asyncio.sleep(120)
+    await bot.change_presence(discord.Status.online)
 
 @bot.event
 async def on_message(message):
@@ -394,6 +389,22 @@ async def runAtCmd(ctx, *, args):
     if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
         response = eval(args)
         await ctx.send(response)
+
+@bot.command(description = "Changes bot status")
+async def botStatus(ctx, args1):
+    if args1 == "Offline":
+        botStatusLoop.cancel()
+        await bot.change_presence(status=discord.Status.invisible)
+
+    if args1 == "Online":
+        botStatusLoop.start()
+
+@bot.tasks(seconds = 30)
+async def botStatusLoop(ctx):
+    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
+    for i in range(0, len(presencelist)):
+    game = discord.Game(presencelist[i])
+    await bot.change_presence(status=discord.Status.online, activity = game)
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
