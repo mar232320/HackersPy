@@ -393,7 +393,7 @@ async def runAtCmd(ctx, *, args):
 @bot.command(description = "Changes bot status")
 async def botStatus(ctx, args1):
     if args1 == "Offline":
-        botStatusLoop.cancel()
+        botStatusLoop.stop()
         await bot.change_presence(status=discord.Status.invisible)
 
     if args1 == "Online":
