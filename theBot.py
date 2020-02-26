@@ -354,6 +354,34 @@ async def send(ctx, args1, *, args):
     if ctx.guild.id == 590373116878782475:
         await ctx.send (f"Message sent,\nchannel: {args1}\nmessage: ```{args}```")
         await channel.send (args)
+        
+@bot.command(description = "in progress", hidden = True)
+async def netBuild(ctx):
+    await ctx.send("Network building started in {}'s DM!".format(ctx.author.name))
+    try:
+        await ctx.author.send('Network building started!')
+    except discord.Forbidden:
+        await ctx.send("Hmm, looks like I couldn't DM you. Did you block the bot?")
+    connections = {}
+    nodeList = []
+    a = 0
+    i = 0
+    def check(m):
+        return m.author == ctx.author and m.guild is None
+    while True:
+        await ctx.author.send('Input all nodes connected to node {}'.format(nodeList[a][i]))
+        msg = await bot.wait_for('message', timeout = 20.0, check=check)
+        msgContent = (msg.content).split()
+        nodeList.append(msgContent)
+        for b in range(0,len(nodeList[a])):
+            if b != i:
+                if nodeList[a][b] not in nodeList[a].keys():
+                    connections[nodeList[a][i]][nodeList[a][b]] = True
+                else:
+                    i += 1
+        i += 1
+        if i >= len(nodeList[a]):
+            a += 1
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
