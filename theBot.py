@@ -23,7 +23,8 @@ logChannel = bot.get_channel(681216619955224583)
 async def on_ready():
     print("Up and running")
     await logChannel.send('Bot Boottime was passed, Bot Online')
-    await bot.change_presence(discord.Status.online)
+    game = discord.Game["StratoSphere Inc"]
+    await bot.change_presence(discord.Status.online, activity = game)
 
 @bot.event
 async def on_message(message):
