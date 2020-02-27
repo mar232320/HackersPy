@@ -23,7 +23,7 @@ logChannel = bot.get_channel(681216619955224583)
 async def on_ready():
     print("Up and running")
     await logChannel.send('Bot Boottime was passed, Bot Online')
-    game = discord.Game['Playing with {} guilds'.format(len(bot.guilds))]
+    game = discord.Game('Playing with {} guilds'.format(len(bot.guilds)))
     await bot.change_presence(discord.Status.online, activity = game)
 
 @bot.event
