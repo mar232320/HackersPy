@@ -23,7 +23,7 @@ logChannel = bot.get_channel(681216619955224583)
 async def on_ready():
     print("Up and running")
     await logChannel.send('Bot Boottime was passed, Bot Online')
-    game = discord.Game["StratoSphere Inc"]
+    game = discord.Game['Playing with {} guilds'.format(len(bot.guilds))]
     await bot.change_presence(discord.Status.online, activity = game)
 
 @bot.event
@@ -140,9 +140,7 @@ async def latency(ctx):
 async def calculate(ctx, *, args):
     result = CalculateLib.calculate(args)
     if result is None:
-        await ctx.send('The node is unable to be taken over')
-    elif result > 180:
-        await ctx.send('The node is unable to be taken over')
+        await ctx.send('The node is unable to be taken over.')
     else:
         await ctx.send(f'The node is taken over in {result} seconds')
         
