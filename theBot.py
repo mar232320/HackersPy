@@ -147,9 +147,7 @@ async def latency(ctx):
 async def calculate(ctx, *, args):
     result = CalculateLib.calculate(args)
     if result is None:
-        await ctx.send('The node is unable to be taken over')
-    elif result > 180:
-        await ctx.send('The node is unable to be taken over')
+        await ctx.send('The node is unable to be taken over.')
     else:
         await ctx.send(f'The node is taken over in {result} seconds')
         
@@ -406,7 +404,7 @@ async def botStatus(ctx, args1):
 
     if args1 == "Online":
         botStatusLoop.start()
-
+        
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
