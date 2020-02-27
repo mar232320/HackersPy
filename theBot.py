@@ -20,19 +20,11 @@ bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = N
 bot.remove_command('help')
 logChannel = bot.get_channel(681216619955224583)
 
-@tasks.loop(seconds = 5)
-async def botStatusLoop():
-    game = discord.Game['Playing with {} guilds'.format(len(bot.guilds))]
-    await bot.change_presence(status=discord.Status.online, activity = discord.Game(game)
-
-
 @bot.event
 async def on_ready():
     print("Up and running")
-    logChannel = bot.get_channel(681216619955224583)
-    await logChannel.send('Bot Boottime was passed, Bot Online')
     botStatusLoop.start()
-    
+
 @bot.event
 async def on_message(message):
     logChannel = bot.get_channel(681216619955224583)
@@ -404,7 +396,12 @@ async def botStatus(ctx, args1):
     if args1 == "Online":
         game = discord.Game('Playing with {} guilds'.format(len(bot.guilds)))
         await bot.change_presence(status=discord.Status.online, activity=game)
+        
 
+@tasks.loop(seconds = 5)
+async def botStatusLoop():
+    game = discord.Game['Playing with {} guilds'.format(len(bot.guilds))]
+    await bot.change_presence(status=discord.Status.online, activity = discord.Game(game)
 
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
