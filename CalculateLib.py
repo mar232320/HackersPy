@@ -113,5 +113,5 @@ def stealthCalc(args):
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 calculation = executor.submit(stealthCalMT, c['visibilityboost'][nodeLevel], a['visibility'][progsLevel[i]], a['installTime'])
                 fvisibility += calculation.result()
-                return fvisibility
+    return fvisibility
 
