@@ -19,12 +19,12 @@ bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = N
 bot.remove_command('help')
 logChannel = bot.get_channel(681216619955224583)
 
-@tasks.loop(seconds = 30)
-async def botStatusLoop(ctx):
-    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
-    for i in range(0, len(presencelist)):
-        game = discord.Game(presencelist[i])
-        await bot.change_presence(status=discord.Status.online, activity = game)
+#@tasks.loop(seconds = 30)
+#async def botStatusLoop(ctx):
+#    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
+#    for i in range(0, len(presencelist)):
+#        game = discord.Game(presencelist[i])
+#        await bot.change_presence(status=discord.Status.online, activity = game)
 
 @bot.event
 async def on_ready():
