@@ -83,12 +83,8 @@ def calculate(args):
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 calculation = executor.submit(TimeCalMT, a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],a['isMulti'],b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
                 time = calculation.result(timeout=180)
-                return time
-            
-            if time is not None:
                 takeOverTime += time
-            elif time is None:
-                return 'Fail'
+            
             if progsName[i] == 'beamCannon':
                 takeOverTime += 0.5 
             i += 1
