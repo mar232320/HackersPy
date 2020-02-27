@@ -8,6 +8,7 @@ import sys
 import datetime
 import CalculateLib
 import logging
+from itertools import cycle
 from discord.ext import tasks
 
 
@@ -21,17 +22,15 @@ logChannel = bot.get_channel(681216619955224583)
 
 @tasks.loop(seconds = 30)
 async def botStatusLoop(ctx):
-    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
-    for i in range(0, len(presencelist)):
-        game = discord.Game(presencelist[i])
-        await bot.change_presence(status=discord.Status.online, activity = game)
+    games = cycle(["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"])
+    await bot.change_presence(status=discord.Status.online, activity = discord.Game(next(games)))
 
 @bot.event
 async def on_ready():
     print("Up and running")
+    logChannel = bot.get_channel(681216619955224583)
     await logChannel.send('Bot Boottime was passed, Bot Online')
-    game = discord.Activity()
-    await bot.change_presence(status = discord.Status.online, activity = game)
+    botStatusLoop.start()
     
 @bot.event
 async def on_message(message):
