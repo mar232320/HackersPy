@@ -26,7 +26,7 @@ async def on_ready():
 
 @tasks.loop(seconds = 5)
 async def botStatusLoop():
-    await bot.change_presence(status=discord.Status.online, activity = discord.Game[f'Playing with {len(bot.guilds)} guilds'])
+    await bot.change_presence(status=discord.Status.online, activity = discord.Game(f'Playing with {len(bot.guilds)} guilds'))
     
 
 @bot.event
