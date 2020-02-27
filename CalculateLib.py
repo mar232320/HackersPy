@@ -51,7 +51,7 @@ def stealthCalMT(visibilityboost, stealthProgVisibility, stealthProgInstallTime)
         time += 20
         time += (stealthProgVisibility / 100 * visibilityboost)
         i += 1
-    return round(time,0)     
+    return time    
 
 
 def calculate(args):
@@ -101,6 +101,7 @@ def stealthCalc(args):
     progsLevel = []
     progsAmount = []
     i = 1
+    fvisibility = 0
     while i < len(argsList):
         progsName.append(argsList[i])
         progsLevel.append(argsList[i+1])
@@ -115,6 +116,6 @@ def stealthCalc(args):
         for d in range(1,int(e)+1):
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 calculation = executor.submit(stealthCalMT, c['visibilityboost'][nodeLevel], a['visibility'][progsLevel[i]], a['installTime'])
-                fvisibility = calculation.result()
+                fvisibility += calculation.result()
                 return fvisibility
 
