@@ -399,12 +399,13 @@ async def runAtCmd(ctx, *, args):
 @bot.command(description = "Changes bot status")
 async def botStatus(ctx, args1):
     if args1 == "Offline":
-        botStatusLoop.stop()
         await bot.change_presence(status=discord.Status.invisible)
 
     if args1 == "Online":
-        botStatusLoop.start()
-        
+        game = discord.Game('Playing with {} guilds'.format(len(bot.guilds)))
+        await bot.change_presence(status=discord.Status.online, activity=game)
+
+
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
