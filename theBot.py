@@ -22,8 +22,9 @@ logChannel = bot.get_channel(681216619955224583)
 
 @tasks.loop(seconds = 5)
 async def botStatusLoop():
-    games = cycle(["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"])
-    await bot.change_presence(status=discord.Status.online, activity = discord.Game(next(games)))
+    game = discord.Game['Playing with {} guilds'.format(len(bot.guilds))]
+    await bot.change_presence(status=discord.Status.online, activity = discord.Game(game)
+
 
 @bot.event
 async def on_ready():
