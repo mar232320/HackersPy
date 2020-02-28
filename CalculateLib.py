@@ -16,28 +16,28 @@ def TimeCalMT(progDamage, progInstallTime, progHitInterval, progProjectileTime, 
                     break
                 i += 0.1
                 if i == max(progHitInterval - progProjectileTime, 0.1):
-                    if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10:
-                        firewall -= progDamage * int(progAmount) / 10
+                    if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10 :
+                        firewall -= progDamage * int(progAmount) / 10 
                     else:
                         return None
                     i = 0
-                firewall += (firewall / 100 * regen) / 10
+                firewall += (firewall / 100 * regen) / 10 
                 time += 0.1
                 if time > 10000:
                     return time
-                firewall = nodeFirewall
-    else:
+            firewall = nodeFirewall
+    elif isProgMulti == 1:
         while True:
             if firewall <= 0:
                 break
             i += 0.1
             if i == max(progHitInterval - progProjectileTime, 0.1):
-                if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10:
+                if (progDamage * int(progAmount)) / 10 > (firewall / 100 * regen) / 10 :
                     firewall -= progDamage * int(progAmount) / 10
                 else:
                     return None
                 i = 0
-            firewall += (firewall / 100 * regen) / 10
+            firewall += (firewall / 100 * regen) 
             time += 0.1
             if time > 10000:
                 return time
@@ -81,14 +81,17 @@ def calculate(args):
             
             #Start Calculation here
             with concurrent.futures.ThreadPoolExecutor() as executor:
-                calculation = executor.submit(TimeCalMT, a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],a['isMulti'],b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
+                if progsName[i] == 'shuriken':
+                    calculation = executor.submit(TimeCalMT, a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],1,b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
+                else:
+                    calculation = executor.submit(TimeCalMT, a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],0,b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
                 time = calculation.result(timeout=180)
                 takeOverTime += time
             
             if progsName[i] == 'beamCannon':
                 takeOverTime += 0.5 
             i += 1
-    return takeOverTime
+    return round(takeOverTime,1)
 
 def stealthCalc(args):
     argsList = args.split()
