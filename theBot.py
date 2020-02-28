@@ -8,7 +8,6 @@ import sys
 import datetime
 import CalculateLib
 import logging
-import discord_gui
 from discord.ext import tasks
 
 
