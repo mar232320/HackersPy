@@ -24,22 +24,24 @@ def nested_dict(n, type):
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
 logChannel = bot.get_channel(681216619955224583)
-
-#@tasks.loop(seconds = 30)
-#async def botStatusLoop(ctx):
-#    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
-#    for i in range(0, len(presencelist)):
-#        game = discord.Game(presencelist[i])
-#        await bot.change_presence(status=discord.Status.online, activity = game)
+@tasks.loop(seconds = 30)
+async def botStatusLoop(ctx):
+    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
+    for i in range(0, len(presencelist)):
+        game = discord.Game(presencelist[i])
+        await bot.change_presence(status=discord.Status.online, activity = game)
 
 @bot.event
 async def on_ready():
     logChannel = bot.get_channel(608939815186071552)
     print("Up and running")
-    await logChannel.send('Bot Boottime was passed, Bot Online')
-    game = discord.Activity()
-    await bot.change_presence(status = discord.Status.online, activity = game)
+    botStatusLoop.start()
+
+@tasks.loop(seconds = 5)
+async def botStatusLoop():
+    await bot.change_presence(status=discord.Status.online, activity = discord.Game(f'Playing with {len(bot.guilds)} guilds'))
     
+
 @bot.event
 async def on_message(message):
     #logChannel = bot.get_channel(681216619955224583)
@@ -57,12 +59,12 @@ async def on_message(message):
         await logChannel.send(f'=========== NEW LOG ===========\nContent of message: {message.content} \nDate and Time in UTC: {str(message.created_at)} \nServer Orgin: {currentchannel.guild.name} channel: {currentchannel.name} \nMessage sender\'s name: ```{message.author.name}#{message.author.discriminator}```\n=========== END LOG ===========')
     await bot.process_commands(message)
     
-#@bot.event
-#async def on_command_error(ctx,error):
-#    embed = discord.Embed(color = 0xff0000)
-#    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
-#    await ctx.send('Oops, an error occured! {}'.format(error))
-#    print(error)
+@bot.event
+async def on_command_error(ctx,error):
+    embed = discord.Embed(color = 0xff0000)
+    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
+    await ctx.send('Oops, an error occured! {}'.format(error))
+    print(error)
     
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing", hidden = True)
 async def test(ctx):
@@ -415,9 +417,8 @@ async def botStatus(ctx, args1):
     if args1 == "Online":
         game = discord.Game('Playing with {} guilds'.format(len(bot.guilds)))
         await bot.change_presence(status=discord.Status.online, activity=game)
+        
 
-
-#token = os.environ.get('BOT_TOKEN')
-token = 'NjYzMzc3MTQxNDEyNjU5MjAw.XliD0g.DBfb_wmtiClAj9FUjgs_T7t1Trc'
+token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
