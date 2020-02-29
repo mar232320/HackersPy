@@ -9,11 +9,17 @@ import datetime
 import CalculateLib
 import logging
 from discord.ext import tasks
-
+from collections import defaultdict
+from collections import deque
 
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
+def nested_dict(n, type):
+    if n == 1:
+        return defaultdict(type)
+    else:
+        return defaultdict(lambda: nested_dict(n-1, type))
 
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
@@ -28,6 +34,7 @@ logChannel = bot.get_channel(681216619955224583)
 
 @bot.event
 async def on_ready():
+    logChannel = bot.get_channel(608939815186071552)
     print("Up and running")
     await logChannel.send('Bot Boottime was passed, Bot Online')
     game = discord.Activity()
@@ -35,7 +42,8 @@ async def on_ready():
     
 @bot.event
 async def on_message(message):
-    logChannel = bot.get_channel(681216619955224583)
+    #logChannel = bot.get_channel(681216619955224583)
+    logChannel = bot.get_channel(608939815186071552)
     messagecontent = message.content
     currentchannel = bot.get_channel(message.channel.id)
     if message.guild is None:
@@ -49,12 +57,12 @@ async def on_message(message):
         await logChannel.send(f'=========== NEW LOG ===========\nContent of message: {message.content} \nDate and Time in UTC: {str(message.created_at)} \nServer Orgin: {currentchannel.guild.name} channel: {currentchannel.name} \nMessage sender\'s name: ```{message.author.name}#{message.author.discriminator}```\n=========== END LOG ===========')
     await bot.process_commands(message)
     
-@bot.event
-async def on_command_error(ctx,error):
-    embed = discord.Embed(color = 0xff0000)
-    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
-    await ctx.send('Oops, an error occured! {}'.format(error))
-    print(error)
+#@bot.event
+#async def on_command_error(ctx,error):
+#    embed = discord.Embed(color = 0xff0000)
+#    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
+#    await ctx.send('Oops, an error occured! {}'.format(error))
+#    print(error)
     
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing", hidden = True)
 async def test(ctx):
@@ -107,7 +115,6 @@ async def statusChecks():
     embed.add_field (name = "Status: Gateway", value = "Online", inline = False)
     embed.add_field (name = "Status: Bot", value = "Online", inline = False)
     await channel.send(embed=embed)
-    
     
 @bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
 async def help(ctx, *, args=None):
@@ -363,26 +370,30 @@ async def netBuild(ctx):
         await ctx.author.send('Network building started!')
     except discord.Forbidden:
         await ctx.send("Hmm, looks like I couldn't DM you. Did you block the bot?")
-    connections = {}
-    nodeList = []
+    connections = nested_dict(2,bool)
+    nodeList = {'netCon'}
     a = 0
     i = 0
+    queue = deque()
+    queue.append('netCon')
     def check(m):
         return m.author == ctx.author and m.guild is None
-    while True:
-        await ctx.author.send('Input all nodes connected to node {}'.format(nodeList[a][i]))
+    while queue:
+        curNode = queue.pop()
+        await ctx.author.send('Input all nodes connected to node: {}.'.format(curNode))
         msg = await bot.wait_for('message', timeout = 20.0, check=check)
+        if msg.content == 'end':
+            await ctx.send(dict(connections))
+            break
         msgContent = (msg.content).split()
-        nodeList.append(msgContent)
-        for b in range(0,len(nodeList[a])):
-            if b != i:
-                if nodeList[a][b] not in nodeList[a].keys():
-                    connections[nodeList[a][i]][nodeList[a][b]] = True
-                else:
-                    i += 1
-        i += 1
-        if i >= len(nodeList[a]):
-            a += 1
+        for b in range(0,len(msgContent)):
+            connections[msgContent[i]][curNode] = True
+            connections[curNode][msgContent[i]] = True
+            if msgContent[i] not in nodeList: queue.append(msgContent[i])
+            nodeList.add(msgContent[i])
+    for i in range(0,len(nodeList)):
+        for j in range(0,len(nodeList)):
+            if nodeList[j] not in connections[nodeList[i]]: connections[nodeList[i]][nodeList[j]] = False
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -406,6 +417,7 @@ async def botStatus(ctx, args1):
         await bot.change_presence(status=discord.Status.online, activity=game)
 
 
-token = os.environ.get('BOT_TOKEN')
+#token = os.environ.get('BOT_TOKEN')
+token = 'NjYzMzc3MTQxNDEyNjU5MjAw.XliD0g.DBfb_wmtiClAj9FUjgs_T7t1Trc'
 bot.run(token)
 
