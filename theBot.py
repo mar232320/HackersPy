@@ -24,6 +24,7 @@ def nested_dict(n, type):
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
 logChannel = bot.get_channel(681216619955224583)
+
 @tasks.loop(seconds = 30)
 async def botStatusLoop(ctx):
     presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
@@ -33,7 +34,7 @@ async def botStatusLoop(ctx):
 
 @bot.event
 async def on_ready():
-    logChannel = bot.get_channel(608939815186071552)
+    logChannel = bot.get_channel(681216619955224583)
     print("Up and running")
     botStatusLoop.start()
 
@@ -44,8 +45,7 @@ async def botStatusLoop():
 
 @bot.event
 async def on_message(message):
-    #logChannel = bot.get_channel(681216619955224583)
-    logChannel = bot.get_channel(608939815186071552)
+    logChannel = bot.get_channel(681216619955224583)
     messagecontent = message.content
     currentchannel = bot.get_channel(message.channel.id)
     if message.guild is None:
