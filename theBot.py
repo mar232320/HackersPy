@@ -391,17 +391,24 @@ async def netBuild(ctx):
         for b in range(0,len(msgContent)):
             connections[msgContent[i]][curNode] = True
             connections[curNode][msgContent[i]] = True
-            if msgContent[i] not in nodeList: queue.append(msgContent[i])
+            if msgContent[i] not in nodeList: 
+                queue.append(msgContent[i])
             nodeList.add(msgContent[i])
     for i in range(0,len(nodeList)):
         for j in range(0,len(nodeList)):
-            if nodeList[j] not in connections[nodeList[i]]: connections[nodeList[i]][nodeList[j]] = False
+            if nodeList[j] not in connections[nodeList[i]]: 
+                connections[nodeList[i]][nodeList[j]] = False
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)        
+logger.addHandler(handler)     
+
+@bot.command(hidden = True)
+async def guilds(ctx):  
+    for i in bot.guilds:
+        await ctx.author.send(i.name)
                 
 @bot.command(hidden = True)
 async def runAtCmd(ctx, *, args):
