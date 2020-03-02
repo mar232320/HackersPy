@@ -17,10 +17,11 @@ desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers 
 
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
-logChannel = bot.get_channel(681216619955224583)
+
 
 @bot.event
 async def on_ready():
+    logChannel = bot.get_channel(681216619955224583)
     print("Up and running")
     await logChannel.send('Bot Boottime was passed, Bot Online')
     game = discord.Game["StratoSphere Inc"]
@@ -394,7 +395,7 @@ async def botStatus(ctx, args1):
     if args1 == "Online":
         botStatusLoop.start()
 
-@bot.tasks(seconds = 30)
+@tasks.loop(seconds = 30)
 async def botStatusLoop(ctx):
     presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
     for i in range(0, len(presencelist)):
