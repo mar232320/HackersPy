@@ -418,7 +418,12 @@ async def botStatus(ctx, args1):
         game = discord.Game('Playing with {} guilds'.format(len(bot.guilds)))
         await bot.change_presence(status=discord.Status.online, activity=game)
         
-
+@bot.commands(hidden= True)
+async def guilds(ctx):
+    guildsbot= bot.guilds()
+    print (guildsbot)
+                         
+                         
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 
