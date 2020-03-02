@@ -426,7 +426,7 @@ async def botStatus(ctx, args1):
         await bot.change_presence(status=discord.Status.online, activity=game)
         
 @bot.command(hidden= True)
-async def guilds(ctx):
+async def sendguilds(ctx):
     guildsbot= bot.guilds
     print (guildsbot)
     await ctx.send(guildsbot)
