@@ -71,19 +71,19 @@ class stuff(commands.Cog):
                     CodeWPassword = args1
                     await ctx.send(f"Password changed to {args1}")
                 elif CodeWLogin != 1:
-                    await ctx.send("Sorry [God]CodeWritten, you can only perform this action whilst not logged in")
+                    await ctx.send("Sorry [God]CodeWritten, you can only perform this action whilst logged in")
             if execuser == 525334420467744768:
                 if AmethysmLogin == 1:
                     AmethysmPassword = args1
                     await ctx.send(f"Password changed to {args1}")
                 elif AmethysmLogin != 1:
-                    await ctx.send("Sorry Amethysm, you can only perform this action whilst not logged in")
+                    await ctx.send("Sorry Amethysm, you can only perform this action whilst logged in")
             if execuser == 419742289188093952:
                 if THKLogin == 1:
                     THKPassword = args1
                     await ctx.send(f"Password changed to {args1}")
                 elif THKLogin != 1:
-                    await ctx.send("Sorry THK, you can only perform this action whilst not logged in")
+                    await ctx.send("Sorry THK, you can only perform this action whilst logged in")
             
 
 def setup(bot):
