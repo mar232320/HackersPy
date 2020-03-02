@@ -357,14 +357,7 @@ async def reload_command_error(ctx, error):
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
-    
-@bot.command(hidden = True)
-async def send(ctx, args1, *, args):
-    channel = bot.get_channel(int(args1)) 
-    if ctx.guild.id == 590373116878782475:
-        await ctx.send (f"Message sent,\nchannel: {args1}\nmessage: ```{args}```")
-        await channel.send (args)
-        
+            
 @bot.command(description = "in progress", hidden = True)
 async def netBuild(ctx):
     await ctx.send("Network building started in {}'s DM!".format(ctx.author.name))

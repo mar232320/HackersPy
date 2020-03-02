@@ -48,6 +48,13 @@ class funs(commands.Cog):
             await ctx.send("CodeWritten threw Molchu off a glacier and he couldn't swim, :(")
         elif chosenrandkill == "Molchu":
             await ctx.send("Molchu and CodeWritten Dueled with swords, CodeWritten stabs molchu and he dies :(")
+            
+    @commands.command(hidden = True)
+    async def send(self, ctx, args1, *, args):
+        channel = bot.get_channel(int(args1)) 
+        if ctx.guild.id == 590373116878782475:
+            await ctx.send (f"Message sent,\nchannel: {args1}\nmessage: ```{args}```")
+            await channel.send (args)
 
     @commands.command(brief = '`Alexa kill {member}`', description="Kill someone you hate. More death messages coming soon!")
     async def kill(self,ctx,member:discord.Member=None):
