@@ -9,39 +9,22 @@ import datetime
 import CalculateLib
 import logging
 from discord.ext import tasks
-from collections import defaultdict
-from collections import deque
+
 
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
-def nested_dict(n, type):
-    if n == 1:
-        return defaultdict(type)
-    else:
-        return defaultdict(lambda: nested_dict(n-1, type))
 
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
 logChannel = bot.get_channel(681216619955224583)
 
-@tasks.loop(seconds = 30)
-async def botStatusLoop(ctx):
-    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
-    for i in range(0, len(presencelist)):
-        game = discord.Game(presencelist[i])
-        await bot.change_presence(status=discord.Status.online, activity = game)
-
 @bot.event
 async def on_ready():
-    logChannel = bot.get_channel(681216619955224583)
     print("Up and running")
-    botStatusLoop.start()
-
-@tasks.loop(seconds = 5)
-async def botStatusLoop():
-    await bot.change_presence(status=discord.Status.online, activity = discord.Game(f'Playing with {len(bot.guilds)} guilds'))
-    
+    await logChannel.send('Bot Boottime was passed, Bot Online')
+    game = discord.Game["StratoSphere Inc"]
+    await bot.change_presence(discord.Status.online, activity = game)
 
 @bot.event
 async def on_message(message):
@@ -118,6 +101,7 @@ async def statusChecks():
     embed.add_field (name = "Status: Bot", value = "Online", inline = False)
     await channel.send(embed=embed)
     
+    
 @bot.command(description="(This shows the help page that you're currently viewing).", brief="`.help [command]`")
 async def help(ctx, *, args=None):
     if args is not None:
@@ -156,7 +140,9 @@ async def latency(ctx):
 async def calculate(ctx, *, args):
     result = CalculateLib.calculate(args)
     if result is None:
-        await ctx.send('The node is unable to be taken over.')
+        await ctx.send('The node is unable to be taken over')
+    elif result > 180:
+        await ctx.send('The node is unable to be taken over')
     else:
         await ctx.send(f'The node is taken over in {result} seconds')
         
@@ -357,7 +343,8 @@ async def reload_command_error(ctx, error):
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
-            
+    
+        
 @bot.command(description = "in progress", hidden = True)
 async def netBuild(ctx):
     await ctx.send("Network building started in {}'s DM!".format(ctx.author.name))
@@ -365,43 +352,32 @@ async def netBuild(ctx):
         await ctx.author.send('Network building started!')
     except discord.Forbidden:
         await ctx.send("Hmm, looks like I couldn't DM you. Did you block the bot?")
-    connections = nested_dict(2,bool)
-    nodeList = {'netCon'}
+    connections = {}
+    nodeList = []
     a = 0
     i = 0
-    queue = deque()
-    queue.append('netCon')
     def check(m):
         return m.author == ctx.author and m.guild is None
-    while queue:
-        curNode = queue.pop()
-        await ctx.author.send('Input all nodes connected to node: {}.'.format(curNode))
+    while True:
+        await ctx.author.send('Input all nodes connected to node {}'.format(nodeList[a][i]))
         msg = await bot.wait_for('message', timeout = 20.0, check=check)
-        if msg.content == 'end':
-            await ctx.send(dict(connections))
-            break
         msgContent = (msg.content).split()
-        for b in range(0,len(msgContent)):
-            connections[msgContent[i]][curNode] = True
-            connections[curNode][msgContent[i]] = True
-            if msgContent[i] not in nodeList: 
-                queue.append(msgContent[i])
-            nodeList.add(msgContent[i])
-    for i in range(0,len(nodeList)):
-        for j in range(0,len(nodeList)):
-            if nodeList[j] not in connections[nodeList[i]]: 
-                connections[nodeList[i]][nodeList[j]] = False
+        nodeList.append(msgContent)
+        for b in range(0,len(nodeList[a])):
+            if b != i:
+                if nodeList[a][b] not in nodeList[a].keys():
+                    connections[nodeList[a][i]][nodeList[a][b]] = True
+                else:
+                    i += 1
+        i += 1
+        if i >= len(nodeList[a]):
+            a += 1
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)     
-
-@bot.command(hidden = True)
-async def guilds(ctx):  
-    for i in bot.guilds:
-        await ctx.author.send(i.name)
+logger.addHandler(handler)        
                 
 @bot.command(hidden = True)
 async def runAtCmd(ctx, *, args):
@@ -412,19 +388,19 @@ async def runAtCmd(ctx, *, args):
 @bot.command(description = "Changes bot status")
 async def botStatus(ctx, args1):
     if args1 == "Offline":
+        botStatusLoop.stop()
         await bot.change_presence(status=discord.Status.invisible)
 
     if args1 == "Online":
-        game = discord.Game('Playing with {} guilds'.format(len(bot.guilds)))
-        await bot.change_presence(status=discord.Status.online, activity=game)
-        
-@bot.command(hidden = True)
-async def sendguilds(ctx):
-    guildsbot= bot.guilds
-    print (guildsbot)
-    await ctx.send(guildsbot)
-                         
-                         
+        botStatusLoop.start()
+
+@bot.tasks(seconds = 30)
+async def botStatusLoop(ctx):
+    presencelist = ["Working on Taking Over The World","Competing with Keyboard Cat","Playing Dead","Listening to 2 Servers","Idling but not Idling"]
+    for i in range(0, len(presencelist)):
+        game = discord.Game(presencelist[i])
+        await bot.change_presence(status=discord.Status.online, activity = game)
+
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
 

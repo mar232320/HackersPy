@@ -12,18 +12,18 @@ class stuff(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @bot.command(hidden = True)
-    async def pleaseendme(ctx):
+    @commands.command(hidden = True)
+    async def pleaseendme(self, ctx):
         channel = bot.get_channel()
         await ctx.author.send("Please end me")
-        await ctx.channel.send("Please end me") 
+        await channel.send("Please end me") 
 
 
-    @bot.command(hidden = True)
-    async def login(ctx, args1):
+    @commands.command(hidden = True)
+    async def login(self, ctx, args1):
         execuser = ctx.author.id
         if execuser in (436646726204653589, 525334420467744768, 419742289188093952):
-            if execuser == 419742289188093952 and arg1 == THKPassword:
+            if execuser == 419742289188093952 and args1 == THKPassword:
                 THKLogin = 1
                 await ctx.send("Welcome, THK")
 
@@ -34,3 +34,6 @@ class stuff(commands.Cog):
             elif execuser == 436646726204653589 and args1 == CodeWPassword:
                 CodeWLogin = 1
                 await ctx.send("Welcome, [God]CodeWritten")
+
+def setup(bot):
+    bot.add_cog(stuff(bot))
