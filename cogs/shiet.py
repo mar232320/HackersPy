@@ -14,7 +14,7 @@ class stuff(commands.Cog):
 
     @commands.command(hidden = True)
     async def pleaseendme(self, ctx):
-        channel = bot.get_channel()
+        channel = self.get_channel()
         await ctx.author.send("Please end me")
         await channel.send("Please end me") 
 
