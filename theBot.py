@@ -9,11 +9,21 @@ import datetime
 import CalculateLib
 import logging
 from discord.ext import tasks
+from collections import defaultdict, deque
 
+
+
+adminlist =[525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952]
 
 #Commands Def
 desc = ("Bot made by molchu, CodeWritten and Amethysm for a game called Hackers to make simple and complex calculations")
 
+def nested_dict(n, type):
+    if n == 1:
+        return defaultdict(type)
+    else:
+        return defaultdict(lambda: nested_dict(n-1, type))
+connections = nested_dict(2, bool)
 
 bot = commands.Bot(command_prefix = "Alexa ", description=desc, help_command = None, case_insensitive = True)
 bot.remove_command('help')
@@ -299,47 +309,50 @@ async def playDespacito(ctx):
         
         
 @bot.command(description="Load a module on to the bot, so we (dev team) don't have to restart the bot each time we change a single line of code in the module")
-@commands.has_permissions(manage_guild=True)
 async def load(ctx, extension):
-    bot.load_extension(f'cogs.{extension}')
-    await ctx.send(f'{extension} has been loaded')
-    print(f'{extension} has been loaded')
+    if ctx.author.id in adminlist:
+        bot.load_extension(f'cogs.{extension}')
+        await ctx.send(f'{extension} has been loaded')
+        print(f'{extension} has been loaded')
+    else:
+        await ctx.send("You do not have the proper permissions to perform this action.")
     
 @bot.command(description="Unload a module in the bot, in the case of abusing a command in that module")
-@commands.has_permissions(manage_guild=True)
 async def unload(ctx, extension):
-    bot.unload_extension(f'cogs.{extension}')
-    await ctx.send(f'{extension} has been unloaded')
-    print(f'{extension} has been unloaded')
+    if ctx.author.id in adminlist:
+        bot.unload_extension(f'cogs.{extension}')
+        await ctx.send(f'{extension} has been unloaded')
+        print(f'{extension} has been unloaded')
+    else:
+        await ctx.send("You do not have the proper permissions to perform this action.")
     
 @bot.command(description="Reload a module in the bot")
-@commands.has_permissions(manage_guild=True)
 async def reload(ctx, extension):
-    bot.unload_extension(f'cogs.{extension}')
-    bot.load_extension(f'cogs.{extension}')
-    print(f'{extension} has been reloaded')
-    await ctx.send(f'{extension} has been reloaded')
-    
+    if ctx.author.id in adminlist:
+        bot.unload_extension(f'cogs.{extension}')
+        bot.load_extension(f'cogs.{extension}')
+        print(f'{extension} has been reloaded')
+        await ctx.send(f'{extension} has been reloaded')
+    else:
+        await ctx.send("You do not have the proper permissions to perform this action.")
+
 @load.error
 async def load_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(">>> Error! Missing required argument! Please specify the module to load")
-    elif isinstance(error, commands.MissingPermissions):
-        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+    
         
 @unload.error
 async def unload_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(">>> Error! Missing required argument! Please specify the module to unload")
-    elif isinstance(error, commands.MissingPermissions):
-        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+    
         
 @reload.error
 async def reload_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(">>> Error! Missing required argument! Please specify the module to reload")
-    elif isinstance(error, commands.MissingPermissions):
-        await ctx.send(">>> Error! Missing Permission! You don't have the **Manage Server** permission to run this command")
+    
         
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -353,26 +366,33 @@ async def netBuild(ctx):
         await ctx.author.send('Network building started!')
     except discord.Forbidden:
         await ctx.send("Hmm, looks like I couldn't DM you. Did you block the bot?")
-    connections = {}
-    nodeList = []
+    connections = nested_dict(2,bool)
+    nodeList = {'netCon'}
     a = 0
     i = 0
+    queue = deque()
+    queue.append('netCon')
     def check(m):
         return m.author == ctx.author and m.guild is None
-    while True:
-        await ctx.author.send('Input all nodes connected to node {}'.format(nodeList[a][i]))
+    while queue:
+        curNode = queue.pop()
+        await ctx.author.send('Input all nodes connected to node: {}.'.format(curNode))
         msg = await bot.wait_for('message', timeout = 20.0, check=check)
+        if msg.content == 'end':
+            await ctx.send(dict(connections))
+            break
         msgContent = (msg.content).split()
-        nodeList.append(msgContent)
-        for b in range(0,len(nodeList[a])):
-            if b != i:
-                if nodeList[a][b] not in nodeList[a].keys():
-                    connections[nodeList[a][i]][nodeList[a][b]] = True
-                else:
-                    i += 1
-        i += 1
-        if i >= len(nodeList[a]):
-            a += 1
+        for b in range(0,len(msgContent)):
+            connections[msgContent[i]][curNode] = True
+            connections[curNode][msgContent[i]] = True
+            if msgContent[i] not in nodeList: queue.append(msgContent[i])
+            nodeList.add(msgContent[i])
+        print(connections)
+    print(connections)
+    for i in range(0,len(nodeList)):
+        for j in range(0,len(nodeList)):
+            if nodeList[j] not in connections[nodeList[i]]: 
+                connections[nodeList[i]][nodeList[j]] = False
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
