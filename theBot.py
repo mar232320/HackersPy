@@ -389,10 +389,6 @@ async def netBuild(ctx):
             nodeList.add(msgContent[i])
         print(connections)
     print(connections)
-    for i in range(0,len(nodeList)):
-        for j in range(0,len(nodeList)):
-            if nodeList[j] not in connections[nodeList[i]]: 
-                connections[nodeList[i]][nodeList[j]] = False
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
