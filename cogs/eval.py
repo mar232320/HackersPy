@@ -97,12 +97,5 @@ class Eval(commands.Cog):
                             break
                         await ctx.send(f'```py\n{page}\n```')
 
-        if out:
-            await ctx.message.add_reaction('\u2705')  # tick
-        elif err:
-            await ctx.message.add_reaction('\u2049')  # x
-        else:
-            await ctx.message.add_reaction('\u2705')
-
 def setup(bot):
     bot.add_cog(Eval(bot))
