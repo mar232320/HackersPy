@@ -19,15 +19,16 @@ class Eval(commands.Cog):
     @is_owner()
     async def _eval(self, ctx, *, body):
         """Evaluates python code"""
-        env = {
-            'ctx': ctx,
-            'bot': self.bot,
-            'channel': ctx.channel,
-            'author': ctx.author,
-            'guild': ctx.guild,
-            'message': ctx.message,
-            'source': inspect.getsource
-        }
+        if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
+            env = {
+                'ctx': ctx,
+                'bot': self.bot,
+                'channel': ctx.channel,
+                'author': ctx.author,
+                'guild': ctx.guild,
+                'message': ctx.message,
+                'source': inspect.getsource
+            }
 
         def cleanup_code(content):
             """Automatically removes code blocks from the code."""
