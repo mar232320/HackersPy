@@ -379,7 +379,7 @@ async def netBuild(ctx):
         await ctx.author.send('Input all nodes connected to node: {}.'.format(curNode))
         msg = await bot.wait_for('message', timeout = 20.0, check=check)
         if msg.content == 'end':
-            await ctx.send(dict(connections))
+            await ctx.author.send(dict(connections))
             break
         msgContent = (msg.content).split()
         for b in range(0,len(msgContent)):
@@ -391,6 +391,7 @@ async def netBuild(ctx):
     for i in connections:
         connections[i] = dict(connections[i])
     print(connections)
+    await ctx.author.send(dict(connections))
       
 
 logger = logging.getLogger('discord')
