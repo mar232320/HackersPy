@@ -379,6 +379,8 @@ async def netBuild(ctx):
         await ctx.author.send('Input all nodes connected to node: {}.'.format(curNode))
         msg = await bot.wait_for('message', timeout = 20.0, check=check)
         if msg.content == 'end':
+            for i in connections:
+                connections[i] = dict(connections[i])
             await ctx.author.send(dict(connections))
             break
         msgContent = (msg.content).split()
