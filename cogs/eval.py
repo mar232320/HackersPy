@@ -15,7 +15,7 @@ class Eval(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='eval')
+    @commands.command(name='eval', hidden = True)
     @is_owner()
     async def _eval(self, ctx, *, body):
         """Evaluates python code"""
