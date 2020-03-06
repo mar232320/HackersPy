@@ -309,30 +309,44 @@ async def playDespacito(ctx):
         
         
 @bot.command(description="Load a module on to the bot, so we (dev team) don't have to restart the bot each time we change a single line of code in the module")
-async def load(ctx, extension):
+async def load(ctx, extension, args1):
     if ctx.author.id in adminlist:
-        bot.load_extension(f'cogs.{extension}')
-        await ctx.send(f'{extension} has been loaded')
-        print(f'{extension} has been loaded')
+        if "-s" in args1:
+            bot.load_extension(f'cogs.{extension}')
+            print(f'{extension} has been loaded')
+    
+        else:
+            await ctx.send(f'{extension} has been loaded')
+            bot.load_extension(f'cogs.{extension}')
+    
     else:
         await ctx.send("You do not have the proper permissions to perform this action.")
     
 @bot.command(description="Unload a module in the bot, in the case of abusing a command in that module")
-async def unload(ctx, extension):
+async def unload(ctx, extension, args1):
     if ctx.author.id in adminlist:
-        bot.unload_extension(f'cogs.{extension}')
-        await ctx.send(f'{extension} has been unloaded')
-        print(f'{extension} has been unloaded')
+        if "-s" in args1:
+            bot.unload_extension(f'cogs.{extension}')
+            print(f'{extension} has been unloaded')
+    
+        else:
+            await ctx.send(f'{extension} has been unloaded')
+            bot.unload_extension(f'cogs.{extension}')
+    
     else:
         await ctx.send("You do not have the proper permissions to perform this action.")
     
 @bot.command(description="Reload a module in the bot")
-async def reload(ctx, extension):
+async def reload(ctx, extension, args1):
     if ctx.author.id in adminlist:
-        bot.unload_extension(f'cogs.{extension}')
-        bot.load_extension(f'cogs.{extension}')
-        print(f'{extension} has been reloaded')
-        await ctx.send(f'{extension} has been reloaded')
+        if "-s" in args1:
+            bot.reload_extension(f'cogs.{extension}')
+            print(f'{extension} has been reloaded')
+    
+        else:
+            await ctx.send(f'{extension} has been reloaded')
+            bot.reload_extension(f'cogs.{extension}')
+    
     else:
         await ctx.send("You do not have the proper permissions to perform this action.")
 
