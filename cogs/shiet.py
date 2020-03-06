@@ -14,9 +14,8 @@ class shiet(commands.Cog):
 
     @commands.command(hidden = True)
     async def pleaseendme(self, ctx):
-        channel = self.get_channel()
         await ctx.author.send("Please end me")
-        await channel.send("Please end me") 
+        await ctx.send("Please end me") 
 
 
     @commands.command(hidden = True)

