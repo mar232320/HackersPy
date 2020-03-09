@@ -375,6 +375,7 @@ for filename in os.listdir('./cogs'):
         
 @bot.command(description = "in progress", hidden = True)
 async def netBuild(ctx):
+    author = ctx.author.id
     await ctx.send("Network building started in {}'s DM!".format(ctx.author.name))
     try:
         await ctx.author.send('Network building started!')
@@ -386,29 +387,31 @@ async def netBuild(ctx):
     i = 0
     queue = deque()
     queue.append('netCon')
-    def check(m):
-        return m.author == ctx.author and m.guild is None
-    while queue:
-        curNode = queue.pop()
-        await ctx.author.send('Input all nodes connected to node: {}.'.format(curNode))
-        msg = await bot.wait_for('message', timeout = 20.0, check=check)
-        if msg.content == 'end':
-            for i in connections:
-                connections[i] = dict(connections[i])
-            await ctx.author.send(dict(connections))
-            break
-        msgContent = (msg.content).split()
-        for b in range(0,len(msgContent)):
-            connections[msgContent[i]][curNode] = True
-            connections[curNode][msgContent[i]] = True
-            if msgContent[i] not in nodeList: queue.append(msgContent[i])
-            nodeList.add(msgContent[i])
-    connections = dict(connections)
-    for i in connections:
-        connections[i] = dict(connections[i])
-    print(connections)
-    await ctx.author.send(dict(connections))
-      
+    try:
+        def check(m):
+            return m.author == ctx.author and m.guild is None
+        while queue:
+            curNode = queue.pop()
+            await ctx.author.send('Input all nodes connected to node: {}.'.format(curNode))
+            msg = await bot.wait_for('message', timeout = 20.0, check=check)
+            if msg.content == 'end':
+                for i in connections:
+                    connections[i] = dict(connections[i])
+                await ctx.author.send(dict(connections))
+                break
+            msgContent = (msg.content).split()
+            for b in range(0,len(msgContent)):
+                connections[msgContent[i]][curNode] = True
+                connections[curNode][msgContent[i]] = True
+                if msgContent[i] not in nodeList: queue.append(msgContent[i])
+                nodeList.add(msgContent[i])
+        connections = dict(connections)
+        for i in connections:
+            connections[i] = dict(connections[i])
+        print(connections)
+        await ctx.author.send(dict(connections))
+    except TimeoutError:
+        await ctx.send(f"<@{author}>, you failed to enter a node name within the time limit, command cancelled")      
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
