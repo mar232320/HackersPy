@@ -309,7 +309,7 @@ async def playDespacito(ctx):
         
         
 @bot.command(description="Load a module on to the bot, so we (dev team) don't have to restart the bot each time we change a single line of code in the module")
-async def load(ctx, extension, args1):
+async def load(ctx, extension, args1=None):
     if ctx.author.id in adminlist:
         if "-s" in args1:
             bot.load_extension(f'cogs.{extension}')
@@ -323,7 +323,7 @@ async def load(ctx, extension, args1):
         await ctx.send("You do not have the proper permissions to perform this action.")
     
 @bot.command(description="Unload a module in the bot, in the case of abusing a command in that module")
-async def unload(ctx, extension, args1):
+async def unload(ctx, extension, args1=None):
     if ctx.author.id in adminlist:
         if "-s" in args1:
             bot.unload_extension(f'cogs.{extension}')
@@ -337,7 +337,7 @@ async def unload(ctx, extension, args1):
         await ctx.send("You do not have the proper permissions to perform this action.")
     
 @bot.command(description="Reload a module in the bot")
-async def reload(ctx, extension, args1):
+async def reload(ctx, extension, args1=None):
     if ctx.author.id in adminlist:
         if "-s" in args1:
             bot.reload_extension(f'cogs.{extension}')

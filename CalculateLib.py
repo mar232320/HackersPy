@@ -86,10 +86,10 @@ def calculate(args):
                 else:
                     calculation = executor.submit(TimeCalMT, a['DPS'][progsLevel[i]], a['installTime'],a['hitInterval'],a['projectileTime'],progsAmount[i],0,b['firewall'][nodesLevel[i]],b['firewallRegeneration'],nodesAmount[i])
                 time = calculation.result(timeout=180)
-                takeOverTime += time
-            
-            if progsName[i] == 'beamCannon':
-                takeOverTime += 0.5 
+                if time is not None:
+                    takeOverTime += time
+                    if progsName[i] == 'beamCannon':
+                        takeOverTime += 0.5 
             i += 1
     return round(takeOverTime,1)
 
