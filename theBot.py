@@ -35,7 +35,7 @@ async def on_ready():
     print("Up and running")
     await logChannel.send('Bot Boottime was passed, Bot Online')
     game = discord.Game('with {} guild(s)'.format(len(bot.guilds)))
-    await bot.change_presence(discord.Status.online, activity = game)
+    await bot.change_presence(discord.Status.online)
 
 @bot.event
 async def on_message(message):
@@ -55,10 +55,14 @@ async def on_message(message):
     
 @bot.event
 async def on_command_error(ctx,error):
-    embed = discord.Embed(color = 0xff0000)
-    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
-    await ctx.send('Oops, an error occured! {}'.format(error))
-    print(error)
+    if error == asyncio.TimeoutError:    
+#    embed = discord.Embed(color = 0xff0000)#    
+#    embed.add_field(name="Oops, an error occured!", value = error, inline = False)
+        await ctx.send(f"<@{ctx.author.id}>, you failed to enter a node name within the time limit, command cancelled")
+        print (error)
+    else:
+        await ctx.send('Oops, an error occured! {}'.format(error))
+        print(error)
     
 @bot.command(aliases = ['o','k','b','oo','m','e','r'], description= 'no shiet', brief = "does nothing", hidden = True)
 async def test(ctx):
@@ -410,8 +414,8 @@ async def netBuild(ctx):
             connections[i] = dict(connections[i])
         print(connections)
         await ctx.author.send(dict(connections))
-    except TimeoutError:
-        await ctx.send(f"<@{author}>, you failed to enter a node name within the time limit, command cancelled")      
+    except EOFError:
+        await ctx.send("idk")
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
