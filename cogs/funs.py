@@ -2,9 +2,9 @@ import discord
 import random
 from discord.ext import commands
 
-class funs(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+#class funs(commands.Cog):
+#    def __init__(self, bot):
+#        self.bot = bot
 
     @commands.command(description="We dont know what this does, maybe its an easter egg?", hidden = True)
     async def suffer(self, ctx):
@@ -83,6 +83,6 @@ class funs(commands.Cog):
             elif a == 10:
                 await ctx.send(member.name + " was brutally triple-blastered by " + ctx.author.name + ".")
 
-def setup(bot):
-    bot.add_cog(funs(bot))
+#def setup(bot):
+    #bot.add_cog(funs(bot))
 
