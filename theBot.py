@@ -149,7 +149,7 @@ async def help(ctx, *, args=None):
 
 @bot.command(hidden= True)
 async def userinfo(ctx, args1):
-    guser= guild.get_member(int(args1))
+    guser= ctx.guild.get_member(int(args1))
     await ctx.send(f"{guser},\n{guser.id},\n{guser.display_name},\n{guser.bot},\n{guser.top_role},\n{guser.joined_at},\n{guser.activities},\n{guser.guild},\n{guser.nick}")
                          
 @bot.command(description = "Return the latency of the bot. Can also be triggered with .ping", aliases=['ping'], brief = "`Alexa ping`")
