@@ -6,4 +6,3 @@ TO DEPLOY:
 3. Follow the link.
 4. Set the server you wish to invite it to
 5. Click Accept
-k
